@@ -16,7 +16,7 @@
       <img src="/images/DXHOME_4.jpg" width="500px" alt="Company Introduction" class="section-image">
       <div class="section-content">
         <h2>ようこそ、DXPROソリューションズへ</h2>
-        <p>DXPRO SOLUTIONSは、お客様のビジネスの成長と成功を支援します。</p>
+        <p>DXPRO SOLUTIONSは、<br>お客様のビジネスの成長と成功を支援します。</p>
         <router-link to="/services/greeting" class="section-button">会社案内</router-link>
       </div>
     </div>
@@ -113,8 +113,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 100px;
-  padding-top: 50px;
+  padding-left: 200px;
+  padding-top: 70px;
   position: relative;
 }
 
