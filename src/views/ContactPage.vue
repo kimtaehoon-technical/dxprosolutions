@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Contact Us</h1>
+    <h1>お問い合わせ</h1>
     <p>以下のフォームを作成してください。</p>
     <form @submit.prevent="sendEmail">
       <div>

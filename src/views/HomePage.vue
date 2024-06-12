@@ -10,10 +10,9 @@
       </transition-group>
     </div>
 
-
     <!-- 소개 섹션 -->
     <div class="section">
-      <img src="/images/DXHOME_4.jpg" width="500px" alt="Company Introduction" class="section-image">
+      <img src="/images/DXHOME_4.jpg" alt="Company Introduction" class="section-image round-image">
       <div class="section-content">
         <h2>ようこそ、DXPROソリューションズへ</h2>
         <p>DXPRO SOLUTIONSは、<br>お客様のビジネスの成長と成功を支援します。</p>
@@ -23,7 +22,7 @@
 
     <!-- 서비스 섹션 -->
     <div class="section">
-      <img src="/images/DXHOME_5.jpg" width="500px" alt="Service Introduction" class="section-image">
+      <img src="/images/DXHOME_5.jpg" alt="Service Introduction" class="section-image round-image">
       <div class="section-content">
         <h2>DXPROソリューションズの得意</h2>
         <p>お客様の多様なニーズに応えるため、幅広いサービスを提供しています。</p>
@@ -33,7 +32,7 @@
 
     <!-- 문의 섹션 -->
     <div class="section">
-      <img src="/images/DXHOME_6.jpg" width="500px" alt="Contact Us" class="section-image">
+      <img src="/images/DXHOME_6.jpg" alt="Contact Us" class="section-image round-image">
       <div class="section-content">
         <h2>お問い合わせください</h2>
         <p>何かご質問やご要望がございましたら、お気軽にお問い合わせください。</p>
@@ -41,8 +40,8 @@
       </div>
     </div>
   </div>
-
 </template>
+
 <script>
 export default {
   name: 'HomePage',
@@ -75,6 +74,13 @@ export default {
 </script>
 
 <style scoped>
+/* 사진 섹션 */
+.slider {
+  position: relative;
+  width: 100%;
+  height: 500px; /* 모바일에 맞게 높이 조정 */
+  overflow: hidden;
+}
 
 .slide {
   position: absolute;
@@ -91,36 +97,27 @@ export default {
 
 .slide-text {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  bottom: 10px; /* 모바일에 맞게 간격 조정 */
+  left: 10px; /* 모바일에 맞게 간격 조정 */
   color: white;
-  font-size: 30px;
+  font-size: 30px; /* 모바일에 맞게 폰트 크기 조정 */
   background-color: rgba(0, 0, 0, 0.5); /* 텍스트의 배경색과 투명도 설정 */
-  padding: 10px;
-  border-radius: 5px; /* 텍스트 상자에 라운드 모서리를 적용 */
+  padding: 5px; /* 모바일에 맞게 패딩 조정 */
+  border-radius: 20px; /* 텍스트 상자에 라운드 모서리를 적용 */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
 }
 
-.slider {
-  position: relative;
-  width: 100%;
-  height: 500px; /* Adjust the height as needed */
-  overflow: hidden;
-  z-index: 1; /* 세부 메뉴가 사진 위에 나타나도록 z-index를 높게 설정 */
-}
-
+/* 소개 섹션 */
 .section {
   display: flex;
+  flex-direction: column; /* 모바일에 맞게 열 방향 정렬 */
   align-items: center;
-  justify-content: flex-start;
-  padding-left: 200px;
-  padding-top: 70px;
-  position: relative;
+  padding: 20px; /* 모바일에 맞게 패딩 조정 */
 }
 
 .section-image {
-  flex-shrink: 0;
-  margin-right: -50px; /* 이미지가 텍스트와 겹치도록 설정 */
+  width: 100%; /* 모바일에 맞게 이미지 너비 조정 */
+  margin-bottom: 10px; /* 이미지와 텍스트 사이 간격 조정 */
 }
 
 .section-content {
@@ -128,6 +125,7 @@ export default {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+  text-align: center; /* 텍스트 중앙 정렬 */
 }
 
 .section-content h2 {
@@ -135,8 +133,6 @@ export default {
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.5); /* 배경색 설정 */
   color: white; /* 텍스트 색상 */
-  position: relative;
-  z-index: 1;
 }
 
 .section-button {
@@ -154,7 +150,61 @@ export default {
   background-color: #34495e;
 }
 
-.info {
-  text-align: left
+.round-image {
+  border-radius: 20%;
+}
+
+/* 데스크탑용 스타일 */
+@media (min-width: 768px) {
+  .section {
+    flex-direction: row; /* 가로 방향 정렬 */
+    align-items: flex-start;
+  }
+
+  .section-image {
+    width: 60%; /* 이미지 너비 줄임 */
+    margin-bottom: 0; /* 이미지와 텍스트 사이 간격 제거 */
+  }
+
+  .section-content {
+    position: relative; /* 겹치기 위해 상대 위치 설정 */
+    width: 40%; /* 컨텐츠 너비 설정 */
+    margin-top: 10%; /* 이미지 위로 겹치게 이동 */
+    margin-left: -10%; /* 이미지 위로 겹치게 이동 */
+    background-color: rgba(255, 255, 255, 0.9); /* 배경색 설정 */
+    padding: 30px; /* 패딩 조정 */
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 강화 */
+  }
+
+  .section-content h2 {
+    font-size: 24px; /* 폰트 크기 조정 */
+    padding: 15px;
+  }
+
+  .section-button {
+    font-size: 16px; /* 버튼 폰트 크기 조정 */
+    padding: 15px 30px;
+  }
+}
+
+/* 모바일 스타일 */
+@media (max-width: 600px) {
+  .slider {
+  position: relative;
+  width: 100%;
+  height: 300px; /* 모바일에 맞게 높이 조정 */
+  overflow: hidden;
+  }
+  .slide-text {
+  position: absolute;
+  bottom: 10px; /* 모바일에 맞게 간격 조정 */
+  left: 10px; /* 모바일에 맞게 간격 조정 */
+  color: white;
+  font-size: 15px; /* 모바일에 맞게 폰트 크기 조정 */
+  background-color: rgba(0, 0, 0, 0.5); /* 텍스트의 배경색과 투명도 설정 */
+  padding: 5px; /* 모바일에 맞게 패딩 조정 */
+  border-radius: 20px; /* 텍스트 상자에 라운드 모서리를 적용 */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
+  }
 }
 </style>
