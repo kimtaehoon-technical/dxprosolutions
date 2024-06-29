@@ -69,15 +69,17 @@ div {
 }
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 input, textarea {
   width: 100%;
-  padding: 8px;
+  height: 50px;
   box-sizing: border-box;
+  margin-bottom: 10px;
+
 }
 button {
-  padding: 10px 20px;
+  padding: 10px 100px;
   background-color: #007BFF;
   color: white;
   border: none;

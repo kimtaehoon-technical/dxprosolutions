@@ -49,7 +49,7 @@ export default {
     return {
       slides: [
         { image: '/images/DXHOME_1.jpg', text: 'お客さまの”新たな挑戦”の実現に向けて、 私たちは全力でサポートします。' },
-        { image: '/images/DXHOME_2.jpg', text: '卓越した課題整理力と専門性の高いエンジニアリングで、プロジェクトを成功に導きます。' },
+        { image: '/images/DXHOME_7.jpg', text: '卓越した課題整理力と専門性の高いエンジニアリングで、プロジェクトを成功に導きます。' },
         { image: '/images/DXHOME_3.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
       ],
       currentIndex: 0,
@@ -100,7 +100,7 @@ export default {
   bottom: 10px; /* 모바일에 맞게 간격 조정 */
   left: 10px; /* 모바일에 맞게 간격 조정 */
   color: white;
-  font-size: 30px; /* 모바일에 맞게 폰트 크기 조정 */
+  font-size: 25px;
   background-color: rgba(0, 0, 0, 0.5); /* 텍스트의 배경색과 투명도 설정 */
   padding: 5px; /* 모바일에 맞게 패딩 조정 */
   border-radius: 20px; /* 텍스트 상자에 라운드 모서리를 적용 */
