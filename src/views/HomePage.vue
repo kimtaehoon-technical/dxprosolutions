@@ -14,7 +14,7 @@
     <div class="section">
       <img src="/images/DXHOME_4.jpg" alt="Company Introduction" class="section-image round-image">
       <div class="section-content">
-        <h2>ようこそ、DXPROソリューションズへ</h2>
+        <h2>ようこそ！！DXPROソリューションズへ</h2>
         <p>DXPRO SOLUTIONSは、<br>お客様のビジネスの成長と成功を支援します。</p>
         <router-link to="/services/greeting" class="section-button">会社案内</router-link>
       </div>
