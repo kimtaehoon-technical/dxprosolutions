@@ -16,16 +16,16 @@
         <tr>
           <td class="business-img-rec"><img src="/images/DXHOME_2.jpg" alt="Mobile App Development" class="business-img"></td>
           <td class="text-cell" @click="openDialog('webMobileDevelopment')"><b>WEB/モバイルアプリケーション開発</b></td>
-          <td>当社では業務効率化システムはもちろん、画像解析システム、研究開発システム、<br>
+          <td>・当社では業務効率化システムはもちろん、画像解析システム、研究開発システム、<br>
               セキュリティシステムの開発など特殊分野のシステム開発を手がけております。<br>
               経験豊かな技術者が、質の高いシステムを構築いたします。</td>
         </tr>
         <tr>
           <td class="business-img-rec"><img src="/images/DXHOME_4.jpg" alt="Cloud Solutions" class="business-img"></td>
           <td class="text-cell" @click="openDialog('maintenance')"><b>保守/管理</b></td>
-          <td>システムへの不正アクセス、情報漏洩、ウイルス被害への対策を考慮した信頼性の<br>
+          <td>・システムへの不正アクセス、情報漏洩、ウイルス被害への対策を考慮した信頼性の<br>
               高いネットワークの構築はシステムの安定稼動には欠かせません。<br>
-              ネットワーク工事からトータルにサポートさせていただきます。</td>
+              ・ネットワーク工事からトータルにサポートさせていただきます。</td>
         </tr>
       </table>
     </div>

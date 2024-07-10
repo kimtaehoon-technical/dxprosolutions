@@ -26,6 +26,14 @@
           <li class="divider"></li> <!-- 메뉴 사이에 수직선 -->
           <li class="li-border">
             <router-link to="/privacy" class="nav-link">プライバシーポリシー</router-link>
+          </li>  
+          <li class="divider"></li> <!-- 메뉴 사이에 수직선 -->
+          <li class="li-border">
+            <router-link to="/Recruitment" class="nav-link">採用情報</router-link>
+            <ul>
+              <li><router-link to="/Recruitment" class="nav-link2">新卒採用</router-link></li>
+              <li><router-link to="/SubRecruitment" class="nav-link2">中途採用</router-link></li>
+            </ul>
           </li>
           <li class="divider"></li> <!-- 메뉴 사이에 수직선 -->
           <li class="li-border">
