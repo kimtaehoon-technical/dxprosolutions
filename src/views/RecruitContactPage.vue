@@ -72,6 +72,8 @@ export default {
 
         if (response.ok) {
           alert('お問い合わせありがとうございます。');
+          window.location.reload();
+          window.scrollTo(0, 0);
         } else {
           alert('送信に失敗しました。');
         }
