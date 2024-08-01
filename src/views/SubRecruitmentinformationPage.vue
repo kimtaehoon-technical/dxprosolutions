@@ -1,6 +1,6 @@
 <template>
   <div class="Recruitment-information">
-    <h1>中導採用情報</h1>
+    <h1>中途採用情報</h1>
     <table>
       <tr>
         <td class="text-cell"><b>募集部門</b></td>

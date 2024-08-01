@@ -8,8 +8,8 @@
         <input type="text" id="name" v-model="name" required>
       </div>
       <div>
-        <label for="tel">電話番号:</label>
-        <input type="tel" id="tel" v-model="tel" required>
+        <label for="telephone">電話番号:</label>
+        <input type="telephone" id="telephone" v-model="telephone" required>
       </div>
       <div>
         <label for="email">メールアドレス:</label>
@@ -17,10 +17,10 @@
       </div>
       <div>
         <label for="saiyoselect">応募希望</label>
-        <select name="saiyoselect">
+        <select name="saiyoselect" v-model="saiyoselect">
           <option value="none">=== 選択 ===</option>
-          <option value="sinsotsu"> 新卒採用 </option>
-          <option value="cyudo"> 中途採用 </option>
+          <option value="新卒採用"> 新卒採用 </option>
+          <option value="中途採用"> 中途採用 </option>
         </select>
       </div>
       <div>
@@ -29,7 +29,7 @@
       </div>
       <div class="checkbox-group">
         <label for="consent">個人情報の取扱規定に同意する</label>
-        <input type="checkbox" id="consent" name="consent" value="個人情報の取扱規定に同意する">
+        <input type="checkbox" id="consent" name="consent" v-model="consent" value="個人情報の取扱規定に同意する">
       </div>
       <button type="submit">送信</button>
     </form>
@@ -42,9 +42,11 @@ export default {
   data() {
     return {
       name: '',
+      telephone: '',
       email: '',
+      saiyoselect: '',
       message: '',
-      tel: ''
+      consent: '',
     };
   },
   methods: {
@@ -57,9 +59,11 @@ export default {
           },
           body: JSON.stringify({
             name: this.name,
+            telephone: this.telephone,
             email: this.email,
+            saiyoselect: this.saiyoselect,
             message: this.message,
-            tel: this.tel
+            consent: this.consent
           })
         });
 

@@ -51,8 +51,8 @@ export default {
     return {
       slides: [
         { image: '/images/main_6.png', text: '企業や社会の発展に貢献していくことを最大の使命とします。' },
-        { image: '/images/main_2.jpg', text: '優秀なリソース及び長年のナレッジを活用して、最適なＩＴサービスを提供する会社です。' },
-        { image: '/images/main_4.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
+        { image: '/images/main_9.jpg', text: '優秀なリソース及び長年のナレッジを活用して、最適なＩＴサービスを提供する会社です。' },
+        { image: '/images/main_5.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
       ],
       currentIndex: 0,
       intervalId: null
