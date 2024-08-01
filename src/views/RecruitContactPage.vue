@@ -106,29 +106,27 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* 체크박스와 레이블을 옆으로 배치 */
 .checkbox-group {
   display: flex;
   align-items: center;
 }
 
 .checkbox-group input[type="checkbox"] {
-  margin-right: 10px; /* 체크박스와 텍스트 사이의 간격 */
+  margin-right: 10px;
 }
 
-/* 모바일 스타일 */
 @media (max-width: 600px) {
   form {
-    padding: 15px; /* 모바일에서 패딩 조정 */
+    padding: 15px;
   }
 
   input, textarea {
-    font-size: 14px; /* 모바일에서 폰트 크기 조정 */
+    font-size: 14px;
   }
 
   button {
-    padding: 10px 15px; /* 모바일에서 버튼 패딩 조정 */
-    font-size: 14px; /* 모바일에서 버튼 폰트 크기 조정 */
+    padding: 10px 15px;
+    font-size: 14px;
   }
 }
 </style>

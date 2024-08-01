@@ -15,16 +15,16 @@ app.post('/send-email', async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'xogns00089@gmail.com', // Gmail 계정
-      pass: 'kim650323!'  // Gmail 비밀번호 또는 앱 비밀번호
+      user: 'info@dxpro-sol.com',
+      pass: 'dxpro-sol2024'
     },
-    debug: true, // 디버그 모드 활성화
-    logger: true // 로그 활성화
+    debug: true,
+    logger: true 
   });
 
   const mailOptions = {
     from: email,
-    to: 'xogns00089@gmail.com',
+    to: 'info@dxpro-sol.com',
     subject: `Contact from ${name}`,
     text: message
   };

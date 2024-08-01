@@ -4,15 +4,15 @@
     <table>
       <tr>
         <td>会社名</td>
-        <td>株式会社 DXPRO</td>
+        <td>合同会社 ディーエックス ソリューションズ</td>
       </tr>
       <tr>
         <td>会社名 (英語)</td>
-        <td>DXPRO Co., Ltd.</td>
+        <td>DXPRO SOLUTIONS</td>
       </tr>
       <tr>
         <td>本社所在地</td>
-        <td>〒164 - 0011<br>東京都中野区中央3 - 12 - 12 - 3F</td>
+        <td>〒114 - 0014<br>東京都北区田端4 - 21 - 14 - 402</td>
       </tr>
       <tr>
         <td>設立</td>

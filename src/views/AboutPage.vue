@@ -168,13 +168,13 @@ export default {
 }
 
 .text-cell {
-  background-color: #f0f0f0; /* 셀 배경색 */
-  transition: background-color 0.3s; /* 호버 효과에 애니메이션 적용 */
-  cursor: pointer; /* 클릭 가능한 커서 표시 */
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 .text-cell:hover {
-  background-color: #ccc; /* 호버 시 배경색 변경 */
+  background-color: #ccc;
 }
 
 .dialog {
@@ -195,8 +195,8 @@ export default {
   padding: 20px;
   border-radius: 8px;
   max-width: 90%;
-  max-height: 80%; /* 다이얼로그의 최대 높이를 설정 */
-  overflow-y: auto; /* 스크롤을 가능하게 함 */
+  max-height: 80%;
+  overflow-y: auto;
   text-align: center;
 }
 
@@ -213,7 +213,7 @@ export default {
 
 @media (max-width: 600px) {
   .business-img-rec {
-    display: none; /* 모바일에서 이미지 숨김 */
+    display: none;
   }
 }
 
