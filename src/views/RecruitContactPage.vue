@@ -2,7 +2,7 @@
   <div>
     <h1>応募フォーム</h1>
     <p>以下のフォームを作成してください。</p>
-    <form @submit.prevent="sendEmail">
+    <form @submit.prevent="sendEmail('application')">
       <div>
         <label for="name">お名前:</label>
         <input type="text" id="name" v-model="name" required>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'ContactPage',
+  name: 'ApplicationPage',
   data() {
     return {
       name: '',
@@ -46,14 +46,14 @@ export default {
       email: '',
       saiyoselect: '',
       message: '',
-      consent: '',
+      consent: ''
     };
   },
   mounted() {
     window.scrollTo(0, 0);
   },
   methods: {
-    async sendEmail() {
+    async sendEmail(formType) {
       try {
         const response = await fetch('http://localhost:3000/send-email', {
           method: 'POST',
@@ -66,10 +66,11 @@ export default {
             email: this.email,
             saiyoselect: this.saiyoselect,
             message: this.message,
-            consent: this.consent
+            consent: this.consent,
+            formType: formType
           })
         });
-
+        
         if (response.ok) {
           alert('お問い合わせありがとうございます。');
           window.location.reload();

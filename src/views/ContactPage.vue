@@ -2,7 +2,7 @@
   <div>
     <h1>お問い合わせ</h1>
     <p>以下のフォームを作成してください。</p>
-    <form @submit.prevent="sendEmail">
+    <form @submit.prevent="sendEmail('inquiry')">
       <div>
         <label for="name">お名前:</label>
         <input type="text" id="name" v-model="name" required>
@@ -31,7 +31,7 @@ export default {
     };
   },
   methods: {
-    async sendEmail() {
+    async sendEmail(formType) {
       try {
         const response = await fetch('http://localhost:3000/send-email', {
           method: 'POST',
@@ -41,7 +41,8 @@ export default {
           body: JSON.stringify({
             name: this.name,
             email: this.email,
-            message: this.message
+            message: this.message,
+            formType: formType
           })
         });
 
