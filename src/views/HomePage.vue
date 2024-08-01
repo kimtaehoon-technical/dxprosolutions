@@ -2,12 +2,18 @@
   <div class="home">
     <!-- 사진 섹션 -->
     <div class="slider">
+      <div class="arrow left-arrow" @click="prevSlide">
+        <span>≪</span>
+      </div>
       <transition-group name="slide" tag="div">
         <div v-for="(slide, index) in slides" :key="index" class="slide" :style="{ transform: 'translateX(' + (index - currentIndex) * 100 + '%)' }">
           <img :src="slide.image" alt="Slide" class="slide-image">
           <div class="slide-text">{{ slide.text }}</div>
         </div>
       </transition-group>
+      <div class="arrow right-arrow" @click="nextSlide">
+        <span>»</span>
+      </div>
     </div>
 
     <!-- 소개 섹션 -->
@@ -48,9 +54,9 @@ export default {
   data() {
     return {
       slides: [
-        { image: '/images/DXHOME_1.jpg', text: 'お客さまの”新たな挑戦”の実現に向けて、 私たちは全力でサポートします。' },
-        { image: '/images/DXHOME_7.jpg', text: '卓越した課題整理力と専門性の高いエンジニアリングで、プロジェクトを成功に導きます。' },
-        { image: '/images/DXHOME_3.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
+        { image: '/images/main_6.png', text: '企業や社会の発展に貢献していくことを最大の使命とします。' },
+        { image: '/images/main_2.jpg', text: '優秀なリソース及び長年のナレッジを活用して、最適なＩＴサービスを提供する会社です。' },
+        { image: '/images/main_4.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
       ],
       currentIndex: 0,
       intervalId: null
@@ -65,6 +71,9 @@ export default {
     },
     nextSlide() {
       this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+    },
+    prevSlide() {
+      this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
     }
   },
   beforeUnmount() {
@@ -81,6 +90,39 @@ export default {
   height: 500px; /* 모바일에 맞게 높이 조정 */
   overflow: hidden;
 }
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.arrow span {
+  display: inline-block;
+  line-height: 1;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.arrow:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
 
 .slide {
   position: absolute;
@@ -105,6 +147,13 @@ export default {
   padding: 5px; /* 모바일에 맞게 패딩 조정 */
   border-radius: 20px; /* 텍스트 상자에 라운드 모서리를 적용 */
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 효과 추가 */
+}
+.slide-text {
+  transition: opacity 0.3s ease-in-out; /* 부드러운 투명도 전환 효과 */
+}
+
+.slide-text:hover {
+  opacity: 0.9; /* 마우스 오버 시 투명도를 높이는 효과 */
 }
 
 /* 소개 섹션 */
@@ -154,6 +203,7 @@ export default {
   border-radius: 20%;
 }
 
+
 /* 데스크탑용 스타일 */
 @media (min-width: 768px) {
   .section {
@@ -199,6 +249,7 @@ export default {
   position: absolute;
   bottom: 10px; /* 모바일에 맞게 간격 조정 */
   left: 10px; /* 모바일에 맞게 간격 조정 */
+  right: 10px; /* 모바일에 맞게 간격 조정 */
   color: white;
   font-size: 15px; /* 모바일에 맞게 폰트 크기 조정 */
   background-color: rgba(0, 0, 0, 0.5); /* 텍스트의 배경색과 투명도 설정 */

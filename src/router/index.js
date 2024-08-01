@@ -9,6 +9,7 @@ import Access from '../views/AccessPage.vue'
 import PrivacypolicyPage from '../views/PrivacypolicyPage.vue'
 import RecruitmentinformationPage from '../views/RecruitmentinformationPage.vue'
 import SubRecruitmentinformationPage from '../views/SubRecruitmentinformationPage.vue'
+import RecruitContactPage from '../views/RecruitContactPage.vue'
 
 const routes = [
   {
@@ -57,6 +58,11 @@ const routes = [
     path: '/SubRecruitment',
     name: 'SubRecruitmentinformationPage',
     component: SubRecruitmentinformationPage
+  },
+  {
+    path: '/RecruitContact',
+    name: 'RecruitContactPage',
+    component: RecruitContactPage
   },
 
 ]
