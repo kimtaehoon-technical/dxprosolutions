@@ -67,7 +67,7 @@ export default {
 
 <style scoped>
 .Recruitment-information {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   line-height: 1.6;

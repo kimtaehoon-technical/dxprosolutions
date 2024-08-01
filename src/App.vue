@@ -39,6 +39,10 @@
           <li class="li-border">
             <router-link to="/contact" class="nav-link">お問い合わせ</router-link>
           </li>
+          <li class="divider"></li>
+          <li class="li-border">
+            <router-link to="/Intranet" class="nav-link">イントラネット/メール</router-link>
+          </li>
         </ul>
       </nav>
     </header>

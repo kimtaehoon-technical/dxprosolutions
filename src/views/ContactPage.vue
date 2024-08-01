@@ -4,15 +4,15 @@
     <p>以下のフォームを作成してください。</p>
     <form @submit.prevent="sendEmail('inquiry')">
       <div>
-        <label for="name">お名前:</label>
+        <label for="name" class="required">お名前:</label>
         <input type="text" id="name" v-model="name" required>
       </div>
       <div>
-        <label for="email">メールアドレス:</label>
+        <label for="email" class="required">メールアドレス:</label>
         <input type="email" id="email" v-model="email" required>
       </div>
       <div>
-        <label for="message">内容:</label>
+        <label for="message" class="required">内容:</label>
         <textarea id="message" v-model="message" required></textarea>
       </div>
       <button type="submit">送信</button>
@@ -64,7 +64,7 @@ export default {
 
 <style scoped>
 form {
-  max-width: 400px;
+  max-width: 600px;
   margin: auto;
 }
 div {
@@ -92,13 +92,21 @@ button:hover {
   background-color: #0056b3;
 }
 
+label.required::before {
+  content: '*';
+  color: red;
+  margin-right: 5px;
+}
+
 @media (max-width: 600px) {
   form {
     padding: 15px;
   }
 
-  input, textarea {
+  input, label, textarea {
     font-size: 14px;
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   button {

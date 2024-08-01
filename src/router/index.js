@@ -10,6 +10,7 @@ import PrivacypolicyPage from '../views/PrivacypolicyPage.vue'
 import RecruitmentinformationPage from '../views/RecruitmentinformationPage.vue'
 import SubRecruitmentinformationPage from '../views/SubRecruitmentinformationPage.vue'
 import RecruitContactPage from '../views/RecruitContactPage.vue'
+import IntranetPage from '../views/IntranetPage.vue'
 
 const routes = [
   {
@@ -64,7 +65,11 @@ const routes = [
     name: 'RecruitContactPage',
     component: RecruitContactPage
   },
-
+  {
+    path: '/Intranet',
+    name: 'IntranetPage',
+    component: IntranetPage
+  }
 ]
 
 const router = createRouter({

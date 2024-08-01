@@ -28,7 +28,7 @@ app.post('/send-email', async (req, res) => {
     mailOptions = {
       from: email,
       to: 'info@dxpro-sol.com',
-      subject: `Inquiry from ${name}`,
+      subject: `お問い合わせ from ${name}`,
       html: `
         <html>
           <head>
@@ -64,7 +64,7 @@ app.post('/send-email', async (req, res) => {
     mailOptions = {
       from: email,
       to: 'info@dxpro-sol.com',
-      subject: `Application from ${name}`,
+      subject: `応募フォーム from ${name}`,
       html: `
         <html>
           <head>

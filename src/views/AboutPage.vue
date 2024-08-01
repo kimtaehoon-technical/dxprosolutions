@@ -151,6 +151,7 @@ export default {
 }
 
 .business-info-container {
+  width: 100%;
   display: flex;
   justify-content: center;
 }
