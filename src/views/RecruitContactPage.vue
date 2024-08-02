@@ -29,7 +29,7 @@
       </div>
       <div class="form-group file-upload">
         <label for="file" class="required">履歴書・職務経歴書:</label>
-        <input type="file" id="file" @change="handleFileUpload" />
+        <input type="file" id="file" @change="handleFileUpload" required/>
       </div>
       <div class="checkbox-group">
         <label for="consent" class="required">個人情報の取扱規定に同意する</label>
@@ -42,7 +42,6 @@
 
 <script>
 export default {
-  name: 'ApplicationPage',
   data() {
     return {
       name: '',
@@ -50,7 +49,7 @@ export default {
       email: '',
       saiyoselect: '',
       message: '',
-      consent: '',
+      consent: false,
       file: null
     };
   },
@@ -58,29 +57,26 @@ export default {
     window.scrollTo(0, 0);
   },
   methods: {
-  
-  handleFileUpload(event) {
-    this.file = event.target.files[0];
-  },
+    handleFileUpload(event) {
+      this.file = event.target.files[0];
+    },
     async sendEmail(formType) {
+      const formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('telephone', this.telephone);
+      formData.append('email', this.email);
+      formData.append('saiyoselect', this.saiyoselect);
+      formData.append('message', this.message);
+      formData.append('consent', this.consent);
+      formData.append('file', this.file);
+      formData.append('formType', formType);
+
       try {
         const response = await fetch('http://localhost:3000/send-email', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: this.name,
-            telephone: this.telephone,
-            email: this.email,
-            saiyoselect: this.saiyoselect,
-            message: this.message,
-            consent: this.consent,
-            file: this.file,
-            formType: formType
-          })
+          body: formData
         });
-        
+
         if (response.ok) {
           alert('お問い合わせありがとうございます。');
           window.location.reload();
@@ -94,7 +90,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>

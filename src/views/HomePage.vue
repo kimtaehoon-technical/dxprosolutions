@@ -2,7 +2,7 @@
   <div class="home">
     <div class="slider">
       <div class="arrow left-arrow" @click="prevSlide">
-        <span>≪</span>
+        <span>«</span>
       </div>
       <transition-group name="slide" tag="div">
         <div v-for="(slide, index) in slides" :key="index" class="slide" :style="{ transform: 'translateX(' + (index - currentIndex) * 100 + '%)' }">
@@ -92,9 +92,7 @@ export default {
   transform: translateY(-50%);
   font-size: 24px;
   color: white;
-  background-color: rgba(0, 0, 0, 0.6);
   padding: 10px;
-  border-radius: 50%;
   cursor: pointer;
   z-index: 10;
   transition: background-color 0.3s, transform 0.3s;

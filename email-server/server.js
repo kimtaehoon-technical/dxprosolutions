@@ -2,15 +2,35 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+const iconv = require('iconv-lite');
 
 const app = express();
 const PORT = 3000;
 
+const upload = multer({ dest: 'uploads/' });
+
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/send-email', async (req, res) => {
+app.use((req, res, next) => {
+  console.log('Received request: ', req.method, req.url);
+  next();
+});
+
+app.post('/send-email', upload.single('file'), async (req, res) => {
+  console.log('Request body: ', req.body);
+  console.log('Received file: ', req.file);
+
   const { name, telephone, email, saiyoselect, message, consent, formType } = req.body;
+  const file = req.file;
+
+  if (!file) {
+    return res.status(400).send('File upload failed.');
+  }
+
+  const decodedFileName = iconv.decode(Buffer.from(file.originalname, 'latin1'), 'utf8');
 
   const transporter = nodemailer.createTransport({
     host: 'mail1022.onamae.ne.jp',
@@ -106,7 +126,13 @@ app.post('/send-email', async (req, res) => {
               </div>
             </div>
           </body>
-        </html>`
+        </html>`,
+      attachments: [
+        {
+          filename: decodedFileName,
+          path: path.resolve(file.path)
+        }
+      ]
     };
   }
 
