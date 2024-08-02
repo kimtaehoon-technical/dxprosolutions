@@ -61,55 +61,35 @@ export default {
       this.file = event.target.files[0];
     },
 
-    async sendEmail() {
-  try {
-    const response = await fetch('https://dxpro-sol-backend-bzdxa7efcphyfucv.japaneast-01.azurewebsites.net/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.emailData)
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+     async sendEmail(formType) {
+       const formData = new FormData();
+       formData.append('name', this.name);
+       formData.append('telephone', this.telephone);
+       formData.append('email', this.email);
+       formData.append('saiyoselect', this.saiyoselect);
+       formData.append('message', this.message);
+       formData.append('consent', this.consent);
+       formData.append('file', this.file);
+       formData.append('formType', formType);
 
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-    // async sendEmail(formType) {
-    //   const formData = new FormData();
-    //   formData.append('name', this.name);
-    //   formData.append('telephone', this.telephone);
-    //   formData.append('email', this.email);
-    //   formData.append('saiyoselect', this.saiyoselect);
-    //   formData.append('message', this.message);
-    //   formData.append('consent', this.consent);
-    //   formData.append('file', this.file);
-    //   formData.append('formType', formType);
+       try {
+         const response = await fetch('https://dxpro-sol-backend-bzdxa7efcphyfucv.japaneast-01.azurewebsites.net', {
+           method: 'POST',
+           body: formData
+         });
 
-    //   try {
-    //     const response = await fetch('https://dxpro-sol-backend-bzdxa7efcphyfucv.japaneast-01.azurewebsites.net/', {
-    //       method: 'POST',
-    //       body: formData
-    //     });
-
-    //     if (response.ok) {
-    //       alert('お問い合わせありがとうございます。');
-    //       window.location.reload();
-    //       window.scrollTo(0, 0);
-    //     } else {
-    //       alert('送信に失敗しました。');
-    //     }
-    //   } catch (error) {
-    //     console.error('Error:', error);
-    //     alert('送信に失敗しました。');
-    //   }
-    // }
+         if (response.ok) {
+           alert('お問い合わせありがとうございます。');
+           window.location.reload();
+           window.scrollTo(0, 0);
+         } else {
+           alert('送信に失敗しました。');
+         }
+       } catch (error) {
+         console.error('Error:', error);
+         alert('送信に失敗しました。');
+       }
+     }
   }
 };
 </script>
