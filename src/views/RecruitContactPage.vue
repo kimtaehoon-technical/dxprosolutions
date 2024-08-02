@@ -72,7 +72,7 @@ export default {
       formData.append('formType', formType);
 
       try {
-        const response = await fetch('https://fast-ravine-00967-b04b50244f0b.herokuapp.com/', {
+        const response = await fetch('https://fast-ravine-00967-b04b50244f0b.herokuapp.com/send-email', {
           method: 'POST',
           body: formData
         });
