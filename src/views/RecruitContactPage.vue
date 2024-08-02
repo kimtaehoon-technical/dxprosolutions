@@ -63,7 +63,7 @@ export default {
 
     async sendEmail() {
   try {
-    const response = await fetch('https://dxpro-sol-backend-bzdxa7efcphyfucv.japaneast-01.azurewebsites.net/your-endpoint', {
+    const response = await fetch('https://dxpro-sol-backend-bzdxa7efcphyfucv.japaneast-01.azurewebsites.net/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
