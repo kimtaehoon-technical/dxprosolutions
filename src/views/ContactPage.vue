@@ -33,7 +33,7 @@ export default {
   methods: {
     async sendEmail(formType) {
       try {
-        const response = await fetch('https://fast-ravine-00967-b04b50244f0b.herokuapp.com/send-email', {
+        const response = await fetch('https://dxpro-sol-backend-bzdxa7efcphyfucv.japaneast-01.azurewebsites.net/send-email', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -72,7 +72,7 @@ export default {
       formData.append('formType', formType);
 
       try {
-        const response = await fetch('https://fast-ravine-00967-b04b50244f0b.herokuapp.com/send-email', {
+        const response = await fetch('https://dxpro-sol-backend-bzdxa7efcphyfucv.japaneast-01.azurewebsites.net/', {
           method: 'POST',
           body: formData
         });
