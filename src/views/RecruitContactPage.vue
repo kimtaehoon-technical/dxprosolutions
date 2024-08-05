@@ -73,7 +73,7 @@ export default {
        formData.append('formType', formType);
 
        try {
-         const response = await fetch('https://dxpro-backend-esbzfjdccwada7e5.japaneast-01.azurewebsites.net/', {
+         const response = await fetch('https://dxpro-backend-esbzfjdccwada7e5.japaneast-01.azurewebsites.net/send-email', {
            method: 'POST',
            body: formData
          });
