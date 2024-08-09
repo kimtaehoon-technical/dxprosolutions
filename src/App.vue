@@ -3,7 +3,7 @@
     <header>
       <router-link to="/">
         <img 
-          v-bind:src="isHoveringLogo ? '/images/DXPRO_LOGO_HOVER_FRONT2.png' : '/images/DXPRO_LOGO_FRONT.png'" 
+          v-bind:src="isHoveringLogo ? '/images/DXPRO_LOGO_HOVER_FRONT2.png' : '/images/DXPRO_LOGO_FRONT_1.png'" 
           class="logo" 
           @mouseover="isHoveringLogo = true"
           @mouseleave="isHoveringLogo = false"

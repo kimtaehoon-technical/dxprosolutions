@@ -50,9 +50,9 @@ export default {
   data() {
     return {
       slides: [
-        { image: '/images/main_6.png', text: '企業や社会の発展に貢献していくことを最大の使命とします。' },
-        { image: '/images/main_9.jpg', text: '優秀なリソース及び長年のナレッジを活用して、最適なＩＴサービスを提供する会社です。' },
-        { image: '/images/main_5.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
+        { image: '/images/main_image.jpg', text: '【企業】や【社会】の発展に貢献していくことを最大の使命とします。' },
+        { image: '/images/main_image.jpg', text: '優秀なリソース及び長年のナレッジを活用して、最適なＩＴサービスを提供する会社です。' },
+        { image: '/images/main_image.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
       ],
       currentIndex: 0,
       intervalId: null
@@ -135,11 +135,13 @@ export default {
   left: 10px;
   color: white;
   font-size: 25px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.0);
   padding: 5px;
   border-radius: 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.0);
+  font-weight: bold;
 }
+
 .slide-text {
   transition: opacity 0.3s ease-in-out;
 }
@@ -233,15 +235,16 @@ export default {
     height: 300px;
     overflow: hidden;
   }
-  .slide-text {
+  .slide-text-container {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: white;
     font-size: 15px;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 5px;
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3); /* 투명도 조절 */
     border-radius: 20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   }
