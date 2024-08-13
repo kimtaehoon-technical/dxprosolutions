@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <LoadingScreen />
     <header>
       <router-link to="/">
         <img 
@@ -9,39 +10,45 @@
           @mouseleave="isHoveringLogo = false"
         >
       </router-link>
-      <nav>
+      <button 
+        class="menu-toggle"
+        :class="{ hidden: !isMenuButtonVisible, visible: isMenuButtonVisible }"
+        @click="toggleMenu"
+      >
+        <span class="menu-icon"></span>
+        <span class="menu-icon"></span>
+        <span class="menu-icon"></span>
+      </button>
+      <nav :class="{ 'nav-open': showMenu }">
+        <button class="close-menu" @click="closeMenu">&times;</button>
         <ul>
-          <li class="li-border">
-            <router-link to="/services/greeting" class="nav-link">会社案内</router-link>
-            <ul>
-              <li><router-link to="/services/greeting" class="nav-link2">ご挨拶</router-link></li>
-              <li><router-link to="/services/overview" class="nav-link2">会社概要</router-link></li>
-              <li><router-link to="/services/access" class="nav-link2">アクセス</router-link></li>
+          <li class="li-border" :class="{ active: activeMenu === 'services' }">
+            <router-link to="/services/greeting" class="nav-link" @click="toggleSubmenu('services', $event)">会社案内</router-link>
+            <ul v-show="activeMenu === 'services'">
+              <li><router-link to="/services/greeting" class="nav-link2" @click="handleLinkClick">ご挨拶</router-link></li>
+              <li><router-link to="/services/overview" class="nav-link2" @click="handleLinkClick">会社概要</router-link></li>
+              <li><router-link to="/services/access" class="nav-link2" @click="handleLinkClick">アクセス</router-link></li>
             </ul>
           </li>
-          <li class="divider"></li>
-          <li class="li-border">
-            <router-link to="/about" class="nav-link">事業紹介</router-link>
+          <li class="li-border" :class="{ active: activeMenu === 'about' }">
+            <router-link to="/about" class="nav-link" @click="handleLinkClick">事業紹介</router-link>
           </li>
-          <li class="divider"></li>
-          <li class="li-border">
-            <router-link to="/privacy" class="nav-link">プライバシーポリシー</router-link>
-          </li>  
-          <li class="divider"></li>
-          <li class="li-border">
-            <router-link to="/Recruitment" class="nav-link">採用情報</router-link>
-            <ul>
-              <li><router-link to="/Recruitment" class="nav-link2">新卒採用</router-link></li>
-              <li><router-link to="/SubRecruitment" class="nav-link2">中途採用</router-link></li>
+          <li class="li-border" :class="{ active: activeMenu === 'privacy' }">
+            <router-link to="/privacy" class="nav-link" @click="handleLinkClick">プライバシーポリシー</router-link>
+          </li>
+          <li class="li-border" :class="{ active: activeMenu === 'recruitment' }">
+            <router-link to="/Recruitment" class="nav-link" @click="toggleSubmenu('recruitment', $event)">採用情報</router-link>
+            <ul v-show="activeMenu === 'recruitment'">
+              <li><router-link to="/Recruitment" class="nav-link2" @click="handleLinkClick">新卒採用</router-link></li>
+              <li><router-link to="/SubRecruitment" class="nav-link2" @click="handleLinkClick">中途採用</router-link></li>
+              <li><router-link to="/RecruitContact" class="nav-link2" @click="handleLinkClick">応募</router-link></li>
             </ul>
           </li>
-          <li class="divider"></li>
-          <li class="li-border">
-            <router-link to="/contact" class="nav-link">お問い合わせ</router-link>
+          <li class="li-border" :class="{ active: activeMenu === 'contact' }">
+            <router-link to="/contact" class="nav-link" @click="handleLinkClick">お問い合わせ</router-link>
           </li>
-          <li class="divider"></li>
-          <li class="li-border">
-            <router-link to="/Intranet" class="nav-link">イントラネット/メール</router-link>
+          <li class="li-border" :class="{ active: activeMenu === 'intranet' }">
+            <router-link to="/Intranet" class="nav-link" @click="handleLinkClick">イントラネット/メール</router-link>
           </li>
         </ul>
       </nav>
@@ -56,13 +63,56 @@
 </template>
 
 <script>
+import LoadingScreen from './components/LoadingScreen.vue';
+
 export default {
   name: 'App',
+  components: {
+    LoadingScreen
+  },
   data() {
     return {
-      showSubMenu: false,
-      isHoveringLogo: false
+      showMenu: false,
+      isHoveringLogo: false,
+      activeMenu: null,
+      isMenuButtonVisible: true,
+      lastScrollTop: 0 // 스크롤 위치를 기억하는 변수
     }
+  },
+  methods: {
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
+      if (!this.showMenu) {
+        this.activeMenu = null; // Close submenu when menu is closed
+      }
+    },
+    closeMenu() {
+      this.showMenu = false;
+      this.activeMenu = null; // Close submenu when menu is closed
+    },
+    toggleSubmenu(menu, event) {
+      event.preventDefault(); // Prevent default link behavior
+      this.activeMenu = this.activeMenu === menu ? null : menu; // Toggle submenu
+    },
+    handleLinkClick() {
+      this.closeMenu();
+    },
+    handleScroll() {
+      let currentScrollTop = window.scrollY;
+
+      if (currentScrollTop > this.lastScrollTop && currentScrollTop > 10) {
+        this.isMenuButtonVisible = false;
+      } else {
+        this.isMenuButtonVisible = true;
+      }
+      this.lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>
@@ -77,8 +127,8 @@ body {
   text-align: center;
   color: #2c3e50;
   width: 100%;
-  box-sizing: border-box; /* 요소의 padding과 border가 전체 너비에 포함되도록 설정 */
-  overflow-x: hidden; /* 수평 스크롤을 숨기기 */
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 header {
@@ -98,6 +148,38 @@ header {
   list-style-type: none;
   width: 200px;
   height: auto;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+}
+
+.menu-icon {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: #333;
+  margin: 6px 0;
+  transition: background 0.3s ease;
+}
+
+.close-menu {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  align-self: flex-end;
+  margin: 10px;
+  display: none; /* Hide close button on PC */
 }
 
 nav {
@@ -171,6 +253,7 @@ footer {
   background-color: #f6f6f6;
 }
 
+
 @media (max-width: 600px) {
   header {
     flex-direction: column;
@@ -178,23 +261,90 @@ footer {
   }
 
   .logo {
-    width: 200px;
+    width: 150px;
+  }
+
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 10px;
   }
 
   nav {
-    padding-right: 0;
+    position: fixed; /* Fix the position of the nav */
+    top: 0;
+    right: 0;
     width: 100%;
+    height: 100vh; /* Set to viewport height */
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent dark background */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 20;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add shadow for visual separation */
+    overflow: hidden; /* Hide overflow for nav container */
+  }
+
+  nav.nav-open {
+    transform: translateX(0);
+  }
+
+  .close-menu {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    align-self: flex-end;
+    margin: 10px;
+    display: block; /* Ensure close button is visible on mobile */
   }
 
   nav ul {
     flex-direction: column;
-    align-items: center;
-    background-color: #efeeee;
+    align-items: stretch;
+    padding: 0;
+    margin: 0;
+    height: calc(100% - 50px); /* Adjust height to account for header space */
+    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
   }
 
   nav ul li {
-    font-size: 14px;
-    margin: 5px 0;
+    font-size: 25px; /* Increased font size for readability on mobile */
+    margin: 0; /* Ensure no extra space around menu items */
+    position: relative; /* Ensure submenu positioning works correctly */
+    width: 100%;
+    text-align: center;
+    font-weight: bold; /* 글씨를 굵게 */
+    border-bottom: 1px solid #a3a2a2; /* Increased border thickness */
+  }
+
+  nav ul li ul {
+    position: static; /* Ensure submenus are positioned correctly */
+    display: none; /* Hide submenu by default on mobile */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    padding: 0; /* Ensure no extra padding */
+    margin: 0; /* Ensure no extra margin */
+    height: auto; /* Adjust height based on content */
+    overflow: hidden; /* Hide overflow to prevent scrolling */
+  }
+
+  nav ul li.active > ul {
+    display: block; /* Show submenu when the parent is active on mobile */
+  }
+
+  .nav-link, .nav-link2 {
+    display: block;
+    padding: 10px; /* Increased padding for larger clickable area */
+    width: 100%; /* Ensure links take full width */
+    text-align: center; /* Center link text */
+    box-sizing: border-box; /* Include padding in width calculation */
   }
 
   .divider {
@@ -203,6 +353,13 @@ footer {
 
   footer {
     font-size: 15px;
+  }
+  .hidden {
+    display: none;
+  }
+
+  .visible {
+    display: block;
   }
 }
 </style>

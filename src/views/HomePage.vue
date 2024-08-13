@@ -222,6 +222,25 @@ export default {
   border-radius: 20%;
 }
 
+/* CSS 스타일 추가 */
+.slide-enter-active, .slide-leave-active {
+  transition: transform 0.5s ease;
+}
+
+.slide-enter, .slide-leave-to /* .slide-leave-active in <2.1.8 */ {
+  transform: translateX(100%);
+}
+
+/* 추가적인 슬라이스 효과를 주는 스타일 */
+.slide-enter-active, .slide-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-enter, .slide-leave-to /* .slide-leave-active in <2.1.8 */ {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
 @media (max-width: 600px) {
   .slider {
     height: 300px; 
