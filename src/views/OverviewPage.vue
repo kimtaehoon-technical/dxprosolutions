@@ -1,5 +1,5 @@
 <template>
-    <div class="services-page">
+  <div class="services-page">
     <h1>会社概要</h1>
     <table>
       <tr>
@@ -27,14 +27,22 @@
         <td>IT Consulting<br>System Integration<br>System Maintenance<br>Research & Development<br>Solution & Package Development<br>IT Education</td>
       </tr>
     </table>
+    <br><br>
+
+    <h1>取引先</h1>
+    <h3>COOPERATION</h3>
+    <div class="info-images">
+      <img src="/images/rebatec.webp" class="info-image" alt="Rebatec">
+      <img src="/images/annex.png" class="info-image" alt="Annex">
+    </div>
   </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'ContactPage'
-  }
-  </script>
+</template>
+
+<script>
+export default {
+  name: 'ContactPage'
+}
+</script>
 
 <style scoped>
 .services-page {
@@ -57,4 +65,33 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.info-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.info-image {
+  max-width: 100%;
+  height: auto;
+}
+@media (max-width: 768px) {
+  .info-image {
+    max-width: 200px; /* Width for tablets and small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .info-image {
+    max-width: 150px; /* Width for mobile screens */
+  }
+}
 </style>

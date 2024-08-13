@@ -126,6 +126,7 @@ ul {
   border-radius: 5px; /* ボタンの角を丸くする */
   cursor: pointer;
   transition: background-color 0.3s ease; /* ホバー効果 */
+  width: 100%;
 }
 
 .apply-button:hover {

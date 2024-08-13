@@ -132,6 +132,7 @@ button {
   background-color: #007BFF;
   color: white;
   border: none;
+  width: 100%;
   cursor: pointer;
 }
 button:hover {
@@ -185,6 +186,7 @@ select.large-select {
   button {
     padding: 10px 15px;
     font-size: 14px;
+    width: 100%;
   }
 }
 </style>

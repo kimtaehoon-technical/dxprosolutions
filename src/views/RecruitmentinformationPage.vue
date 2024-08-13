@@ -125,6 +125,7 @@ ul {
   font-size: 18px; /* ボタン内のテキストサイズ調整 */
   border-radius: 5px; /* ボタンの角を丸くする */
   cursor: pointer;
+  width: 100%;
   transition: background-color 0.3s ease; /* ホバー効果 */
 }
 

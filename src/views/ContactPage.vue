@@ -83,6 +83,7 @@ input, textarea {
 }
 button {
   padding: 10px 100px;
+  width: 100%;
   background-color: #007BFF;
   color: white;
   border: none;
@@ -112,6 +113,7 @@ label.required::before {
   button {
     padding: 10px 15px;
     font-size: 14px;
+    width: 100%;
   }
 }
 </style>

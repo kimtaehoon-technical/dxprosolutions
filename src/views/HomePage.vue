@@ -60,8 +60,9 @@ export default {
   data() {
     return {
       slides: [
-        { image: '/images/main_image.jpg', text: 'DXPRO SOLUTIONSは、社会の発展に​貢献する会社を目指します' },
-        { image: '/images/main_image.jpg', text: 'お客様の様々なニーズに徹底した管理と高度な技術力でお応えします' },
+        { image: '/images/mainimg.jpg', text: 'DXPRO SOLUTIONSは、社会の発展に​貢献する会社を目指します' },
+        { image: '/images/mainimg2.jpg', text: 'お客様の様々なニーズに徹底した管理と高度な技術力でお応えします' },
+        { image: '/images/mainimg7.png', text: 'DXを通じて次世代のビジネスや生活の発展を目指していきます' },
       ],
       currentIndex: 0,
       intervalId: null
@@ -145,11 +146,12 @@ export default {
   position: absolute;
   text-align: center;
   color: white;
-  font-size: 50px;
+  font-size: 55px;
   background-color: rgba(0, 0, 0, 0.0);
   padding: 5px;
   border-radius: 20px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.0);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   font-weight: bold;
 }
 
@@ -256,6 +258,7 @@ export default {
     max-width: 500px;
     height: 220px;
     padding: 20px;
+    margin-top: 10px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
