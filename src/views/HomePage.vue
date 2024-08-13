@@ -16,27 +16,37 @@
     </div>
 
     <div class="section">
-      <img src="/images/DXHOME_4.jpg" alt="Company Introduction" class="section-image round-image">
+      <img src="/images/yokoso.jpg" alt="Company Introduction" class="section-image round-image">
       <div class="section-content">
-        <h2>ようこそ！！DXPROソリューションズへ</h2>
+        <h2>ようこそ、DXPRO SOLUTIONSへ</h2>
         <p>DXPRO SOLUTIONSは、<br>お客様のビジネスの成長と成功を支援します。</p>
         <router-link to="/services/greeting" class="section-button">会社案内</router-link>
       </div>
     </div>
 
     <div class="section">
-      <img src="/images/DXHOME_5.jpg" alt="Service Introduction" class="section-image round-image">
+      <img src="/images/saiyo.webp" alt="Company Introduction" class="section-image round-image">
       <div class="section-content">
-        <h2>DXPROソリューションズの得意</h2>
-        <p>お客様の多様なニーズに応えるため、幅広いサービスを提供しています。</p>
+        <h2>DXPRO SOLUTIONSと一緒に成長しませんか？</h2>
+        <p>技術力を高め共に成長しませんか？<br>
+        一緒に社会にの発展に貢献する貴方を求めています。 </p>
+        <router-link to="/Recruitment" class="section-button">採用情報</router-link>
+      </div>
+    </div>
+    
+    <div class="section">
+      <img src="/images/jigyo.jpg" alt="Service Introduction" class="section-image round-image">
+      <div class="section-content">
+        <h2>DXPRO SOLUTIONSの仕事</h2>
+        <p>お客様の多様なニーズに応えるため、<br>幅広いサービスを提供しています。</p>
         <router-link to="/about" class="section-button">事業紹介</router-link>
       </div>
     </div>
 
     <div class="section">
-      <img src="/images/DXHOME_6.jpg" alt="Contact Us" class="section-image round-image">
+      <img src="/images/otoiawase2.jpg" alt="Contact Us" class="section-image round-image">
       <div class="section-content">
-        <h2>お問い合わせください</h2>
+        <h2>お問い合わせください。</h2>
         <p>何かご質問やご要望がございましたら、お気軽にお問い合わせください。</p>
         <router-link to="/contact" class="section-button">お問い合わせ</router-link>
       </div>
@@ -50,9 +60,8 @@ export default {
   data() {
     return {
       slides: [
-        { image: '/images/main_image.jpg', text: '【企業】や【社会】の発展に貢献していくことを最大の使命とします。' },
-        { image: '/images/main_image.jpg', text: '優秀なリソース及び長年のナレッジを活用して、最適なＩＴサービスを提供する会社です。' },
-        { image: '/images/main_image.jpg', text: 'お客様のビジネス成功をサポートするために全力で努力しています。' },
+        { image: '/images/main_image.jpg', text: 'DXPRO SOLUTIONSは、社会の発展に​貢献する会社を目指します' },
+        { image: '/images/main_image.jpg', text: 'お客様の様々なニーズに徹底した管理と高度な技術力でお応えします' },
       ],
       currentIndex: 0,
       intervalId: null
@@ -82,7 +91,7 @@ export default {
 .slider {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 850px;
   overflow: hidden;
 }
 
@@ -120,6 +129,9 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.5s ease;
 }
 
@@ -131,10 +143,9 @@ export default {
 
 .slide-text {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  text-align: center;
   color: white;
-  font-size: 25px;
+  font-size: 50px;
   background-color: rgba(0, 0, 0, 0.0);
   padding: 5px;
   border-radius: 20px;
@@ -147,27 +158,39 @@ export default {
 }
 
 .slide-text:hover {
-  opacity: 0.9;
+  opacity: 0.1;
 }
 
 .section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  display: flex;
+  position: relative;
 }
 
 .section-image {
-  width: 100%;
-  margin-bottom: 10px;
+  width: 60%;
+  height: 700px;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
 }
 
 .section-content {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  width: 50%;
+  height: 250px;
+  margin-top: 15%;
+  font-size: 15pt;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  position: absolute;
+  left: 45%;
+  z-index: 2;
 }
 
 .section-content h2 {
@@ -178,6 +201,7 @@ export default {
 }
 
 .section-button {
+  width: 50%;
   display: inline-block;
   margin-top: 10px;
   padding: 10px 20px;
@@ -196,57 +220,78 @@ export default {
   border-radius: 20%;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 600px) {
+  .slider {
+    height: 300px; 
+  }
+
+  .arrow {
+    font-size: 20px;
+    padding: 8px;
+  }
+
+  .slide-text {
+    font-size: 16px;
+    bottom: 10px;
+    left: 10px;
+  }
+
   .section {
-    flex-direction: row;
-    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .section-image {
-    width: 60%;
-    margin-bottom: 0;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
   }
 
   .section-content {
+    width: 100%;
+    max-width: 500px;
+    height: 220px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    text-align: center;
     position: relative;
-    width: 40%;
-    margin-top: 10%;
-    margin-left: -10%;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    left: 0;
   }
 
   .section-content h2 {
-    font-size: 24px;
-    padding: 15px;
+    font-size: 20px;
+    margin: 0 0 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 6px;
+  }
+
+  .section-content p {
+    font-size: 14px;
+    color: #666;
   }
 
   .section-button {
-    font-size: 16px;
-    padding: 15px 30px;
-  }
-}
-
-@media (max-width: 600px) {
-  .slider {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
-  }
-  .slide-text-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #3498db;
     color: white;
-    font-size: 15px;
-    text-align: center;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.3); /* 투명도 조절 */
-    border-radius: 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    border-radius: 25px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .section-button:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <header>
       <router-link to="/">
         <img 
-          v-bind:src="isHoveringLogo ? '/images/DXPRO_LOGO_HOVER_FRONT2.png' : '/images/DXPRO_LOGO_FRONT_1.png'" 
+          v-bind:src="isHoveringLogo ? '/images/DXPRO_LOGO_HOVER_FRONT2.png' : '/images/DXPRO_LOGO_FRONT.png'" 
           class="logo" 
           @mouseover="isHoveringLogo = true"
           @mouseleave="isHoveringLogo = false"
@@ -76,6 +76,9 @@ body {
 #app {
   text-align: center;
   color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box; /* 요소의 padding과 border가 전체 너비에 포함되도록 설정 */
+  overflow-x: hidden; /* 수평 스크롤을 숨기기 */
 }
 
 header {
@@ -91,8 +94,9 @@ header {
 }
 
 .logo {
+  padding-left: 10px;
   list-style-type: none;
-  width: 150px;
+  width: 200px;
   height: auto;
 }
 
@@ -174,7 +178,7 @@ footer {
   }
 
   .logo {
-    width: 120px;
+    width: 200px;
   }
 
   nav {
@@ -195,6 +199,10 @@ footer {
 
   .divider {
     display: none;
+  }
+
+  footer {
+    font-size: 15px;
   }
 }
 </style>
