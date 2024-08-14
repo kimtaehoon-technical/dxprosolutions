@@ -34,6 +34,7 @@
     <div class="info-images">
       <img src="/images/rebatec.webp" class="info-image" alt="Rebatec">
       <img src="/images/annex.png" class="info-image" alt="Annex">
+      <img src="/images/pkutech.png" class="info-image" alt="pkutech">
     </div>
   </div>
 </template>
