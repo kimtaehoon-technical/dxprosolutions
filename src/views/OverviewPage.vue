@@ -34,8 +34,8 @@
     <div class="info-images">
       <img src="/images/rebatec.webp" class="info-image" alt="Rebatec">
       <img src="/images/annex.png" class="info-image" alt="Annex">
-      <img src="/images/pkutech.png" class="info-image" alt="pkutech">
     </div>
+    <img src="/images/pkutech.png" class="info-image2" alt="pkutech">
   </div>
 </template>
 
@@ -81,9 +81,15 @@ h3 {
 }
 
 .info-image {
-  max-width: 100%;
+  max-width: 50%;
   height: auto;
 }
+
+.info-image2 {
+  max-width: 50%;
+  height: 50%;
+}
+
 @media (max-width: 768px) {
   .info-image {
     max-width: 200px; /* Width for tablets and small screens */

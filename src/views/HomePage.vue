@@ -7,7 +7,7 @@
       <transition-group name="slide" tag="div">
         <div v-for="(slide, index) in slides" :key="index" class="slide" :style="{ transform: 'translateX(' + (index - currentIndex) * 100 + '%)' }">
           <img :src="slide.image" alt="Slide" class="slide-image">
-          <div class="slide-text">{{ slide.text }}</div>
+          <div class="slide-text" v-html="slide.text"></div>
         </div>
       </transition-group>
       <div class="arrow right-arrow" @click="nextSlide">
@@ -46,7 +46,7 @@
     <div class="section">
       <img src="/images/otoiawase2.jpg" alt="Contact Us" class="section-image round-image">
       <div class="section-content">
-        <h2>お問い合わせください。</h2>
+        <h2>お問い合わせください</h2>
         <p>何かご質問やご要望がございましたら、お気軽にお問い合わせください。</p>
         <router-link to="/contact" class="section-button">お問い合わせ</router-link>
       </div>
@@ -60,9 +60,9 @@ export default {
   data() {
     return {
       slides: [
-        { image: '/images/mainimg.jpg', text: 'DXPRO SOLUTIONSは、社会の発展に​貢献する会社を目指します' },
+        { image: '/images/mainimg.jpg', text: 'DXを通じて次世代のビジネスや生活の発展を目指していきます' },
         { image: '/images/mainimg2.jpg', text: 'お客様の様々なニーズに徹底した管理と高度な技術力でお応えします' },
-        { image: '/images/mainimg7.png', text: 'DXを通じて次世代のビジネスや生活の発展を目指していきます' },
+        { image: '/images/mainimg7.png', text: 'DXPRO SOLUTIONSは<br>IT分野の創造と革新をリードする' },
       ],
       currentIndex: 0,
       intervalId: null
@@ -146,12 +146,12 @@ export default {
   position: absolute;
   text-align: center;
   color: white;
-  font-size: 55px;
+  font-size: 50px;
   background-color: rgba(0, 0, 0, 0.0);
   padding: 5px;
   border-radius: 20px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.0);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.9);
   font-weight: bold;
 }
 
@@ -188,7 +188,7 @@ export default {
   font-size: 15pt;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 30px;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   position: absolute;
   left: 45%;
@@ -222,21 +222,19 @@ export default {
   border-radius: 20%;
 }
 
-/* CSS 스타일 추가 */
 .slide-enter-active, .slide-leave-active {
   transition: transform 0.5s ease;
 }
 
-.slide-enter, .slide-leave-to /* .slide-leave-active in <2.1.8 */ {
+.slide-enter, .slide-leave-to {
   transform: translateX(100%);
 }
 
-/* 추가적인 슬라이스 효과를 주는 스타일 */
 .slide-enter-active, .slide-leave-active {
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide-enter, .slide-leave-to /* .slide-leave-active in <2.1.8 */ {
+.slide-enter, .slide-leave-to {
   opacity: 0;
   transform: translateX(100%);
 }
@@ -254,7 +252,11 @@ export default {
   .slide-text {
     font-size: 16px;
     bottom: 10px;
-    left: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 10px;
+    width: 80%;
   }
 
   .section {
