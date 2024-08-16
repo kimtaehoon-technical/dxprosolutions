@@ -92,7 +92,7 @@ export default {
 .slider {
   position: relative;
   width: 100%;
-  height: 850px;
+  height: 620px;
   overflow: hidden;
 }
 
@@ -146,7 +146,7 @@ export default {
   position: absolute;
   text-align: center;
   color: white;
-  font-size: 50px;
+  font-size: 45px;
   background-color: rgba(0, 0, 0, 0.0);
   padding: 5px;
   border-radius: 20px;

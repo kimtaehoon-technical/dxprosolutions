@@ -23,7 +23,7 @@
         <button class="close-menu" @click="closeMenu">&times;</button>
         <ul>
           <li class="li-border" :class="{ active: activeMenu === 'services' }">
-            <router-link to="/services/greeting" class="nav-link" @click="toggleSubmenu('services', $event)">会社案内</router-link>
+            <router-link to="" class="nav-link" @click="toggleSubmenu('services', $event)">会社案内</router-link>
             <ul v-show="activeMenu === 'services'">
               <li><router-link to="/services/greeting" class="nav-link2" @click="handleLinkClick">ご挨拶</router-link></li>
               <li><router-link to="/services/overview" class="nav-link2" @click="handleLinkClick">会社概要</router-link></li>
@@ -37,7 +37,7 @@
             <router-link to="/privacy" class="nav-link" @click="handleLinkClick">プライバシーポリシー</router-link>
           </li>
           <li class="li-border" :class="{ active: activeMenu === 'recruitment' }">
-            <router-link to="/Recruitment" class="nav-link" @click="toggleSubmenu('recruitment', $event)">採用情報</router-link>
+            <router-link to="" class="nav-link" @click="toggleSubmenu('recruitment', $event)">採用情報</router-link>
             <ul v-show="activeMenu === 'recruitment'">
               <li><router-link to="/Recruitment" class="nav-link2" @click="handleLinkClick">新卒採用</router-link></li>
               <li><router-link to="/SubRecruitment" class="nav-link2" @click="handleLinkClick">中途採用</router-link></li>
@@ -197,6 +197,19 @@ nav ul li {
   position: relative;
   white-space: nowrap;
   font-size: 16px;
+  border-right: 1px solid #ddd; /* Vertical line between menu items */
+  margin-right: 20px;
+  padding-right: 20px;
+}
+
+nav ul li:last-child {
+  border-right: none; 
+  margin-right: 0;
+  padding-right: 0;
+}
+
+nav ul li ul li {
+  border-right: none; /* Remove bottom border from submenu items */
 }
 
 nav ul li ul {
