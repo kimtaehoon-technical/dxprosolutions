@@ -47,8 +47,8 @@
           <li class="li-border" :class="{ active: activeMenu === 'contact' }">
             <router-link to="/contact" class="nav-link" @click="handleLinkClick">お問い合わせ</router-link>
           </li>
-          <li class="li-border" :class="{ active: activeMenu === 'intranet' }">
-            <router-link to="/Intranet" class="nav-link" @click="handleLinkClick">イントラネット/メール</router-link>
+          <li class="li-border" :class="{ active: activeMenu === '' }">
+            <router-link to="/Intranet" class="nav-link" @click="handleLinkClick">イントラネット</router-link>
           </li>
         </ul>
       </nav>
@@ -110,6 +110,7 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+     this.$router.push('/');
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);

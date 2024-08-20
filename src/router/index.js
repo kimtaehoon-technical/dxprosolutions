@@ -12,6 +12,7 @@ import SubRecruitmentinformationPage from '../views/SubRecruitmentinformationPag
 import RecruitContactPage from '../views/RecruitContactPage.vue'
 import IntranetPage from '../views/IntranetPage.vue'
 import LoadingScreen from '../components/LoadingScreen.vue'
+import LoginPage from '../views/LoginPage.vue'
 
 const routes = [
   {
@@ -69,13 +70,20 @@ const routes = [
   {
     path: '/Intranet',
     name: 'IntranetPage',
-    component: IntranetPage
+    component: IntranetPage,
+    meta: { requiresAuth: true }
+
   },
   {
     path: '/Loading',
     name: 'LoadingScreen',
     component: LoadingScreen
   },
+  {
+    path: '/Login',
+    name: 'LoginPage',
+    component: LoginPage
+  }
 ]
 
 const router = createRouter({
@@ -83,5 +91,25 @@ const router = createRouter({
   routes
 })
 
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = !!sessionStorage.getItem('authToken');
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isLoggedIn) {
+      next('/login');
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+window.addEventListener('load', () => {
+  sessionStorage.removeItem('authToken');
+  sessionStorage.removeItem('username');
+  sessionStorage.removeItem('name');
+});
 
 export default router

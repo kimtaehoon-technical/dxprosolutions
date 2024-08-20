@@ -33,7 +33,7 @@ export default {
   methods: {
     async sendEmail(formType) {
       try {
-        const response = await fetch('http://dxpro-backend-esbzfjdccwada7e5.japaneast-01.azurewebsites.net/send-email', {
+        const response = await fetch('http://localhost:3000/send-email', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

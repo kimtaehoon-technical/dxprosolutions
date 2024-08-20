@@ -5,6 +5,7 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const iconv = require('iconv-lite');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,28 @@ app.use(cors());
 app.use((req, res, next) => {
   console.log('Received request: ', req.method, req.url);
   next();
+});
+
+mongoose.connect('mongodb://localhost:27017/admin')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
+const announcementSchema = new mongoose.Schema({
+  title: String,
+  summary: String,
+  dateTime: String
+});
+
+const Announcement = mongoose.model('Announcement', announcementSchema);
+
+app.get('/announcements', async (req, res) => {
+  const announcements = await Announcement.find();
+  res.json(announcements);
+});
+
+app.post('/announcements', async (req, res) => {
+  const newAnnouncement = new Announcement(req.body);
+  await newAnnouncement.save();
+  res.json(newAnnouncement);
 });
 
 app.post('/send-email', upload.single('file'), async (req, res) => {
