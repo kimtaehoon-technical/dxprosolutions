@@ -73,7 +73,7 @@ export default {
        formData.append('formType', formType);
 
        try {
-        const response = await fetch('https://github.com/kimtaehoon-technical/email-server#refs/heads/main/send-email', {
+        const response = await fetch('http://localhost:3000/send-email', {
            method: 'POST',
            body: formData
          });
