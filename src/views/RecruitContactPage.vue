@@ -73,7 +73,7 @@ export default {
        formData.append('formType', formType);
 
        try {
-        const response = await fetch('https://dxpro.netlify.app/send-email', {
+        const response = await fetch('https://dxpro.netlify.app/.netlify/functions/server/send-email', {
            method: 'POST',
            body: formData
          });
