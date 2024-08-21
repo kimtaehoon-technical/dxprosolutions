@@ -123,7 +123,7 @@ export default {
     },
     async fetchAnnouncements() {
       try {
-        const response = await fetch('http://52.49.162.42:9090/announcements');
+        const response = await fetch('http://localhost:3000/announcements');
         const data = await response.json();
         this.announcements = data;
       } catch (error) {
@@ -140,7 +140,7 @@ export default {
         };
 
         try {
-          const response = await fetch('http://52.49.162.42:9090/announcements', {
+          const response = await fetch('http://localhost:3000/announcements', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
