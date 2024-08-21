@@ -33,7 +33,7 @@ export default {
   methods: {
     async sendEmail(formType) {
       try {
-        const response = await fetch('http://localhost:3000/send-email', {
+        const response = await fetch('https://github.com/kimtaehoon-technical/email-server#refs/heads/main/send-email', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
