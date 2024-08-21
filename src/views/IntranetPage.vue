@@ -166,11 +166,15 @@ export default {
         const response = await fetch(`https://dxpro.onrender.com/announcements/${id}`, {
           method: 'DELETE'
         });
+        
+        const textResponse = await response.text(); // Get response as text
+        console.log('Response Text:', textResponse);
+        
         if (response.ok) {
           this.announcements = this.announcements.filter(announcement => announcement._id !== id);
           alert('Announcement deleted successfully.');
         } else {
-          alert('Failed to delete announcement.');
+          alert('Failed to delete announcement: ' + textResponse);
         }
       } catch (error) {
         console.error('Error deleting announcement:', error);
