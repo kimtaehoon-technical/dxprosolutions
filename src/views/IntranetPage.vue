@@ -17,6 +17,7 @@
             </div>
             <p class="announcement-summary">{{ truncateText(announcement.summary, 30) }}</p>
             <button @click="openDialog(announcement)" class="view-details-button">詳細を見る</button>
+            <button v-if="isLoggedIn && userName === 'admin'" @click="deleteAnnouncement(announcement._id)" class="delete-button">削除</button>
           </li>
         </ul>
       </div>
@@ -159,6 +160,22 @@ export default {
     openDialog(announcement) {
       this.dialogAnnouncement = announcement;
       this.dialogVisible = true;
+    },
+    async deleteAnnouncement(id) {
+      try {
+        const response = await fetch(`https://dxpro.onrender.com/announcements/${id}`, {
+          method: 'DELETE'
+        });
+        if (response.ok) {
+          this.announcements = this.announcements.filter(announcement => announcement._id !== id);
+          alert('Announcement deleted successfully.');
+        } else {
+          alert('Failed to delete announcement.');
+        }
+      } catch (error) {
+        console.error('Error deleting announcement:', error);
+        alert('Error deleting announcement.');
+      }
     }
   },
   mounted() {
@@ -409,6 +426,20 @@ export default {
 }
 
 .close-button:hover {
+  background-color: #cc0000;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.delete-button:hover {
   background-color: #cc0000;
 }
 
