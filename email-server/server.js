@@ -20,12 +20,10 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect('mongodb+srv://dxprosol:kim650323!@dxpro.ealx5.mongodb.net/dxpro?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect('mongodb+srv://dxprosol:kim650323!@dxpro.ealx5.mongodb.net/dxpro?retryWrites=true&w=majority')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
+  
 const announcementSchema = new mongoose.Schema({
   title: String,
   summary: String,
