@@ -123,7 +123,7 @@ export default {
     },
     async fetchAnnouncements() {
       try {
-        const response = await fetch('http://localhost:3000/announcements');
+        const response = await fetch('https://dxpro.netlify.app/announcements');
         const data = await response.json();
         this.announcements = data;
       } catch (error) {
@@ -140,7 +140,7 @@ export default {
         };
 
         try {
-          const response = await fetch('http://localhost:3000/announcements', {
+          const response = await fetch('https://dxpro.netlify.app/announcements', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
