@@ -78,6 +78,8 @@ export default {
     },
   },
   mounted() {
+    window.scrollTo(0, 0);
+
     if (!sessionStorage.getItem('authToken')) {
       this.$router.push('/login');
     } else {

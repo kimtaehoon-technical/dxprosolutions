@@ -41,11 +41,37 @@
     </div>
     <div class="links-section">
       <h2 class="section-title">教育コンテンツ</h2>
-      <div class="links">
-        <a href="https://drive.google.com/drive/folders/1TI5F-hQyM7cLS1hYvy368Pl8cdKS1dFu?usp=sharing" 
-          target="_blank" rel="noopener noreferrer" class="link">WEBアプリケーション</a>
-        <a href="https://webmail1022.onamae.ne.jp/" 
-          target="_blank" rel="noopener noreferrer" class="link">WINDOWSアプリケーション</a>
+      <div class="horizontal-buttons">
+        <router-link to="/Educationweb" @click="handleLinkClick">
+          <div class="button-container">
+            <img src="/images/yokoso.jpg" alt="WEBアプリケーション" class="button-image" />
+            <div class="button-text">WEBアプリ</div>
+          </div>
+        </router-link>
+        <router-link to="/Educationwin" @click="handleLinkClick">
+          <div class="button-container">
+            <img src="/images/yokoso.jpg" alt="WINDOWSアプリケーション" class="button-image" />
+            <div class="button-text">WINDOWSアプリ</div>
+          </div>
+        </router-link>
+        <router-link to="/Educationmobile" @click="handleLinkClick">
+          <div class="button-container">
+            <img src="/images/yokoso.jpg" alt="モバイルアプリケーション" class="button-image" />
+            <div class="button-text">モバイルアプリ</div>
+          </div>
+        </router-link>
+        <router-link to="/Educationdb" @click="handleLinkClick">
+          <div class="button-container">
+            <img src="/images/yokoso.jpg" alt="データベース" class="button-image" />
+            <div class="button-text">データベース</div>
+          </div>
+        </router-link>
+        <router-link to="/Educationserver" @click="handleLinkClick">
+          <div class="button-container">
+            <img src="/images/yokoso.jpg" alt="サーバー構築" class="button-image" />
+            <div class="button-text">サーバー構築</div>
+          </div>
+        </router-link>
       </div>
     </div>
     <div class="links-section">
@@ -192,6 +218,7 @@ export default {
     } else {
       this.$router.push('/login');
     }
+    window.scrollTo(0, 0);
   }
 };
 </script>
@@ -447,6 +474,79 @@ export default {
   background-color: #cc0000;
 }
 
+.horizontal-buttons {
+  display: flex;
+  gap: 20px; /* 버튼 사이의 간격 조정 */
+  flex-wrap: wrap; /* 화면 크기에 따라 자동 줄 바꿈 */
+  justify-content: center; /* 버튼들을 수평 중앙 정렬 */
+}
+
+.horizontal-buttons .link {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 20px;
+  padding: 15px 30px;
+  border: 3px solid #007bff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  line-height: 1.5;
+  width: 500px;
+  height: 40px;
+  position: relative;
+}
+
+.horizontal-buttons {
+  display: flex;
+  gap: 20px; /* 버튼 사이의 간격 조정 */
+  flex-wrap: wrap; /* 화면 크기에 따라 자동 줄 바꿈 */
+  justify-content: center; /* 버튼들을 수평 중앙 정렬 */
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 150px; /* 필요에 따라 조정 */
+  padding: 10px;
+  border: 3px solid #007bff;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.button-image {
+  width: 150px; /* 필요에 따라 조정 */
+  height: auto;
+  margin-bottom: 10px; /* 이미지와 텍스트 사이의 간격 */
+}
+
+.button-text {
+  font-size: 16px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.button-container:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.button-container:hover .button-text {
+  color: #ffffff;
+}
+
+.horizontal-buttons .link:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  text-decoration: none;
+  transform: scale(1.05);
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 15px;
@@ -464,6 +564,10 @@ export default {
     font-size: 20px;
   }
 
+  .horizontal-buttons {
+    width: 100%;
+  }
+  
   .link {
     font-size: 16px;
     padding: 8px;
@@ -472,6 +576,10 @@ export default {
   .user-info {
     margin-top: 20px;
     justify-content: flex-end;
+  }
+
+  .button-image {
+    display: none;
   }
 }
 </style>

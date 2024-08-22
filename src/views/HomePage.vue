@@ -70,6 +70,8 @@ export default {
   },
   mounted() {
     this.startSlideshow();
+    window.scrollTo(0, 0);
+
   },
   methods: {
     startSlideshow() {

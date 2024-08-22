@@ -15,6 +15,8 @@ export default {
     };
   },
   mounted() {
+    window.scrollTo(0, 0);
+
     // Hide the loading screen after a delay (you can adjust this delay as needed)
     setTimeout(() => {
       this.isVisible = false;

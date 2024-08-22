@@ -13,6 +13,11 @@ import RecruitContactPage from '../views/RecruitContactPage.vue'
 import IntranetPage from '../views/IntranetPage.vue'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import LoginPage from '../views/LoginPage.vue'
+import Educationweb from '../views/Educationweb.vue'
+import Educationwin from '../views/Educationwin.vue'
+import Educationmobile from '../views/Educationmobile.vue'
+import Educationdb from '../views/Educationdb.vue'
+import Educationserver from '../views/Educationserver.vue'
 
 const routes = [
   {
@@ -83,6 +88,31 @@ const routes = [
     path: '/Login',
     name: 'LoginPage',
     component: LoginPage
+  },
+  {
+    path: '/Educationweb',
+    name: 'Educationweb',
+    component: Educationweb
+  },
+  {
+    path: '/Educationwin',
+    name: 'Educationwin',
+    component: Educationwin
+  },
+  {
+    path: '/Educationmobile',
+    name: 'Education-mobile',
+    component: Educationmobile
+  },
+  {
+    path: '/Educationdb',
+    name: 'Educationdb',
+    component: Educationdb
+  },
+  {
+    path: '/Educationserver',
+    name: 'Educationserver',
+    component: Educationserver
   }
 ]
 
