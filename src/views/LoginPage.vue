@@ -48,6 +48,7 @@ export default {
         { username: 'info@dxpro-sol.com', password: 'dxpro-sol2024', name: 'admin' },
         { username: 'kim_taehoon@dxpro-sol.com', password: 'dxpro-sol2024', name: '金 兌訓' },
         { username: 'otomo_kento@dxpro-sol.com', password: 'dxpro-sol2024', name: '大友 健人' },
+        { username: 'choi_kyungjun@dxpro-sol.com', password: 'dxpro-sol2024', name: 'チェ ギョンジュン' },
       ];
 
       const user = validCredentials.find(cred => 
