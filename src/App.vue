@@ -275,10 +275,9 @@ footer {
   }
 
   .logo {
-    margin-right: 10px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    width: 200px;
+    margin-right: 30px;
+    margin-top: 8px;
+    width: 280px;
   }
 
   .menu-toggle {
