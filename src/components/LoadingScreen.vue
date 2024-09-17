@@ -24,7 +24,7 @@ export default {
       setTimeout(() => {
         this.$el.style.display = 'none'; // Completely hide element
       }, 1000); // Matches the fade-out animation duration
-    }, 3000); // 3 seconds delay for demo purposes
+    }, 1000); // 3 seconds delay for demo purposes
   }
 }
 </script>
@@ -71,5 +71,12 @@ export default {
 .logo {
   width: 500px; /* Initial size of the logo */
   height: auto;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    width: 300px; /* Initial size of the logo */
+    height: auto;
+  }
 }
 </style>

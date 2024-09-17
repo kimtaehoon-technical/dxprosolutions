@@ -291,7 +291,7 @@ export default {
   }
 
   .section-content h2 {
-    font-size: 20px;
+    font-size: 18px;
     margin: 0 0 10px;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.6);

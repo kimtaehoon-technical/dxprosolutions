@@ -147,7 +147,7 @@ header {
 .logo {
   padding-left: 10px;
   list-style-type: none;
-  width: 250px;
+  width: 280px;
   height: auto;
 }
 
@@ -199,8 +199,8 @@ nav ul li {
   white-space: nowrap;
   font-size: 16px;
   border-right: 1px solid #ddd; /* Vertical line between menu items */
-  margin-right: 20px;
-  padding-right: 20px;
+  margin-right: 10px;
+  padding-right: 10px;
 }
 
 nav ul li:last-child {
@@ -277,7 +277,8 @@ footer {
   .logo {
     margin-right: 10px;
     margin-top: 20px;
-    width: 180px;
+    margin-bottom: 10px;
+    width: 200px;
   }
 
   .menu-toggle {
