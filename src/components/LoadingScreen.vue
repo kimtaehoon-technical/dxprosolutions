@@ -1,7 +1,7 @@
 <template>
   <div class="loading-screen" :class="{ 'fade-out': !isVisible }">
     <div class="loading-content">
-      <img src="/images/DXPRO_LOGO_FRONT_1.png" alt="Logo" class="logo">
+      <img src="/images/logo_loading_new.png" alt="Logo" class="logo">
     </div>
   </div>
 </template>
@@ -69,7 +69,7 @@ export default {
 }
 
 .logo {
-  width: 300px; /* Initial size of the logo */
+  width: 500px; /* Initial size of the logo */
   height: auto;
 }
 </style>

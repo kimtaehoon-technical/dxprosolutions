@@ -84,15 +84,20 @@ h3 {
   max-width: 50%;
   height: auto;
 }
-
 .info-image2 {
   max-width: 50%;
   height: 50%;
 }
 
+
 @media (max-width: 768px) {
   .info-image {
     max-width: 200px; /* Width for tablets and small screens */
+  }
+
+  .info-image2 {
+    max-width: 50%;
+    height: 30px;
   }
 }
 

@@ -5,7 +5,7 @@
       <div class="info">
       <p style="margin: 0;">合同会社 DXPRO SOLUTIONS<br></p>
       <p style="margin: 0;">代表取締役社長 金 兌訓<br></p>
-      <p style="margin: 0;">令和6年6月</p>
+      <p style="margin: 0;">令和6年8月</p>
     </div>
   </div>
 

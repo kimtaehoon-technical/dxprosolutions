@@ -4,7 +4,7 @@
     <header>
       <router-link to="/">
         <img 
-          v-bind:src="isHoveringLogo ? '/images/DXPRO_LOGO_HOVER_FRONT2.png' : '/images/DXPRO_LOGO_FRONT.png'" 
+          v-bind:src="isHoveringLogo ? '/images/logo_new.png' : '/images/logo_new_hover.png'" 
           class="logo" 
           @mouseover="isHoveringLogo = true"
           @mouseleave="isHoveringLogo = false"
@@ -57,7 +57,7 @@
       <router-view/>
     </main>
     <footer>
-      <p>&copy; Copyright © 2024 DXPRO. All Rights Reserved</p>
+      <p>&copy; Copyright © 2024 DXPRO SOLUTIONS. All Rights Reserved</p>
     </footer>
   </div>
 </template>
@@ -147,7 +147,7 @@ header {
 .logo {
   padding-left: 10px;
   list-style-type: none;
-  width: 200px;
+  width: 250px;
   height: auto;
 }
 
@@ -275,7 +275,9 @@ footer {
   }
 
   .logo {
-    width: 150px;
+    margin-right: 10px;
+    margin-top: 20px;
+    width: 180px;
   }
 
   .menu-toggle {
@@ -366,7 +368,7 @@ footer {
   }
 
   footer {
-    font-size: 15px;
+    font-size: 10px;
   }
   .hidden {
     display: none;
