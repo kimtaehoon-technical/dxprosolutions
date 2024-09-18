@@ -48,7 +48,7 @@ export default {
 .loading-screen {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 30;
   width: 100%;
   height: 100%;
   background-color: #fff;
@@ -77,6 +77,7 @@ export default {
   .logo {
     width: 300px; /* Initial size of the logo */
     height: auto;
+    margin-left: 20px;
   }
 }
 </style>
