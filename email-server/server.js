@@ -30,7 +30,14 @@ const announcementSchema = new mongoose.Schema({
   dateTime: String
 });
 
+const userSchema = new mongoose.Schema({
+  title: String,
+  summary: String,
+  dateTime: String
+});
+
 const Announcement = mongoose.model('Announcement', announcementSchema);
+const Userinfo = mongoose.model('User', userSchema);
 
 app.get('/announcements', async (req, res) => {
   const announcements = await Announcement.find();
@@ -42,6 +49,35 @@ app.post('/announcements', async (req, res) => {
   await newAnnouncement.save();
   res.json(newAnnouncement);
 });
+
+app.get('/user', async (req, res) => {
+  const userinfo = await Userinfo.find();
+  res.json(userinfo);
+});
+
+// 로그인 API
+app.post('/user', async (req, res) => {
+  const { username, password } = req.body;
+
+  // 여기에 실제 사용자 인증 로직을 구현해야 합니다.
+  const validUsers = [
+    { username: 'info@dxpro-sol.com', password: 'dxpro-sol2024', name: 'admin' },
+    { username: 'otomo_kento@dxpro-sol.com', password: 'dxpro-sol2024', name: '大友 健人' },
+    { username: 'kim_taehoon@dxpro-sol.com', password: 'dxpro-sol2024', name: '金 兌訓' },
+    { username: 'choi_kyungjun@dxpro-sol.com', password: 'dxpro-sol2024', name: 'チェギョンジュン' },
+  ];
+
+  const user = validUsers.find(u => u.username === username && u.password === password);
+  
+  if (user) {
+    // 성공적으로 로그인한 경우
+    res.json({ name: user.name, token: 'yourAuthToken' }); // 여기에 실제 토큰 생성 로직을 넣을 수 있습니다.
+  } else {
+    // 로그인 실패
+    res.status(401).send('Invalid credentials');
+  }
+});
+
 
 app.delete('/announcements/:id', async (req, res) => {
   try {

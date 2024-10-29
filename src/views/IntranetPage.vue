@@ -6,6 +6,19 @@
       <p>{{ userName }} さん、お疲れ様です！</p>
       <button @click="logout" class="logout-button">ログアウト</button>
     </div>
+        <!-- 打刻機能 -->
+        <div v-if="isLoggedIn" class="clock-in-out-section">
+          <button @click="clockIn" class="clock-button clock-in-button">出勤</button>
+          <button @click="clockOut" class="clock-button clock-out-button">退勤</button>
+    </div>
+    <div class="clock-log">
+      <h2 class="section-title">打刻履歴</h2>
+      <ul>
+        <li v-for="(log, index) in clockLogs" :key="index">
+          {{ log }}
+        </li>
+      </ul>
+    </div>
     <div class="links-section">
       <h2 class="section-title">お知らせ</h2>
       <div v-if="announcements.length" class="announcements">
@@ -128,6 +141,8 @@ export default {
       isLoggedIn: false,
       userName: '',
       announcements: [],
+      users: [],
+      clockLogs: [],
       newAnnouncementTitle: '',
       newAnnouncementSummary: '',
       dialogVisible: false,
@@ -135,6 +150,19 @@ export default {
     };
   },
   methods: {
+    // 出勤打刻メソッド
+    clockIn() {
+      const now = new Date().toLocaleString();
+      this.clockLogs.push(`出勤: ${now}`);
+      alert('出勤打刻しました。');
+    },
+
+    // 退勤打刻メソッド
+    clockOut() {
+      const now = new Date().toLocaleString();
+      this.clockLogs.push(`退勤: ${now}`);
+      alert('退勤打刻しました。');
+    },
     logout() {
       sessionStorage.removeItem('authToken');
       sessionStorage.removeItem('username');
@@ -545,6 +573,53 @@ export default {
   color: #ffffff;
   text-decoration: none;
   transform: scale(1.05);
+}
+
+.clock-in-out-section {
+  margin: 20px 0;
+}
+
+.clock-in-button {
+  background-color: #90ee90; /* 연두색 */
+  color: white;
+  padding: 30px 50px;
+  border: none;
+  border-radius: 4px;
+  font-size: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.clock-log {
+  margin-top: 20px;
+}
+
+.clock-log h2 {
+  font-size: 24px;
+}
+
+.clock-log ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.clock-in-button:hover {
+  background-color: #76c76e; /* 연두색 호버 효과 */
+}
+
+.clock-out-button {
+  background-color: #ff4d4d; /* 빨간색 */
+  color: white;
+  padding: 30px 50px;
+  border: none;
+  border-radius: 4px;
+  font-size: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.clock-out-button:hover {
+  background-color: #cc0000; /* 빨간색 호버 효과 */
 }
 
 @media (max-width: 600px) {
