@@ -46,7 +46,7 @@ export default {
   methods: {
     async fetchUserinfo() {
         try {
-            const response = await fetch('http://localhost:3000/user');
+            const response = await fetch('https://dxpro.onrender.com/user');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -59,7 +59,7 @@ export default {
     },
     async login() {
       try {
-        const response = await fetch('http://localhost:3000/user', { // 또는 배포 URL
+        const response = await fetch('https://dxpro.onrender.com/user', { // 또는 배포 URL
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

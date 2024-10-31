@@ -146,7 +146,7 @@ export default {
       try {
         console.log('222'); // 요청 수신 로그
 
-        const response = await fetch('http://localhost:3000/clocklogs/clockin', {
+        const response = await fetch('https://dxpro.onrender.com/clocklogs/clockin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ export default {
     // 退勤打刻メソッド
     async clockOut() {
       try {
-        const response = await fetch('http://localhost:3000/clocklogs/clockout', {
+        const response = await fetch('https://dxpro.onrender.com/clocklogs/clockout', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -192,7 +192,7 @@ export default {
       try {
         console.log('222'); // 요청 수신 로그
 
-        const response = await fetch('http://localhost:3000/clocklogs/clockin', {
+        const response = await fetch('https://dxpro.onrender.com/clocklogs/breakin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -218,7 +218,7 @@ export default {
     // 退勤打刻メソッド
     async breakOut() {
       try {
-        const response = await fetch('http://localhost:3000/clocklogs/clockout', {
+        const response = await fetch('https://dxpro.onrender.com/clocklogs/breakout', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
