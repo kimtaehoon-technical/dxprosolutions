@@ -2,17 +2,25 @@
   <div class="container">
     <h1 class="title">イントラネット</h1>
     <p class="intro">★本ページは<b>社員専用</b>となります。</p>
+    <div class="current-time">
+      <h2> {{ currentTime }}</h2>
+    </div>
     <div v-if="isLoggedIn" class="user-info">
-      <p>{{ userName }} さん、お疲れ様です！</p>
+      <p>{{ displayedUserName }} さん、お疲れ様です！</p>
       <button @click="logout" class="logout-button">ログアウト</button>
     </div>
-        <!-- 打刻機能 -->
-        <div v-if="isLoggedIn" class="clock-in-out-section">
-          <button @click="clockIn" class="clock-button clock-in-button">出勤</button>
-          <button @click="clockOut" class="clock-button clock-out-button">退勤</button>
+    <!-- 打刻機能 -->
+    <div v-if="isLoggedIn" class="clock-in-out-section">
+      <button @click="clockIn" class="clock-button clock-in-button">出勤</button>
+      <button @click="clockOut" class="clock-button clock-out-button">退勤</button>
+      <button @click="breakIn" class="clock-button break-in-button">休憩開始</button>
+      <button @click="breakOut" class="clock-button break-out-button">休憩終了</button>
     </div>
+    ※注意：打刻入力を二重入力にならないように注意してください。<br>必ず操作マニュアルを参照していただき操作するようにしてください。<br>
+    <b>システムエラーが発生した場合には下記の管理者アドレスへお問い合わせしてください。</b><br>
+    <h2><b>管理者アドレス：info@dxpro-sol.com</b></h2>
     <div class="clock-log">
-      <h2 class="section-title">打刻履歴</h2>
+      <h2 class="section-title">打刻履歴（本日）</h2>
       <ul>
         <li v-for="(log, index) in clockLogs" :key="index">
           {{ log }}
@@ -54,37 +62,9 @@
     </div>
     <div class="links-section">
       <h2 class="section-title">教育コンテンツ</h2>
-      <div class="horizontal-buttons">
-        <router-link to="/Educationweb" @click="handleLinkClick">
-          <div class="button-container">
-            <img src="/images/yokoso.jpg" alt="WEBアプリケーション" class="button-image" />
-            <div class="button-text">WEBアプリ</div>
-          </div>
-        </router-link>
-        <router-link to="/Educationwin" @click="handleLinkClick">
-          <div class="button-container">
-            <img src="/images/yokoso.jpg" alt="WINDOWSアプリケーション" class="button-image" />
-            <div class="button-text">WINDOWSアプリ</div>
-          </div>
-        </router-link>
-        <router-link to="/Educationmobile" @click="handleLinkClick">
-          <div class="button-container">
-            <img src="/images/yokoso.jpg" alt="モバイルアプリケーション" class="button-image" />
-            <div class="button-text">モバイルアプリ</div>
-          </div>
-        </router-link>
-        <router-link to="/Educationdb" @click="handleLinkClick">
-          <div class="button-container">
-            <img src="/images/yokoso.jpg" alt="データベース" class="button-image" />
-            <div class="button-text">データベース</div>
-          </div>
-        </router-link>
-        <router-link to="/Educationserver" @click="handleLinkClick">
-          <div class="button-container">
-            <img src="/images/yokoso.jpg" alt="サーバー構築" class="button-image" />
-            <div class="button-text">サーバー構築</div>
-          </div>
-        </router-link>
+      <div class="links">
+            <a href="https://dxpro-edu.web.app/" 
+            target="_blank" rel="noopener noreferrer" class="link">社内教育コンテンツ</a>
       </div>
     </div>
     <div class="links-section">
@@ -114,12 +94,6 @@
           target="_blank" rel="noopener noreferrer" class="link">サクラエディタ</a>
         <a href="https://sourceforge.net/projects/winmerge/files/stable/2.16.42.1/WinMerge-2.16.42.1-Setup.exe/download?use_mirror=nchc"
           target="_blank" rel="noopener noreferrer" class="link">WINMERGE（差分チェック）</a>
-        <a href="https://accounts.secure.freee.co.jp/sessions/new?redirect_url=https%3A%2F%2Fsecure.freee.co.jp%2Fusers%2Fafter_login&service_name=accounting&sign_up_url=https%3A%2F%2Faccounts.secure.freee.co.jp%2Fsign_up%3Finitial_service%3Daccounting%26redirect_url%3Dhttps%253A%252F%252Fsecure.freee.co.jp%252Fsign_up%252Fcompany_setting%253Ffrom%253Dsign_up%2523%252F1%26service_name%3Daccounting%26verification_type%3Dcode&last_lp=___login&referral=" 
-          target="_blank" rel="noopener noreferrer" class="link">社内会計システム freee</a>
-        <a href="https://accounts.secure.freee.co.jp/sessions/new?redirect_url=https%3A%2F%2Fsecure.freee.co.jp%2Fusers%2Fafter_login&service_name=accounting&sign_up_url=https%3A%2F%2Faccounts.secure.freee.co.jp%2Fsign_up%3Finitial_service%3Daccounting%26redirect_url%3Dhttps%253A%252F%252Fsecure.freee.co.jp%252Fsign_up%252Fcompany_setting%253Ffrom%253Dsign_up%2523%252F1%26service_name%3Daccounting%26verification_type%3Dcode&last_lp=___login&referral=" 
-          target="_blank" rel="noopener noreferrer" class="link">勤怠管理システム freee</a>
-        <a href="https://accounts.secure.freee.co.jp/sessions/new?redirect_url=https%3A%2F%2Fsecure.freee.co.jp%2Fusers%2Fafter_login&service_name=accounting&sign_up_url=https%3A%2F%2Faccounts.secure.freee.co.jp%2Fsign_up%3Finitial_service%3Daccounting%26redirect_url%3Dhttps%253A%252F%252Fsecure.freee.co.jp%252Fsign_up%252Fcompany_setting%253Ffrom%253Dsign_up%2523%252F1%26service_name%3Daccounting%26verification_type%3Dcode&last_lp=___login&referral=" 
-          target="_blank" rel="noopener noreferrer" class="link">人事評価システム</a>
       </div>
     </div>
     <div v-if="dialogVisible" class="dialog-overlay">
@@ -146,22 +120,116 @@ export default {
       newAnnouncementTitle: '',
       newAnnouncementSummary: '',
       dialogVisible: false,
-      dialogAnnouncement: {}
+      dialogAnnouncement: {},
+      currentTime: new Date().toLocaleTimeString() // 현재 시각 초기화
     };
   },
+  computed: {
+    displayedUserName() {
+      const nameMap = {
+        'info@dxpro-sol.com': '管理者',
+        'kim_taehoon@dxpro-sol.com': '金　兌訓',
+        'otomo_kento@dxpro-sol.com': '大友　健人',
+        'choi_kyungjun@dxpro-sol.com': 'チェ　ギョンジュン'
+      };
+      return nameMap[this.userName] || this.userName; // Default to email if not found
+    }
+  },
   methods: {
-    // 出勤打刻メソッド
-    clockIn() {
-      const now = new Date().toLocaleString();
-      this.clockLogs.push(`出勤: ${now}`);
-      alert('出勤打刻しました。');
+    updateTime() {
+      this.currentTime = new Date().toLocaleTimeString(); // 현재 시각 업데이트
     },
+    // 出勤打刻メソッド
+    async clockIn() {
+      console.log('111'); // 요청 수신 로그
 
+      try {
+        console.log('222'); // 요청 수신 로그
+
+        const response = await fetch('http://localhost:3000/clocklogs/clockin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username: this.userName }), // Ensure this.userName is defined
+        });
+        console.log(response); // 요청 수신 로그
+
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log('444'); // 요청 수신 로그
+
+        const data = await response.json();
+        this.clockLogs.push(`出勤: ${new Date(data.clockin).toLocaleString()}`);
+        console.log('555'); // 요청 수신 로그
+
+      } catch (error) {
+        console.error('Clock-in error:', error);
+      }
+    },
     // 退勤打刻メソッド
-    clockOut() {
-      const now = new Date().toLocaleString();
-      this.clockLogs.push(`退勤: ${now}`);
-      alert('退勤打刻しました。');
+    async clockOut() {
+      try {
+        const response = await fetch('http://localhost:3000/clocklogs/clockout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username: this.userName }) // Use userName instead of username
+        });
+        const data = await response.json();
+        this.clockLogs.push(`退勤: ${new Date(data.clockout).toLocaleString()}`);
+      } catch (error) {
+        console.error('Clock-out error:', error);
+      }
+    },
+    // 休憩開始打刻メソッド
+      async breakIn() {
+      console.log('111'); // 요청 수신 로그
+
+      try {
+        console.log('222'); // 요청 수신 로그
+
+        const response = await fetch('http://localhost:3000/clocklogs/clockin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username: this.userName }), // Ensure this.userName is defined
+        });
+        console.log(response); // 요청 수신 로그
+
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        console.log('444'); // 요청 수신 로그
+
+        const data = await response.json();
+        this.clockLogs.push(`休憩開始: ${new Date(data.clockin).toLocaleString()}`);
+        console.log('555'); // 요청 수신 로그
+
+      } catch (error) {
+        console.error('Clock-in error:', error);
+      }
+    },
+    // 退勤打刻メソッド
+    async breakOut() {
+      try {
+        const response = await fetch('http://localhost:3000/clocklogs/clockout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username: this.userName }) // Use userName instead of username
+        });
+        const data = await response.json();
+        this.clockLogs.push(`休憩終了: ${new Date(data.clockout).toLocaleString()}`);
+      } catch (error) {
+        console.error('Clock-out error:', error);
+      }
     },
     logout() {
       sessionStorage.removeItem('authToken');
@@ -237,16 +305,21 @@ export default {
     }
   },
   mounted() {
+    this.interval = setInterval(this.updateTime, 1000); // 1초마다 현재 시각 업데이트
     const authToken = sessionStorage.getItem('authToken');
-    const name = sessionStorage.getItem('name');
+    const name = sessionStorage.getItem('username');
     if (authToken) {
       this.isLoggedIn = true;
       this.userName = name || 'ゲスト';
       this.fetchAnnouncements();
+      sessionStorage.setItem('name', this.displayedUserName);
     } else {
       this.$router.push('/login');
     }
     window.scrollTo(0, 0);
+  },
+  beforeUnmount() {
+    clearInterval(this.interval); // 컴포넌트가 파괴될 때 타이머 정리
   }
 };
 </script>
@@ -574,6 +647,34 @@ export default {
   text-decoration: none;
   transform: scale(1.05);
 }
+.break-in-button:hover {
+  background-color: #d3c416; /* 연두색 호버 효과 */
+}
+
+.break-out-button {
+  background-color: #ff7ff2; /* 빨간색 */
+  color: white;
+  padding: 30px 50px;
+  border: none;
+  border-radius: 4px;
+  font-size: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.break-out-button:hover {
+  background-color: #fa20e0; /* 빨간색 호버 효과 */
+}
+.break-in-button {
+  background-color: #ebc907; /* 연두색 */
+  color: white;
+  padding: 30px 50px;
+  border: none;
+  border-radius: 4px;
+  font-size: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+}
 
 .clock-in-out-section {
   margin: 20px 0;
@@ -621,7 +722,10 @@ export default {
 .clock-out-button:hover {
   background-color: #cc0000; /* 빨간색 호버 효과 */
 }
-
+.current-time {
+  font-size: 4em;
+  margin-right: 20px
+}
 @media (max-width: 600px) {
   .container {
     padding: 15px;
@@ -655,6 +759,42 @@ export default {
 
   .button-image {
     display: none;
+  }
+  .current-time {
+    font-size: 2em;
+  }
+  .logout-button{
+    width: 110px;
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .clock-in-button{
+    width: 250px;
+    height: 80px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .clock-out-button{
+    width: 250px;
+    height: 80px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .break-in-button{
+    width: 250px;
+    height: 80px;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .break-out-button{
+    width: 250px;
+    height: 80px;
+    font-size: 20px;
+    margin-bottom: 10px;
   }
 }
 </style>

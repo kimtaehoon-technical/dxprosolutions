@@ -41,46 +41,21 @@ export default {
       isLoggedIn: false,
       name: '',
       userData: [], // 사용자 데이터를 저장할 배열 추가
-
     };
   },
   methods: {
-    // login() {
-    //   const validCredentials = [
-    //     { username: 'info@dxpro-sol.com', password: 'dxpro-sol2024', name: 'admin' },
-    //     { username: 'kim_taehoon@dxpro-sol.com', password: 'dxpro-sol2024', name: '金 兌訓' },
-    //     { username: 'otomo_kento@dxpro-sol.com', password: 'dxpro-sol2024', name: '大友 健人' },
-    //     { username: 'choi_kyungjun@dxpro-sol.com', password: 'dxpro-sol2024', name: 'チェ ギョンジュン' },
-    //   ];
-
-    //   const user = validCredentials.find(cred => 
-    //     cred.username === this.username && cred.password === this.password
-    //   );
-
-    //   if (user) {
-    //     sessionStorage.setItem('authToken', 'yourAuthToken');
-    //     sessionStorage.setItem('username', this.username);
-    //     sessionStorage.setItem('name', user.name);
-    //     this.isLoggedIn = true;
-        
-    //     setTimeout(() => {
-    //       this.logout();
-    //     }, 30 * 60 * 1000);
-
-    //     this.$router.push(this.$route.query.redirect || '/');
-    //   } else {
-    //     this.errorMessage = 'ログインに失敗しました。ユーザー名とパスワードを確認してください。';
-    //   }
-    // },
     async fetchUserinfo() {
-      try {
-        const response = await fetch('http://localhost:3000/user'); // 사용자 데이터를 가져오는 API
-        const data = await response.json();
-        this.userData = data; // 사용자 데이터를 this.userData에 저장
-        console.log(data)
-      } catch (error) {
-        console.error('Error fetching userinfo:', error);
-      }
+        try {
+            const response = await fetch('http://localhost:3000/user');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            console.log(data)
+            // Handle user info
+        } catch (error) {
+            console.error('Error fetching userinfo:', error);
+        }
     },
     async login() {
       try {
@@ -91,10 +66,11 @@ export default {
           },
           body: JSON.stringify({
             username: this.username,
-            password: this.password
+            password: this.password,
+            name: this.name
           })
         });
-        console.log(response)
+        console.log(response);
 
         if (!response.ok) {
           throw new Error('ログインに失敗しました。ユーザー名またはパスワードが正しくありません。');
@@ -104,11 +80,12 @@ export default {
         setTimeout(() => {
           this.logout();
         }, 30 * 60 * 1000);
+        await this.fetchUserinfo();
 
-        this.$router.push(this.$route.query.redirect || '/');
-        this.userName = data.name; // Assuming the response has a 'name' field
+        this.name = data.name; // Assuming the response has a 'name' field
         sessionStorage.setItem('authToken', data.token); // Assuming token is returned
-        sessionStorage.setItem('name', this.userName);
+        sessionStorage.setItem('username', this.username);
+        this.$router.push(this.$route.query.redirect || '/Intranet');
       } catch (error) {
         this.errorMessage = error.message;
       }
@@ -128,6 +105,7 @@ export default {
       this.$router.push('/login');
     } else {
       this.isLoggedIn = true;
+      this.name = sessionStorage.getItem('name'); // 세션에서 이름 가져오기
     }
   }
 };
