@@ -11,6 +11,7 @@ import RecruitmentinformationPage from '../views/RecruitmentinformationPage.vue'
 import SubRecruitmentinformationPage from '../views/SubRecruitmentinformationPage.vue'
 import RecruitContactPage from '../views/RecruitContactPage.vue'
 import IntranetPage from '../views/IntranetPage.vue'
+import ProfilePage from '../views/ProfilePage.vue'
 import LoadingScreen from '../components/LoadingScreen.vue'
 import LoginPage from '../views/LoginPage.vue'
 import Educationweb from '../views/Educationweb.vue'
@@ -77,7 +78,11 @@ const routes = [
     name: 'IntranetPage',
     component: IntranetPage,
     meta: { requiresAuth: true }
-
+  },
+  {
+    path: '/Profile',
+    name: 'ProfilePage',
+    component: ProfilePage
   },
   {
     path: '/Loading',
