@@ -197,10 +197,14 @@ nav ul {
 nav ul li {
   position: relative;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
   border-right: 1px solid #ddd; /* Vertical line between menu items */
+  color: #333;
   margin-right: 10px;
   padding-right: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 nav ul li:last-child {
@@ -247,6 +251,11 @@ footer {
   text-decoration: none;
   color: #555;
   margin: 0 5px;
+}
+
+.nav-link:hover {
+  color: #999999;
+  background-color: #fff;
 }
 
 .nav-link2 {

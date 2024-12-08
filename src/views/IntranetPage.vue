@@ -11,8 +11,7 @@
       <!-- 메뉴 토글 -->
       <div v-if="isProfileMenuVisible" class="profile-buttons">
         <button class="profile-button"><router-link to="/Profile">プロフィール</router-link></button>
-
-
+        <button class="WorkReport-button"><router-link to="/WorkReport">作業報告</router-link></button>
         <button @click="logout" class="logout-button">ログアウト</button>
       </div>
     </div>
@@ -28,8 +27,6 @@
       <div v-if="isLoggedIn" class="clock-in-out-section">
         <button @click="clockIn" class="clock-button clock-in-button">出勤</button>
         <button @click="clockOut" class="clock-button clock-out-button">退勤</button>
-        <button @click="breakIn" class="clock-button break-in-button">休憩開始</button>
-        <button @click="breakOut" class="clock-button break-out-button">休憩終了</button>
       </div>
       ※注意：打刻入力を二重入力にならないように注意してください。<br>必ず操作マニュアルを参照していただき操作するようにしてください。<br>
       <b>システムエラーが発生した場合には下記の管理者アドレスへお問い合わせしてください。</b><br>
@@ -390,7 +387,10 @@
     position: relative;
     display: inline-block;
   }
-
+  .WorkReport-menu {
+    position: relative;
+    display: inline-block;
+  }
   .profile-toggle-button {
     position: absolute;
     right: 0;
@@ -415,6 +415,7 @@
   }
 
   .profile-button,
+  .WorkReport-button,
   .logout-button {
     display: block;
     width: 100%;
@@ -426,6 +427,7 @@
   }
 
   .profile-button:hover,
+  .WorkReport-button:hover,
   .logout-button:hover {
     background-color: #f0f0f0;
   }

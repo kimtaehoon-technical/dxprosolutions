@@ -2,17 +2,13 @@
   <div class="profile-page">
     <h1 class="page-title">プロフィール</h1>
 
-    <!-- 개인 정보 섹션 -->
+    <!-- 個人情報 섹션 -->
     <section class="profile-section personal-info">
       <h2 class="section-title">個人情報</h2>
       <div class="info-item" v-for="(value, key) in personalInfo" :key="key">
         <label>{{ getLabel(key) }}:</label>
-        <div v-if="!editPersonal">{{ value }}</div>
-        <input v-else v-model="personalInfo[key]" />
+        <div>{{ value }}</div>
       </div>
-      <button @click="toggleEdit('personal')" class="action-btn">
-        {{ editPersonal ? '保存' : '編集' }}
-      </button>
     </section>
 
     <!-- 연락처 정보 섹션 -->
@@ -20,12 +16,8 @@
       <h2 class="section-title">連絡先情報</h2>
       <div class="info-item" v-for="(value, key) in contactInfo" :key="key">
         <label>{{ getLabel(key) }}:</label>
-        <div v-if="!editContact">{{ value }}</div>
-        <input v-else v-model="contactInfo[key]" />
+        <div>{{ value }}</div>
       </div>
-      <button @click="toggleEdit('contact')" class="action-btn">
-        {{ editContact ? '保存' : '編集' }}
-      </button>
     </section>
 
     <!-- 급여 정보 섹션 -->
@@ -33,12 +25,8 @@
       <h2 class="section-title">給与情報</h2>
       <div class="info-item" v-for="(value, key) in salaryInfo" :key="key">
         <label>{{ getLabel(key) }}:</label>
-        <div v-if="!editSalary">{{ value }}</div>
-        <input v-else v-model="salaryInfo[key]" />
+        <div>{{ value }}</div>
       </div>
-      <button @click="toggleEdit('salary')" class="action-btn">
-        {{ editSalary ? '保存' : '編集' }}
-      </button>
     </section>
 
     <!-- 사회보험 및 연금 정보 섹션 -->
@@ -46,12 +34,8 @@
       <h2 class="section-title">社会保険・年金情報</h2>
       <div class="info-item" v-for="(value, key) in insuranceInfo" :key="key">
         <label>{{ getLabel(key) }}:</label>
-        <div v-if="!editInsurance">{{ value }}</div>
-        <input v-else v-model="insuranceInfo[key]" />
+        <div>{{ value }}</div>
       </div>
-      <button @click="toggleEdit('insurance')" class="action-btn">
-        {{ editInsurance ? '保存' : '編集' }}
-      </button>
     </section>
 
     <!-- 기타 정보 섹션 -->
@@ -73,11 +57,7 @@
 export default {
   data() {
     return {
-      editPersonal: false,
-      editContact: false,
-      editSalary: false,
-      editInsurance: false,
-      editOther: false,
+      editOther: false, // Only editable section
       personalInfo: {
         name: '山田 太郎',
         dob: '1990-01-01',
@@ -113,7 +93,10 @@ export default {
   },
   methods: {
     toggleEdit(section) {
-      this[`edit${section.charAt(0).toUpperCase() + section.slice(1)}`] = !this[`edit${section.charAt(0).toUpperCase() + section.slice(1)}`];
+      // Only allow editing of the otherInfo section
+      if (section === 'other') {
+        this.editOther = !this.editOther;
+      }
     },
     getLabel(key) {
       const labels = {
