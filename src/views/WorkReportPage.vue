@@ -23,6 +23,7 @@
             v-for="(report, index) in workReports"
             :key="index"
             @click="showDetails(report)"
+            :class="{'holiday-row': isHoliday(report)}"
             class="report-row"
           >
             <td>
@@ -59,12 +60,15 @@
             <th>業務終了時間</th>
             <th>休憩時間</th>
             <th>実務時間</th>
+            <th>備考</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(day, index) in selectedReport.dailyData" :key="index">
-            <td>{{ day.date }}</td>
+          <tr v-for="(day, index) in selectedReport.dailyData" :key="index" :class="{'holiday-row': isHoliday(day)}"> <!-- 휴일 스타일 적용 -->
+            <td>
+              {{ day.date }} ({{ day.weekday }})
+            </td>
             <td>
               <select v-model="day.status">
                 <option value="出勤">出勤</option>
@@ -88,15 +92,18 @@
               <input type="text" v-model="day.workTime" />
             </td>
             <td>
+              <input type="text" v-model="day.biko" />
+            </td>
+            <td>
               <button @click="saveDay(index)">保存</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button @click="closeDetails">閉じる</button>
-      
+      <button class="cancelButton" @click="closeDetails">閉じる</button>
+      &nbsp;
       <!-- 확정 버튼 추가 -->
-      <button @click="confirmAction">確定</button>
+      <button class="confirmButton" @click="confirmAction">確定</button>
     </div>
   </div>
 </template>
@@ -118,27 +125,49 @@ export default {
   methods: {
     // 선택한 월의 일 수에 따라 데이터를 생성
     generateMonthlyReport(month) {
-      const [year, monthIndex] = month.split("/").map(Number);
-      const daysInMonth = new Date(year, monthIndex, 0).getDate();
-      const dailyData = Array.from({ length: daysInMonth }, (_, i) => ({
-        date: `${month}/${String(i + 1).padStart(2, "0")}`,
-        status: "出勤",
-        startTime: "09:00",
-        endTime: "18:00",
-        breakTime: "01:00",
-        workTime: "08:00",
-      }));
+    const [year, monthIndex] = month.split("/").map(Number);
+    const daysInMonth = new Date(year, monthIndex, 0).getDate();
+    const dailyData = Array.from({ length: daysInMonth }, (_, i) => {
+      const date = new Date(year, monthIndex - 1, i + 1);
+      const weekday = this.getWeekdayName(date.getDay()); // 요일 이름 구하기
+      const isWeekend = date.getDay() === 0 || date.getDay() === 6; // 토요일 또는 일요일 확인
 
       return {
-        month,
-        weekdays: 0,
-        holidays: 0,
-        breakTime: "00:00",
-        workTime: "00:00",
-        status: "未報告",
-        dailyData,
+        date: `${month}/${String(i + 1).padStart(2, "0")}`,
+        weekday, // 요일 추가
+        status: isWeekend ? "" : "出勤", // 주말에는 기본값 없이 빈 값
+        startTime: isWeekend ? "" : "09:00", // 주말에는 기본값 없이 빈 값
+        endTime: isWeekend ? "" : "18:00", // 주말에는 기본값 없이 빈 값
+        breakTime: isWeekend ? "" : "01:00", // 주말에는 기본값 없이 빈 값
+        workTime: isWeekend ? "" : "08:00", // 주말에는 기본값 없이 빈 값
       };
+    });
+
+    return {
+      month,
+      weekdays: 0,
+      holidays: 0,
+      breakTime: "00:00",
+      workTime: "00:00",
+      status: "未報告",
+      dailyData,
+    };
+  },
+
+    // 요일 이름을 반환하는 메서드
+    getWeekdayName(day) {
+      const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+      return weekdays[day];
     },
+
+    // 주말 및 공휴일 확인
+    isHoliday(day) {
+      const dayOfWeek = new Date(day.date).getDay();
+      // 주말 (일요일 또는 토요일)이나 공휴일 상태인 경우 휴일로 처리
+      const holidayStatuses = ["夏季休暇", "年末年始休暇"]; // 공휴일 목록 (예시)
+      return dayOfWeek === 0 || dayOfWeek === 6 || holidayStatuses.includes(day.status);
+    },
+
     // 보고서 상세 정보 표시
     showDetails(report) {
       this.selectedReport = { ...report };
@@ -158,23 +187,62 @@ export default {
     closeDetails() {
       this.selectedReport = null;
     },
-    // 확정 버튼 클릭 시 알림 띄우기
+    // 시간(분)을 HH:mm 형식으로 변환
+    minutesToTime(minutes) {
+      const hours = Math.floor(minutes / 60);
+      const mins = minutes % 60;
+      return `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+    },
+    // 시간(HH:mm)을 분으로 변환
+    timeToMinutes(time) {
+      const [hours, minutes] = time.split(":").map(Number);
+      return hours * 60 + minutes;
+    },
     confirmAction() {
       const confirmed = confirm("確定ボタンを押すと取り消しできません。確定しますか？");
       if (confirmed) {
-        // 선택한 보고서의 상태를 "確定完了" 및 "承認待ち"로 업데이트
-        this.selectedReport.status = "確定完了";  // 상태 변경
-        alert("確定が完了しました。");
+        const dailyData = this.selectedReport.dailyData;
 
-        // 상태 변경 후 테이블에서 해당 상태를 갱신
+        let weekdays = 0;
+        let holidays = 0;
+        let totalBreakTime = 0;
+        let totalWorkTime = 0;
+
+        dailyData.forEach((day) => {
+          const dayOfWeek = new Date(day.date).getDay();
+          if (day.status === "出勤") {
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+              holidays++;
+            } else {
+              weekdays++;
+            }
+          }
+
+          totalBreakTime += this.timeToMinutes(day.breakTime);
+          totalWorkTime += this.timeToMinutes(day.workTime);
+        });
+
+        this.selectedReport.weekdays = weekdays;
+        this.selectedReport.holidays = holidays;
+        this.selectedReport.breakTime = this.minutesToTime(totalBreakTime);
+        this.selectedReport.workTime = this.minutesToTime(totalWorkTime);
+
+        this.selectedReport.status = "確定完了";
+        alert(
+          `確定が完了しました。\n平日: ${weekdays} 日\n休日: ${holidays} 日\n休憩時間: ${this.selectedReport.breakTime}\n実務時間: ${this.selectedReport.workTime}`
+        );
+
         const reportIndex = this.workReports.findIndex(
           (report) => report.month === this.selectedReport.month
         );
         if (reportIndex !== -1) {
-          this.workReports[reportIndex].status = "承認待ち"; // 승인대기 상태로 변경
+          this.workReports[reportIndex] = {
+            ...this.selectedReport,
+            status: "承認待ち",
+          };
         }
 
-        this.closeDetails(); // 상세 정보 닫기
+        this.closeDetails();
       }
     },
   },
@@ -184,6 +252,10 @@ export default {
 <style scoped>
 .work-report-page {
   padding: 20px;
+}
+
+.holiday-row {
+  background-color: #f8d7da; /* 붉은 배경색 */
 }
 
 table {
@@ -232,6 +304,28 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+.confirmButton,
+.cancelButton
+{
+ width: 80px;  
+}
+
+input[type="text"] {
+  width: 80%; /* 너비를 80%로 설정 */
+  padding: 5px; /* 패딩을 줄임 */
+  font-size: 14px; /* 글씨 크기를 줄임 */
+  box-sizing: border-box; /* 패딩과 테두리가 포함된 크기를 유지 */
+}
+
+td:nth-child(7) input[type="text"] {
+  width: 100%; /* 備考欄の入力フィールドをテーブルセルいっぱいに広げる */
+}
+
+th:nth-child(7),
+td:nth-child(7) {
+  width: 20%; /* 備考欄の列幅を20%に設定 */
 }
 
 /* 모바일 화면에서 테이블을 스크롤 없이 한 화면에 맞추기 */

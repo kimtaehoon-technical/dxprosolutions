@@ -28,31 +28,28 @@
         <button @click="clockIn" class="clock-button clock-in-button">出勤</button>
         <button @click="clockOut" class="clock-button clock-out-button">退勤</button>
       </div>
-      ※注意：打刻入力を二重入力にならないように注意してください。<br>必ず操作マニュアルを参照していただき操作するようにしてください。<br>
-      <b>システムエラーが発生した場合には下記の管理者アドレスへお問い合わせしてください。</b><br>
-      <h2><b>管理者アドレス：info@dxpro-sol.com</b></h2>
-      <div class="clock-log">
-        <h2 class="section-title">打刻履歴（本日）</h2>
-        <ul>
-          <li v-for="(log, index) in clockLogs" :key="index">
-            {{ log }}
-          </li>
-        </ul>
-      </div>
+      <b>システムエラーが発生した場合は下記の管理者アドレスへお問い合わせしてください。</b>
+      <h2><b>管理者アドレス：info@dxpro-sol.com</b></h2><br>
+
       <div class="links-section">
         <h2 class="section-title">お知らせ</h2>
         <div v-if="announcements.length" class="announcements">
-          <ul>
-            <li v-for="(announcement, index) in announcements" :key="index" class="announcement-item">
-              <div class="announcement-header">
+          <div v-for="(announcement, index) in announcements" :key="index" class="announcement-card">
+            <div class="announcement-header">
+              <span class="announcement-icon">
+                <i class="fas fa-bell"></i> <!-- 알림 아이콘 -->
+              </span>
+              <div>
                 <h3>{{ announcement.title }}</h3>
                 <span class="date-time">{{ announcement.dateTime }}</span>
               </div>
-              <p class="announcement-summary">{{ truncateText(announcement.summary, 30) }}</p>
+            </div>
+            <p class="announcement-summary">{{ truncateText(announcement.summary, 30) }}</p>
+            <div class="announcement-actions">
               <button @click="openDialog(announcement)" class="view-details-button">詳細を見る</button>
-              <button v-if="isLoggedIn && userName === 'admin'" @click="deleteAnnouncement(announcement._id)" class="delete-button">削除</button>
-            </li>
-          </ul>
+              <button v-if="isLoggedIn && userName === 'info@dxpro-sol.com'" @click="deleteAnnouncement(announcement._id)" class="delete-button">削除</button>
+            </div>
+          </div>
         </div>
         <div v-else>
           <p>お知らせはありません。</p>
@@ -60,7 +57,7 @@
         <div v-if="isLoggedIn && userName === 'info@dxpro-sol.com'" class="announcement-form">
           <input v-model="newAnnouncementTitle" type="text" placeholder="タイトル" />
           <textarea v-model="newAnnouncementSummary" placeholder="内容"></textarea>
-          <button @click="addAnnouncement">追加</button>
+          <button @click="addAnnouncement" class="add-button">追加</button>
         </div>
       </div>
       <div class="links-section">
@@ -448,20 +445,20 @@
   }
 
   .links-section {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    background-color: #fafafa;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
   }
 
   .section-title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 5px;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 8px;
   }
 
   .links {
@@ -489,39 +486,66 @@
   }
 
   .announcements {
-    list-style: none;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .announcement-item {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    list-style: none;
-    margin-bottom: 15px;
+  .announcement-card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .announcement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   }
 
   .announcement-header {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .announcement-icon {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-right: 12px;
+  }
+
+  .announcement-header div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .announcement-header h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+    font-weight: 600;
   }
 
   .date-time {
-    font-size: 14px;
-    color: #777;
+    font-size: 0.9rem;
+    color: #888;
   }
 
   .announcement-summary {
-    margin: 5px 0 40px 0; /* 요약과 버튼 사이의 간격 추가 */
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    max-width: 100%;
-    white-space: nowrap;
+    color: #555;
+    font-size: 1rem;
+    margin: 15px 0;
   }
 
+  .announcement-actions {
+    display: flex;
+    justify-content: center; /* 버튼을 가로로 중앙 정렬 */
+    gap: 10px;
+    margin-top: 15px; /* 버튼과 카드 내용 사이에 간격 추가 */
+  }
+  
   .announcement-summary::after {
     content: '・・・';
     display: inline;
@@ -559,36 +583,48 @@
     background-color: #0056b3;
   }
 
-  .view-details-button {
+  .view-details-button,
+  .delete-button {
+    padding: 10px 20px;
     background-color: #007bff;
-    color: #ffffff;
+    color: #fff;
     border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
-  .view-details-button:hover {
+  .view-details-button:hover,
+  .delete-button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
   }
-
   .announcement-form {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
 
   .announcement-form input,
   .announcement-form textarea {
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
   }
 
   .announcement-form button {
-    padding: 8px 16px;
+    padding: 12px 25px;
     background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
   .dialog-overlay {
@@ -597,18 +633,48 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6); /* 어두운 배경으로 다이얼로그 강조 */
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 9999; /* 다이얼로그를 다른 콘텐츠 위에 표시 */
   }
 
   .dialog-content {
-    background: #ffffff;
-    padding: 20px;
+    background-color: #ffffff;
+    padding: 25px;
     border-radius: 8px;
-    width: 80%;
+    width: 90%;
     max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 부드러운 그림자 */
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .dialog-title {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .dialog-summary {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .dialog-date-time {
+    font-size: 0.9rem;
+    color: #888;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: center; /* 버튼을 가로로 중앙 정렬 */
   }
 
   .close-button {
@@ -786,7 +852,7 @@
     background-color: #cc0000; /* 빨간색 호버 효과 */
   }
   .current-time {
-    font-size: 4em;
+    font-size: 3em;
     margin-right: 20px
   }
   @media (max-width: 600px) {
@@ -875,6 +941,17 @@
       width: 100%; /* 각 버튼의 너비를 45%로 설정하여 화면 크기에 맞게 배치 */
       margin-right: 5%;
       margin-top: 5%;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
   </style>
