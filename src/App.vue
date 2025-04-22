@@ -56,9 +56,6 @@
     <main>
       <router-view/>
     </main>
-    <footer>
-      <p>&copy; Copyright © 2024 DXPRO SOLUTIONS. All Rights Reserved</p>
-    </footer>
   </div>
 </template>
 

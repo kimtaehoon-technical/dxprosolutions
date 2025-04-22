@@ -51,10 +51,38 @@ const clockLogsSchema = new mongoose.Schema({
   breakout: Date
 });
 
+const WorkReportSchema = new mongoose.Schema({
+  username: String,
+  workHours: String,
+  date: Date
+})
+
 const Announcement = mongoose.model('Announcement', announcementSchema);
 const User = mongoose.model('User', userSchema);
 const clocklog = mongoose.model('clocklogs', clockLogsSchema);
+const WorkReport = mongoose.model('workReports', WorkReportSchema);
 
+
+app.get('/workReports', async (req, res) => {
+  console.log(req);
+  const { username } = req.query;
+  if (!username) {
+    return res.status(400).json({ error: 'username is required' });
+  }
+  try {
+    const workReports = await WorkReport.find({ username });
+    res.json(workReports);
+  } catch (error) {
+    console.error('Error fetching work reports:', error);
+    res.status(500).json({ error: 'Failed to fetch work reports' });
+  }
+});
+
+app.post('/workReports', async (req, res) => {
+  const newWorkReports = new WorkReport(req.body);
+  await newWorkReports.save();
+  res.json(newWorkReports);
+});
 
 app.get('/announcements', async (req, res) => {
   const announcements = await Announcement.find();
@@ -66,6 +94,10 @@ app.post('/announcements', async (req, res) => {
   await newAnnouncement.save();
   res.json(newAnnouncement);
 });
+
+
+
+
 
 // 출근 시간 저장
 app.post('/clocklogs/clockin', async (req, res) => {
