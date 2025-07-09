@@ -1,12 +1,18 @@
 <template>
-  <div class="home">
+  <div class="homepage">
+    <!-- Original Slider Section -->
     <div class="slider">
       <div class="arrow left-arrow" @click="prevSlide">
         <span>«</span>
       </div>
       <transition-group name="slide" tag="div">
-        <div v-for="(slide, index) in slides" :key="index" class="slide" :style="{ transform: 'translateX(' + (index - currentIndex) * 100 + '%)' }">
-          <img :src="slide.image" alt="Slide" class="slide-image">
+        <div
+          v-for="(slide, index) in slides"
+          :key="index"
+          class="slide"
+          :style="{ transform: 'translateX(' + (index - currentIndex) * 100 + '%' }"
+        >
+          <img :src="slide.image" alt="Slide" class="slide-image" />
           <div class="slide-text" v-html="slide.text"></div>
         </div>
       </transition-group>
@@ -15,42 +21,17 @@
       </div>
     </div>
 
-    <div class="section">
-      <img src="/images/yokoso.jpg" alt="Company Introduction" class="section-image round-image">
-      <div class="section-content">
-        <h2>ようこそ、DXPRO SOLUTIONSへ</h2>
-        <p>DXPRO SOLUTIONSは、<br>お客様のビジネスの成長と成功を支援します。</p>
-        <router-link to="/services/greeting" class="section-button">会社案内</router-link>
+    <!-- Cards Section -->
+    <section class="cards">
+      <div v-for="(section, idx) in sections" :key="idx" class="card">
+        <img :src="section.image" :alt="section.title" class="card-image" />
+        <div class="card-body">
+          <h2>{{ section.title }}</h2>
+          <p v-html="section.text"></p>
+          <router-link :to="section.link" class="card-button">{{ section.button }}</router-link>
+        </div>
       </div>
-    </div>
-
-    <div class="section">
-      <img src="/images/saiyo.webp" alt="Company Introduction" class="section-image round-image">
-      <div class="section-content">
-        <h2>DXPRO SOLUTIONSと一緒に成長しませんか？</h2>
-        <p>技術力を高め共に成長しませんか？<br>
-        一緒に社会にの発展に貢献する貴方を求めています。 </p>
-        <router-link to="/Recruitment" class="section-button">採用情報</router-link>
-      </div>
-    </div>
-    
-    <div class="section">
-      <img src="/images/jigyo.jpg" alt="Service Introduction" class="section-image round-image">
-      <div class="section-content">
-        <h2>DXPRO SOLUTIONSの仕事</h2>
-        <p>お客様の多様なニーズに応えるため、<br>幅広いサービスを提供しています。</p>
-        <router-link to="/about" class="section-button">事業紹介</router-link>
-      </div>
-    </div>
-
-    <div class="section">
-      <img src="/images/otoiawase2.jpg" alt="Contact Us" class="section-image round-image">
-      <div class="section-content">
-        <h2>お問い合わせください</h2>
-        <p>何かご質問やご要望がございましたら、お気軽にお問い合わせください。</p>
-        <router-link to="/contact" class="section-button">お問い合わせ</router-link>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -59,19 +40,48 @@ export default {
   name: 'HomePage',
   data() {
     return {
+      currentIndex: 0,
+      intervalId: null,
       slides: [
         { image: '/images/mainimg.jpg', text: 'DXを通じて次世代のビジネスや生活の発展を目指していきます' },
         { image: '/images/mainimg2.jpg', text: 'お客様の様々なニーズに徹底した管理と高度な技術力でお応えします' },
         { image: '/images/mainimg7.png', text: 'DXPRO SOLUTIONSは<br>IT分野の創造と革新をリードする' },
       ],
-      currentIndex: 0,
-      intervalId: null
+      sections: [
+        {
+          title: 'ようこそ、DXPRO SOLUTIONSへ',
+          text: 'DXPRO SOLUTIONSは、<br>お客様のビジネスの成長と成功を支援します。',
+          image: '/images/yokoso.jpg',
+          link: '/services/greeting',
+          button: '会社案内'
+        },
+        {
+          title: 'DXPRO SOLUTIONSの採用情報',
+          text: '技術力を高め共に成長しませんか？<br>一緒に社会にの発展に貢献する貴方を求めています。',
+          image: '/images/saiyo.webp',
+          link: '/Recruitment',
+          button: '採用情報'
+        },
+        {
+          title: 'DXPRO SOLUTIONSの仕事',
+          text: 'お客様の多様なニーズに応えるため、<br>幅広いサービスを提供しています。',
+          image: '/images/jigyo.jpg',
+          link: '/about',
+          button: '事業紹介'
+        },
+        {
+          title: 'お問い合わせください',
+          text: '何かご質問やご要望がございましたら、お気軽にお問い合わせください。',
+          image: '/images/otoiawase2.jpg',
+          link: '/contact',
+          button: 'お問い合わせ'
+        },
+      ]
     };
   },
   mounted() {
     this.startSlideshow();
     window.scrollTo(0, 0);
-
   },
   methods: {
     startSlideshow() {
@@ -91,6 +101,12 @@ export default {
 </script>
 
 <style scoped>
+.homepage {
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+  background: #f4f7fa;
+}
+
 .slider {
   position: relative;
   width: 100%;
@@ -152,12 +168,8 @@ export default {
   background-color: rgba(0, 0, 0, 0.0);
   padding: 5px;
   border-radius: 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.0);
   text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.9);
   font-weight: bold;
-}
-
-.slide-text {
   transition: opacity 0.3s ease-in-out;
 }
 
@@ -165,159 +177,81 @@ export default {
   opacity: 0.1;
 }
 
-.section {
-  flex-direction: row;
-  align-items: flex-start;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+.cards {
   display: flex;
-  position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 5%;
 }
 
-.section-image {
-  width: 60%;
-  height: 700px;
+.card {
+  width: 310px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  position: relative;  /* 하위 절대 위치 요소의 기준점 */
+  height: 100%;        /* 카드 높이를 명시적으로 지정 */
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
   object-fit: cover;
-  position: relative;
-  z-index: 1;
 }
 
-.section-content {
-  width: 50%;
-  height: 250px;
-  margin-top: 15%;
-  font-size: 15pt;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 30px;
-  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-  position: absolute;
-  left: 45%;
-  z-index: 2;
+.card-body {
+  padding: 20px;
+  height: 250px;        /* 내용 영역 전체 높이 사용 */
+  position: relative;  /* 버튼 위치 지정을 위해 */
 }
 
-.section-content h2 {
-  margin: 0;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+.card-body h2 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
-.section-button {
-  width: 50%;
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #2c3e50;
-  color: white;
+.card-body p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.card-button {
+  display: block;
+  padding: 10px 24px;
+  background: #0067c0;
+  color: #fff;
   text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.3s;
+  text-align: center;
+  position: absolute;    /* 절대 위치 지정 */
+  bottom: 20px;         /* 하단에서 20px 떨어진 위치 */
+  left: 50%;            /* 가로 중앙 정렬을 위해 */
+  transform: translateX(-50%); /* 정확한 중앙 정렬 */
+  width: calc(100% - 40px); /* 양쪽 여백 고려 */
+  box-sizing: border-box;
 }
 
-.section-button:hover {
-  background-color: #34495e;
+.card-button:hover {
+  background: #004b8a;
 }
 
-.round-image {
-  border-radius: 20%;
-}
-
-.slide-enter-active, .slide-leave-active {
-  transition: transform 0.5s ease;
-}
-
-.slide-enter, .slide-leave-to {
-  transform: translateX(100%);
-}
-
-.slide-enter-active, .slide-leave-active {
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.slide-enter, .slide-leave-to {
-  opacity: 0;
-  transform: translateX(100%);
-}
-
-@media (max-width: 600px) {
-  .slider {
-    height: 300px; 
-  }
-
-  .arrow {
-    font-size: 20px;
-    padding: 8px;
-  }
-
+@media (max-width: 768px) {
   .slide-text {
-    font-size: 16px;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    padding: 10px;
-    width: 80%;
+    font-size: 1.2rem;
   }
-
-  .section {
-    display: flex;
+  .cards {
     flex-direction: column;
     align-items: center;
-    padding: 15px;
-    background-color: #f5f5f5;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .section-image {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-  }
-
-  .section-content {
-    width: 100%;
-    max-width: 500px;
-    height: 220px;
-    padding: 20px;
-    margin-top: 10px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    text-align: center;
-    position: relative;
-    left: 0;
-  }
-
-  .section-content h2 {
-    font-size: 18px;
-    margin: 0 0 10px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    border-radius: 6px;
-  }
-
-  .section-content p {
-    font-size: 14px;
-    color: #666;
-  }
-
-  .section-button {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    text-decoration: none;
-    border-radius: 25px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-
-  .section-button:hover {
-    background-color: #2980b9;
-    transform: scale(1.05);
   }
 }
 </style>

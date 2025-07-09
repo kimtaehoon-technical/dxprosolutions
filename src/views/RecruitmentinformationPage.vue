@@ -73,6 +73,15 @@ export default {
   line-height: 1.6;
 }
 
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 h1, h2 {
   color: #333;
 }

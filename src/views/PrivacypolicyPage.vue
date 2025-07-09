@@ -50,6 +50,15 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 .privacy-policy-page {
   max-width: 100%;
   margin: 0 auto;
