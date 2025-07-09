@@ -43,9 +43,10 @@ export default {
       currentIndex: 0,
       intervalId: null,
       slides: [
-        { image: '/images/mainimg.jpg', text: 'DXを通じて次世代のビジネスや生活の発展を目指していきます' },
+        { image: '/images/mainimg8.jpg', text: 'DXPRO SOLUTIONSは、IT分野の創造と革新をリードする' },
         { image: '/images/mainimg2.jpg', text: 'お客様の様々なニーズに徹底した管理と高度な技術力でお応えします' },
-        { image: '/images/mainimg7.png', text: 'DXPRO SOLUTIONSは<br>IT分野の創造と革新をリードする' },
+        { image: '/images/mainimg7.png', text: 'DXを通じて次世代のビジネスや生活の発展を目指していきます' },
+        { image: '/images/mainimg11.jpg', text: '' },        
       ],
       sections: [
         {
