@@ -18,6 +18,15 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  margin-bottom: 50px;
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 .greeting-page {
 max-width: 900px;
 margin: 0 auto;

@@ -95,6 +95,23 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+p {
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
 form {
   max-width: 600px;
   margin: auto;

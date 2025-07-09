@@ -263,11 +263,27 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
 
 h1 {
   margin-top: 40px;
   font-size: 40px;
   margin-bottom: -20px;
+}
+
+p {
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .business-info {
