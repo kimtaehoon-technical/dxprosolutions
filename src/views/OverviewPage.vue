@@ -79,7 +79,7 @@
 
 <script>
 export default {
-  name: 'ContactPage'
+  name: 'OverviewPage'
 }
 </script>
 

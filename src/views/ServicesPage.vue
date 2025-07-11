@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'MessagePage'
+  name: 'ServicesPage'
 }
 </script>
 

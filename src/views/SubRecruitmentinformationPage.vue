@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'RecruitmentinformationPage',
+  name: 'SubRecruitmentinformationPage',
   data() {
     return {
       recruitData: [

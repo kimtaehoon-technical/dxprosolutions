@@ -72,6 +72,7 @@
 
 <script>
 export default {
+  name: 'AccessPage',
   data() {
     return {
       name: '',
