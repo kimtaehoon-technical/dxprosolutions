@@ -1,71 +1,100 @@
 <template>
   <div id="app">
     <LoadingScreen />
-    <header>
-      <router-link to="/">
-        <img 
-          v-bind:src="isHoveringLogo ? '/images/logo_new.png' : '/images/logo_new_hover.png'" 
-          class="logo" 
-          @mouseover="isHoveringLogo = true"
-          @mouseleave="isHoveringLogo = false"
+    <header class="main-header">
+      <div class="header-container">
+        <router-link to="/" class="logo-link">
+          <img 
+            v-bind:src="isHoveringLogo ? '/images/logo_new.png' : '/images/logo_new_hover.png'" 
+            class="logo" 
+            @mouseover="isHoveringLogo = true"
+            @mouseleave="isHoveringLogo = false"
+            alt="DXPRO SOLUTIONS"
+          >
+        </router-link>
+        
+        <button 
+          class="menu-toggle"
+          :class="{ hidden: !isMenuButtonVisible, visible: isMenuButtonVisible }"
+          @click="toggleMenu"
+          aria-label="Menu"
         >
-      </router-link>
-      <button 
-        class="menu-toggle"
-        :class="{ hidden: !isMenuButtonVisible, visible: isMenuButtonVisible }"
-        @click="toggleMenu"
-      >
-        <span class="menu-icon"></span>
-        <span class="menu-icon"></span>
-        <span class="menu-icon"></span>
-      </button>
-      <nav :class="{ 'nav-open': showMenu }">
-        <button class="close-menu" @click="closeMenu">&times;</button>
-        <ul>
-          <li class="li-border" :class="{ active: activeMenu === 'services' }">
-            <router-link to="" class="nav-link" @click="toggleSubmenu('services', $event)">会社案内</router-link>
-            <ul v-show="activeMenu === 'services'">
-              <li><router-link to="/services/greeting" class="nav-link2" @click="handleLinkClick">ご挨拶</router-link></li>
-              <li><router-link to="/services/overview" class="nav-link2" @click="handleLinkClick">会社概要</router-link></li>
-              <li><router-link to="/services/access" class="nav-link2" @click="handleLinkClick">アクセス</router-link></li>
+          <span class="menu-icon-bar"></span>
+          <span class="menu-icon-bar"></span>
+          <span class="menu-icon-bar"></span>
+        </button>
+        
+        <nav :class="{ 'nav-open': showMenu }" class="main-nav">
+          <div class="nav-container">
+            <ul class="nav-list">
+              <li class="nav-item" :class="{ active: activeMenu === 'services' }">
+                <router-link to="" class="nav-link" @click="toggleSubmenu('services', $event)">
+                  <span>会社案内</span>
+                  <span class="dropdown-icon" v-if="activeMenu === 'services'">−</span>
+                  <span class="dropdown-icon" v-else>+</span>
+                </router-link>
+                <transition name="slide-fade">
+                  <ul class="submenu" v-show="activeMenu === 'services'">
+                    <li class="submenu-item"><router-link to="/services/greeting" class="submenu-link" @click="handleLinkClick">ご挨拶</router-link></li>
+                    <li class="submenu-item"><router-link to="/services/overview" class="submenu-link" @click="handleLinkClick">会社概要</router-link></li>
+                    <li class="submenu-item"><router-link to="/services/access" class="submenu-link" @click="handleLinkClick">アクセス</router-link></li>
+                  </ul>
+                </transition>
+              </li>
+              
+              <li class="nav-item" :class="{ active: activeMenu === 'about' }">
+                <router-link to="/about" class="nav-link" @click="handleLinkClick">事業紹介</router-link>
+              </li>
+              
+              <li class="nav-item" :class="{ active: activeMenu === 'privacy' }">
+                <router-link to="/privacy" class="nav-link" @click="handleLinkClick">プライバシーポリシー</router-link>
+              </li>
+              
+              <li class="nav-item" :class="{ active: activeMenu === 'recruitment' }">
+                <router-link to="" class="nav-link" @click="toggleSubmenu('recruitment', $event)">
+                  <span>採用情報</span>
+                  <span class="dropdown-icon" v-if="activeMenu === 'recruitment'">−</span>
+                  <span class="dropdown-icon" v-else>+</span>
+                </router-link>
+                <transition name="slide-fade">
+                  <ul class="submenu" v-show="activeMenu === 'recruitment'">
+                    <li class="submenu-item"><router-link to="/Recruitment" class="submenu-link" @click="handleLinkClick">新卒採用</router-link></li>
+                    <li class="submenu-item"><router-link to="/SubRecruitment" class="submenu-link" @click="handleLinkClick">中途採用</router-link></li>
+                    <li class="submenu-item"><router-link to="/RecruitContact" class="submenu-link" @click="handleLinkClick">応募</router-link></li>
+                  </ul>
+                </transition>
+              </li>
+              
+              <li class="nav-item" :class="{ active: activeMenu === 'contact' }">
+                <router-link to="/contact" class="nav-link" @click="handleLinkClick">お問い合わせ</router-link>
+              </li>
+              
+              <li class="nav-item" :class="{ active: activeMenu === '' }">
+                <router-link to="/Intranet" class="nav-link intranet-link" @click="handleLinkClick">イントラネット</router-link>
+              </li>
             </ul>
-          </li>
-          <li class="li-border" :class="{ active: activeMenu === 'about' }">
-            <router-link to="/about" class="nav-link" @click="handleLinkClick">事業紹介</router-link>
-          </li>
-          <li class="li-border" :class="{ active: activeMenu === 'privacy' }">
-            <router-link to="/privacy" class="nav-link" @click="handleLinkClick">プライバシーポリシー</router-link>
-          </li>
-          <li class="li-border" :class="{ active: activeMenu === 'recruitment' }">
-            <router-link to="" class="nav-link" @click="toggleSubmenu('recruitment', $event)">採用情報</router-link>
-            <ul v-show="activeMenu === 'recruitment'">
-              <li><router-link to="/Recruitment" class="nav-link2" @click="handleLinkClick">新卒採用</router-link></li>
-              <li><router-link to="/SubRecruitment" class="nav-link2" @click="handleLinkClick">中途採用</router-link></li>
-              <li><router-link to="/RecruitContact" class="nav-link2" @click="handleLinkClick">応募</router-link></li>
-            </ul>
-          </li>
-          <li class="li-border" :class="{ active: activeMenu === 'contact' }">
-            <router-link to="/contact" class="nav-link" @click="handleLinkClick">お問い合わせ</router-link>
-          </li>
-          <li class="li-border" :class="{ active: activeMenu === '' }">
-            <router-link to="/Intranet" class="nav-link" @click="handleLinkClick">イントラネット</router-link>
-          </li>
-        </ul>
-      </nav>
+          </div>
+        </nav>
+      </div>
     </header>
-    <main>
+    
+    <main class="main-content">
       <router-view/>
     </main>
+    
+    <FooterPage />
   </div>
 </template>
 
 <script>
 import LoadingScreen from './components/LoadingScreen.vue';
+import FooterPage from './components/FooterPage.vue';
 
 export default {
   name: 'App',
   components: {
-    LoadingScreen
+    LoadingScreen,
+    FooterPage
   },
   data() {
     return {
@@ -73,30 +102,29 @@ export default {
       isHoveringLogo: false,
       activeMenu: null,
       isMenuButtonVisible: true,
-      lastScrollTop: 0 // 스크롤 위치를 기억하는 변수
+      lastScrollTop: 0
     }
   },
   methods: {
     toggleMenu() {
       this.showMenu = !this.showMenu;
       if (!this.showMenu) {
-        this.activeMenu = null; // Close submenu when menu is closed
+        this.activeMenu = null;
       }
     },
     closeMenu() {
       this.showMenu = false;
-      this.activeMenu = null; // Close submenu when menu is closed
+      this.activeMenu = null;
     },
     toggleSubmenu(menu, event) {
-      event.preventDefault(); // Prevent default link behavior
-      this.activeMenu = this.activeMenu === menu ? null : menu; // Toggle submenu
+      event.preventDefault();
+      this.activeMenu = this.activeMenu === menu ? null : menu;
     },
     handleLinkClick() {
       this.closeMenu();
     },
     handleScroll() {
       let currentScrollTop = window.scrollY;
-
       if (currentScrollTop > this.lastScrollTop && currentScrollTop > 10) {
         this.isMenuButtonVisible = false;
       } else {
@@ -107,7 +135,7 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
-     this.$router.push('/');
+    this.$router.push('/');
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -116,272 +144,301 @@ export default {
 </script>
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Noto Sans JP', sans-serif;
+/* Base Styles */
+:root {
+  --primary-color: #0067c0;
+  --primary-dark: #004b8a;
+  --primary-light: #e6f2ff;
+  --secondary-color: #333333;
+  --light-gray: #f8f9fa;
+  --medium-gray: #e9ecef;
+  --dark-gray: #6c757d;
+  --white: #ffffff;
+  --black: #212529;
+  --transition: all 0.3s ease;
 }
 
-#app {
-  text-align: center;
-  color: #2c3e50;
-  width: 100%;
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+  color: var(--secondary-color);
+  line-height: 1.6;
+  background-color: var(--white);
   overflow-x: hidden;
 }
 
-header {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #2c3e50;
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.main-header {
+  background-color: var(--white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  width: 100%;
-  top: 0;
-  z-index: 10;
+  height: 80px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-  padding-left: 10px;
-  list-style-type: none;
-  width: 280px;
-  height: auto;
+  height: 50px;
+  width: auto;
+  transition: var(--transition);
 }
 
 .menu-toggle {
-  display: none;
   background: none;
   border: none;
   cursor: pointer;
   padding: 10px;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 20;
+  display: none;
+  z-index: 1001;
+  transition: var(--transition);
 }
 
-.menu-icon {
+.menu-icon-bar {
   display: block;
-  width: 30px;
-  height: 3px;
-  background: #333;
-  margin: 6px 0;
-  transition: background 0.3s ease;
+  width: 25px;
+  height: 2px;
+  background-color: var(--secondary-color);
+  margin: 5px 0;
+  transition: var(--transition);
 }
 
-.close-menu {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #333;
-  cursor: pointer;
-  align-self: flex-end;
-  margin: 10px;
-  display: none; /* Hide close button on PC */
-}
-
-nav {
-  padding-right: 50px;
-}
-
-nav ul {
-  list-style-type: none;
-  padding: 0;
+/* Navigation Styles */
+.main-nav {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
-nav ul li {
+.nav-container {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+}
+
+.nav-item {
   position: relative;
-  white-space: nowrap;
-  font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: bold;
-  border-right: 1px solid #ddd; /* Vertical line between menu items */
-  color: #333;
-  margin-right: 10px;
-  padding-right: 10px;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-nav ul li:last-child {
-  border-right: none; 
-  margin-right: 0;
-  padding-right: 0;
-}
-
-nav ul li ul li {
-  border-right: none; /* Remove bottom border from submenu items */
-}
-
-nav ul li ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: transparent;
-  text-align: left;
-  border: none;
-  display: none;
-  z-index: 2;
-}
-
-nav ul li:hover ul {
-  display: block;
-}
-
-footer {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #2c3e50;
-  padding: 10px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-}
-
-.divider {
-  border-left: 1px solid #ddd;
   margin: 0 10px;
 }
 
 .nav-link {
+  color: var(--secondary-color);
   text-decoration: none;
-  color: #555;
-  margin: 0 5px;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+  border-radius: 4px;
 }
 
 .nav-link:hover {
-  color: #999999;
-  background-color: #fff;
+  color: var(--primary-color);
+  background-color: var(--primary-light);
 }
 
-.nav-link2 {
+.nav-link span {
+  margin-right: 5px;
+}
+
+.dropdown-icon {
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--white);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  min-width: 180px;
+  padding: 10px 0;
+  list-style: none;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.nav-item:hover .submenu,
+.nav-item.active .submenu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.submenu-item {
+  padding: 0;
+}
+
+.submenu-link {
+  display: block;
+  padding: 8px 20px;
+  color: var(--secondary-color);
   text-decoration: none;
-  color: #555;
-  display: flex;
-  width: 80px;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 0;
-  background-color: #fbf9f9;
-  border-bottom: 1px solid #ccc;
-  transition: color 0.3s ease, background-color 0.3s ease;
+  font-size: 14px;
+  transition: var(--transition);
 }
 
-.nav-link2:hover {
-  color: #fff;
-  background-color: #f6f6f6;
+.submenu-link:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
 }
 
+.intranet-link {
+  color: var(--primary-color);
+  font-weight: 700;
+}
 
-@media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    align-items: center;
+.close-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--secondary-color);
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1002;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding-top: 0px;
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 768px) {
+  .header-container {
+    height: 70px;
   }
-
-  .logo {
-    margin-right: 30px;
-    margin-top: 8px;
-    width: 280px;
-  }
-
+  
   .menu-toggle {
     display: block;
-    position: fixed;
-    top: 10px;
-    right: 10px;
   }
-
-  nav {
-    position: fixed; /* Fix the position of the nav */
+  
+  .main-nav {
+    position: fixed;
     top: 0;
     right: 0;
     width: 100%;
-    height: 100vh; /* Set to viewport height */
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent dark background */
-    backdrop-filter: blur(10px); /* Apply blur effect */
-    display: flex;
-    flex-direction: column;
+    height: 100vh;
+    background-color: var(--white);
     transform: translateX(100%);
     transition: transform 0.3s ease;
-    z-index: 20;
-    padding: 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add shadow for visual separation */
-    overflow: hidden; /* Hide overflow for nav container */
+    z-index: 1000;
+    overflow-y: auto;
   }
-
-  nav.nav-open {
+  
+  .nav-open {
     transform: translateX(0);
   }
-
-  .close-menu {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
-    align-self: flex-end;
-    margin: 10px;
-    display: block; /* Ensure close button is visible on mobile */
-  }
-
-  nav ul {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0;
-    margin: 0;
-    height: calc(100% - 50px); /* Adjust height to account for header space */
-    overflow-y: auto; /* Allow vertical scrolling */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-  }
-
-  nav ul li {
-    font-size: 25px; /* Increased font size for readability on mobile */
-    margin: 0; /* Ensure no extra space around menu items */
-    position: relative; /* Ensure submenu positioning works correctly */
+  
+  .nav-container {
     width: 100%;
-    text-align: center;
-    font-weight: bold; /* 글씨를 굵게 */
-    border-bottom: 1px solid #a3a2a2; /* Increased border thickness */
+    height: 100%;
+    padding: 80px 30px 30px;
+    flex-direction: column;
   }
-
-  nav ul li ul {
-    position: static; /* Ensure submenus are positioned correctly */
-    display: none; /* Hide submenu by default on mobile */
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
-    backdrop-filter: blur(10px); /* Apply blur effect */
-    padding: 0; /* Ensure no extra padding */
-    margin: 0; /* Ensure no extra margin */
-    height: auto; /* Adjust height based on content */
-    overflow: hidden; /* Hide overflow to prevent scrolling */
+  
+  .nav-list {
+    flex-direction: column;
   }
-
-  nav ul li.active > ul {
-    display: block; /* Show submenu when the parent is active on mobile */
+  
+  .nav-item {
+    margin: 0 0 15px 0;
   }
-
-  .nav-link, .nav-link2 {
-    display: block;
-    padding: 10px; /* Increased padding for larger clickable area */
-    width: 100%; /* Ensure links take full width */
-    text-align: center; /* Center link text */
-    box-sizing: border-box; /* Include padding in width calculation */
+  
+  .nav-link {
+    padding: 12px 0;
+    font-size: 18px;
+    justify-content: space-between;
   }
-
-  .divider {
+  
+  .submenu {
+    position: static;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
     display: none;
+    padding: 0;
+    margin-top: 10px;
+    background-color: var(--light-gray);
+    border-radius: 4px;
   }
-
-  footer {
-    font-size: 10px;
-  }
-  .hidden {
-    display: none;
-  }
-
-  .visible {
+  
+  .nav-item.active .submenu {
     display: block;
   }
+  
+  .submenu-link {
+    padding: 10px 15px;
+  }
+  
+  .close-menu {
+    display: block;
+  }
+}
+
+/* Animations */
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+/* Utility Classes */
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 </style>

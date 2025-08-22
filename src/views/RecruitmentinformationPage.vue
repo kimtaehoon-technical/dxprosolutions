@@ -1,135 +1,161 @@
 <template>
-  <div class="Recruitment-information">
-    <h1>新卒採用情報</h1>
-    <table>
-      <tr>
-        <td class="text-cell"><b>募集部門</b></td>
-        <td>システム開発者</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>雇用形態</b></td>
-        <td>正社員/契約社員</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>給与</b></td>
-        <td>200,000 〜   当社規定による</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>勤務地</b></td>
-        <td>本社又はお客様先</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>勤務時間</b></td>
-        <td>案件による<br>
-        営業時間：09:00 ~ 18:00</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>昇給・賞与</b></td>
-        <td>
-        ・業務未経験者の方 月給20万円スタート<br>
-        ※前職及び年齢・経験・能力を考慮の上、決定いたします。<br>
-        <b>諸手当と昇給・賞与</b><br>
-        通勤手当、残業手当、資格手当、役職手当</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>諸手当</b></td>
-        <td>時間外手当/通勤手当/住宅手当/家族手当/能力手当</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>休日・休暇</b></td>
-        <td>完全週休2日制（土日）、祝日、会社が定める日（年末年始他）、有給休暇</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>社会保険</b></td>
-        <td>健康保険/厚生年金/雇用保険/労災保険</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>福利厚生</b></td>
-        <td>書籍購入支援、定期健康診断、ベネフィットステーション</td>
-      </tr>
-      <tr>
-        <td class="text-cell"><b>選考プロセス</b></td>
-        <td>エントリー ⇒ 説明会 ⇒ 面接 ⇒ 内定</td>
+  <div class="recruit-page">
+    <h1 class="page-title">新卒採用情報</h1>
+    <table class="info-table">
+      <tr v-for="(item, index) in recruitData" :key="index">
+        <th class="info-header">{{ item.label }}</th>
+        <td class="info-content" v-html="item.value"></td>
       </tr>
     </table>
-    <br>
+
     <router-link to="/RecruitContact" class="nav-link">
-      <button class="apply-button" type="submit">応募方法</button>
+      <button class="apply-button">応募方法</button>
     </router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'RecruitmentinformationPage'
-}
+  name: 'RecruitmentinformationPage',
+  data() {
+    return {
+      recruitData: [
+        { label: '募集部門', value: 'システム開発・ビックデータ開発' },
+        { label: '雇用形態', value: '正社員 / 契約社員' },
+        { label: '給与', value: '280,000円 〜（当社規定による）' },
+        { label: '勤務地', value: '本社またはお客様先' },
+        { label: '勤務時間', value: '案件による<br>営業時間：09:00 ~ 18:00' },
+        {
+          label: '昇給・賞与',
+          value: `
+            ・業務未経験者 基本支給額20万円スタート<br>
+            ※経験・能力・年齢により決定<br><br>
+            <strong>諸手当／昇給・決算賞与 年1回</strong><br>
+            通勤手当 / 残業手当 / 資格手当 / 役職手当
+          `,
+        },
+        { label: '諸手当', value: '時間外手当 / 通勤手当 / 住宅手当 / 家族手当 / 能力手当' },
+        { label: '休日・休暇', value: '完全週休2日制（土日）・祝日・年末年始・有給休暇' },
+        { label: '社会保険', value: '健康保険 / 厚生年金 / 雇用保険 / 労災保険' },
+        { label: '福利厚生', value: '技術資格取得支援・書籍購入支援・定期健康診断・ベネフィットステーション' },
+        { label: '選考プロセス', value: 'エントリー → 説明会 → 面接 → 内定' },
+      ]
+    };
+  }
+};
 </script>
 
 <style scoped>
-.Recruitment-information {
-  max-width: 1000px;
+.recruit-page {
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
-  line-height: 1.6;
+  padding: 40px 20px;
+  font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
+  color: #1f2937;
+  background-color: #fff;
 }
 
-h1, h2 {
-  color: #333;
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 40px;
+  position: relative;
 }
 
-p, ul {
-  text-align: left;
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: #3b82f6;
+  border-radius: 3px;
 }
 
-ul {
-  padding-left: 20px;
-  list-style-type: disc;
-}
-
-.section-heading {
-  background-color: #f0f0f0; /* 軽い背景色追加 */
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.Recruitment-information table {
+.info-table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 40px;
 }
 
-.Recruitment-information td {
-  text-align: center;
-  border: 1px solid #ddd;
+.info-table th {
+  width: 30%;
+  text-align: left;
+  padding: 14px 18px;
+  background-color: #e0f2fe;
+  color: #1e3a8a;
+  font-weight: 600;
+  vertical-align: top;
+  border: 1px solid #cbd5e1;
 }
 
-.Recruitment-information td.text-cell {
-  background-color: #a8d0e6; /* 青色設定 */
-  color: #333; /* テキスト色の設定 */
-  font-size: 18px; /* テキストのフォントサイズを大きく */
-  padding: 15px; /* パディングを追加してクリックしやすく */
-  border-radius: 8px; /* セルの角を丸くする */
-  cursor: pointer; /* カーソルをポインタにする */
-  transition: background-color 0.3s ease; /* ホバー効果 */
+.info-table td {
+  padding: 14px 18px;
+  border: 1px solid #e2e8f0;
+  line-height: 1.7;
+  background-color: #f9fafb;
 }
 
-.Recruitment-information td.text-cell:hover {
-  background-color: #8cc1d9; /* ホバー時の背景色設定 */
+.info-table td strong {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #1f2937;
 }
 
-/* 応募方法ボタンのスタイル */
+/* 버튼 스타일 */
 .apply-button {
-  background-color: #007BFF; /* ボタンの青色設定 */
+  display: block;
+  margin: 0 auto;
+  padding: 14px 30px;
+  font-size: 16px;
+  background-color: #2563eb;
   color: white;
   border: none;
-  padding: 15px 30px; /* ボタンのサイズ調整 */
-  font-size: 18px; /* ボタン内のテキストサイズ調整 */
-  border-radius: 5px; /* ボタンの角を丸くする */
+  border-radius: 6px;
   cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s ease; /* ホバー効果 */
+  transition: background-color 0.3s ease;
+  width: 220px;
 }
 
 .apply-button:hover {
-  background-color: #0056b3; /* ホバー時の青色設定 */
+  background-color: #1e40af;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .info-table th,
+  .info-table td {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+  }
+
+  .info-table th {
+    background-color: transparent;
+    color: #0f172a;
+    font-size: 1.1rem;
+    border: none;
+  }
+
+  .info-table td {
+    background-color: #f1f5f9;
+    border: none;
+    margin-bottom: 20px;
+  }
+
+  .apply-button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 16px;
+  }
 }
 </style>

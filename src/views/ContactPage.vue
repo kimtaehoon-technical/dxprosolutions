@@ -1,21 +1,54 @@
 <template>
-  <div>
-    <h1>お問い合わせ</h1>
-    <p>以下のフォームを作成してください。</p>
-    <form @submit.prevent="sendEmail('inquiry')">
-      <div>
-        <label for="name" class="required">お名前:</label>
-        <input type="text" id="name" v-model="name" required>
+  <div class="contact-container">
+    <div class="contact-header">
+      <h1 class="contact-title">お問い合わせ</h1>
+      <p class="contact-subtitle">ご質問やご要望がございましたら、以下のフォームよりお気軽にお問い合わせください</p>
+      <div class="title-divider"></div>
+    </div>
+
+    <form @submit.prevent="sendEmail('inquiry')" class="contact-form">
+      <div class="form-group">
+        <label for="name" class="form-label required">お名前</label>
+        <input 
+          type="text" 
+          id="name" 
+          v-model="name" 
+          class="form-input" 
+          placeholder="山田 太郎"
+          required
+        >
       </div>
-      <div>
-        <label for="email" class="required">メールアドレス:</label>
-        <input type="email" id="email" v-model="email" required>
+
+      <div class="form-group">
+        <label for="email" class="form-label required">メールアドレス</label>
+        <input 
+          type="email" 
+          id="email" 
+          v-model="email" 
+          class="form-input" 
+          placeholder="example@dxpro.co.jp"
+          required
+        >
       </div>
-      <div>
-        <label for="message" class="required">内容:</label>
-        <textarea id="message" v-model="message" required></textarea>
+
+      <div class="form-group">
+        <label for="message" class="form-label required">お問い合わせ内容</label>
+        <textarea 
+          id="message" 
+          v-model="message" 
+          class="form-textarea" 
+          placeholder="ご質問やご要望を詳しくご記入ください"
+          rows="5"
+          required
+        ></textarea>
       </div>
-      <button type="submit">送信</button>
+
+      <button type="submit" class="submit-button">
+        <span>送信する</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </form>
   </div>
 </template>
@@ -48,8 +81,9 @@ export default {
 
         if (response.ok) {
           alert('お問い合わせありがとうございます。');
-          window.location.reload();
-          window.scrollTo(0, 0);
+          this.name = '';
+          this.email = '';
+          this.message = '';
         } else {
           alert('送信に失敗しました。');
         }
@@ -63,57 +97,149 @@ export default {
 </script>
 
 <style scoped>
-form {
+.contact-container {
   max-width: 600px;
-  margin: auto;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
 }
-div {
-  margin-bottom: 10px;
-}
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-input, textarea {
-  width: 100%;
-  height: 50px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
 
+.contact-header {
+  text-align: center;
+  margin-bottom: 40px;
 }
-button {
-  padding: 10px 100px;
+
+.contact-title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.contact-subtitle {
+  color: #64748b;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.title-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  margin: 20px auto 0;
+  border-radius: 3px;
+}
+
+.contact-form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.form-label.required::after {
+  content: '*';
+  color: #ef4444;
+  margin-left: 4px;
+}
+
+.form-input, .form-textarea {
   width: 100%;
-  background-color: #007BFF;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+}
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: white;
+}
+
+.form-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
   color: white;
   border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-}
-button:hover {
-  background-color: #0056b3;
-}
-
-label.required::before {
-  content: '*';
-  color: red;
-  margin-right: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
 }
 
-@media (max-width: 600px) {
-  form {
-    padding: 15px;
+.submit-button:hover {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+}
+
+.submit-button svg {
+  transition: transform 0.3s ease;
+}
+
+.submit-button:hover svg {
+  transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    padding: 30px 15px;
   }
-
-  input, label, textarea {
-    font-size: 14px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+  
+  .contact-title {
+    font-size: 1.8rem;
   }
+  
+  .contact-form {
+    padding: 20px;
+  }
+}
 
-  button {
-    padding: 10px 15px;
-    font-size: 14px;
-    width: 100%;
+@media (max-width: 480px) {
+  .contact-title {
+    font-size: 1.6rem;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-input, .form-textarea {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+  
+  .submit-button {
+    padding: 14px;
+    font-size: 0.95rem;
   }
 }
 </style>
