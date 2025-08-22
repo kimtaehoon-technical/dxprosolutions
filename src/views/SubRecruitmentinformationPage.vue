@@ -1,12 +1,13 @@
 <template>
   <div class="recruit-page">
-    <h1 class="page-title">中途採用情報</h1>
-    <table class="info-table">
-      <tr v-for="(item, index) in recruitData" :key="index">
-        <th class="info-header">{{ item.label }}</th>
-        <td class="info-content" v-html="item.value"></td>
-      </tr>
-    </table>
+    <h1 class="page-title">中途採用情報</h1><br><br>
+    
+    <div class="info-sections">
+      <section v-for="(item, index) in recruitData" :key="index" class="info-section">
+        <h2 class="section-title">{{ item.label }}</h2>
+        <p class="section-content" v-html="item.value"></p>
+      </section>
+    </div>
 
     <router-link to="/RecruitContact" class="nav-link">
       <button class="apply-button">応募方法</button>
@@ -16,7 +17,7 @@
 
 <script>
 export default {
-  name: 'SubRecruitmentinformationPage',
+  name: 'MidRecruitmentPage',
   data() {
     return {
       recruitData: [
@@ -24,40 +25,19 @@ export default {
         { label: '雇用形態', value: '正社員 / 契約社員' },
         { label: '給与', value: '履歴・経歴による（応相談）' },
         { label: '勤務地', value: '本社またはお客様先' },
-        {
-          label: '勤務時間',
-          value: '案件による<br>営業時間：09:00 ~ 18:00',
-        },
-        {
-          label: '昇給・賞与',
-          value: `
+        { label: '勤務時間', value: '案件による<br>営業時間：09:00 ~ 18:00' },
+        { label: '昇給・賞与', value: `
             ・業務経験者：基本給23万〜45万円スタート<br>
             ・PM/PL希望者：マネジメント経験の詳細が分かるスキルシート提出必須<br>
             ・年1回昇給査定、業績により賞与支給あり<br><br>
             <strong>諸手当／昇給・賞与</strong><br>
             通勤手当 / 残業手当 / 資格手当 / 役職手当
-          `,
-        },
-        {
-          label: '諸手当',
-          value: '時間外手当 / 通勤手当 / 住宅手当 / 家族手当 / 能力手当',
-        },
-        {
-          label: '休日・休暇',
-          value: '完全週休2日制（土日）・祝日・年末年始・有給休暇',
-        },
-        {
-          label: '社会保険',
-          value: '健康保険 / 厚生年金 / 雇用保険 / 労災保険',
-        },
-        {
-          label: '福利厚生',
-          value: '書籍購入支援制度 / 技術セミナー参加補助 / 定期健康診断 / 福利厚生サービス（ベネフィットステーション）'
-        },
-        {
-          label: '選考プロセス',
-          value: '書類選考 → 一次面接 → 技術ヒアリング → 最終面接→ 内定<br>※スキル・ご経験により一部選考ステップを省略する場合がございます'
-        },
+          ` },
+        { label: '諸手当', value: '時間外手当 / 通勤手当 / 住宅手当 / 家族手当 / 能力手当' },
+        { label: '休日・休暇', value: '完全週休2日制（土日）・祝日・年末年始・有給休暇' },
+        { label: '社会保険', value: '健康保険 / 厚生年金 / 雇用保険 / 労災保険' },
+        { label: '福利厚生', value: '書籍購入支援制度 / 技術セミナー参加補助 / 定期健康診断 / 福利厚生サービス（ベネフィットステーション）' },
+        { label: '選考プロセス', value: '書類選考 → 一次面接 → 技術ヒアリング → 最終面接→ 内定<br>※スキル・ご経験により一部選考ステップを省略する場合がございます' },
       ]
     };
   }
@@ -69,67 +49,46 @@ export default {
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
-  font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
-  color: #1f2937;
-  background-color: #fff;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #333;
+  background-size: cover;
 }
 
 .page-title {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
+  color: #000000ff;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.info-sections {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.info-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
   color: #0f172a;
-  margin-bottom: 40px;
-  position: relative;
+  margin-bottom: 10px;
 }
 
-.page-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: #3b82f6;
-  border-radius: 3px;
+.section-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
 }
 
-.info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 40px;
-}
-
-.info-header {
-  width: 30%;
-  text-align: left;
-  padding: 14px 18px;
-  background-color: #e0f2fe;
-  color: #1e3a8a;
-  font-weight: 600;
-  vertical-align: top;
-  border: 1px solid #cbd5e1;
-}
-
-.info-content {
-  padding: 14px 18px;
-  border: 1px solid #e2e8f0;
-  line-height: 1.7;
-  background-color: #f9fafb;
-}
-
-.info-content strong {
-  display: inline-block;
-  margin-top: 10px;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-/* 버튼 스타일 */
 .apply-button {
   display: block;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 14px 30px;
   font-size: 16px;
   background-color: #2563eb;
@@ -145,30 +104,18 @@ export default {
   background-color: #1e40af;
 }
 
-/* 반응형 */
+/* Responsive */
 @media (max-width: 600px) {
   .page-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 
-  .info-table th,
-  .info-table td {
-    display: block;
-    width: 100%;
-    padding: 10px 14px;
+  .section-title {
+    font-size: 1.2rem;
   }
 
-  .info-table th {
-    background-color: transparent;
-    color: #0f172a;
-    font-size: 1.1rem;
-    border: none;
-  }
-
-  .info-table td {
-    background-color: #f1f5f9;
-    border: none;
-    margin-bottom: 20px;
+  .section-content {
+    font-size: 0.95rem;
   }
 
   .apply-button {

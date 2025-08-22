@@ -1,13 +1,12 @@
 <template>
   <div class="recruit-page">
-    <h1 class="page-title">新卒採用情報</h1>
-    <table class="info-table">
-      <tr v-for="(item, index) in recruitData" :key="index">
-        <th class="info-header">{{ item.label }}</th>
-        <td class="info-content" v-html="item.value"></td>
-      </tr>
-    </table>
-
+    <h1 class="page-title">新卒採用情報</h1><br><br>
+    <div class="info-sections">
+      <section v-for="(item, index) in recruitData" :key="index" class="info-section">
+        <h2 class="section-title">{{ item.label }}</h2>
+        <p class="section-content" v-html="item.value"></p>
+      </section>
+    </div>
     <router-link to="/RecruitContact" class="nav-link">
       <button class="apply-button">応募方法</button>
     </router-link>
@@ -16,11 +15,11 @@
 
 <script>
 export default {
-  name: 'RecruitmentinformationPage',
+  name: 'RecruitmentPage',
   data() {
     return {
       recruitData: [
-        { label: '募集部門', value: 'システム開発・ビックデータ開発' },
+        { label: '募集部門', value: 'システム開発・ビッグデータ開発' },
         { label: '雇用形態', value: '正社員 / 契約社員' },
         { label: '給与', value: '280,000円 〜（当社規定による）' },
         { label: '勤務地', value: '本社またはお客様先' },
@@ -50,67 +49,46 @@ export default {
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
-  font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
-  color: #1f2937;
-  background-color: #fff;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #333;
+  background-size: cover;
 }
 
 .page-title {
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
+  color: #000000ff;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.info-sections {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.info-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
   color: #0f172a;
-  margin-bottom: 40px;
-  position: relative;
+  margin-bottom: 10px;
 }
 
-.page-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background: #3b82f6;
-  border-radius: 3px;
+.section-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
 }
 
-.info-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 40px;
-}
-
-.info-table th {
-  width: 30%;
-  text-align: left;
-  padding: 14px 18px;
-  background-color: #e0f2fe;
-  color: #1e3a8a;
-  font-weight: 600;
-  vertical-align: top;
-  border: 1px solid #cbd5e1;
-}
-
-.info-table td {
-  padding: 14px 18px;
-  border: 1px solid #e2e8f0;
-  line-height: 1.7;
-  background-color: #f9fafb;
-}
-
-.info-table td strong {
-  display: inline-block;
-  margin-top: 10px;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-/* 버튼 스타일 */
 .apply-button {
   display: block;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 14px 30px;
   font-size: 16px;
   background-color: #2563eb;
@@ -124,38 +102,5 @@ export default {
 
 .apply-button:hover {
   background-color: #1e40af;
-}
-
-/* 반응형 */
-@media (max-width: 600px) {
-  .page-title {
-    font-size: 1.6rem;
-  }
-
-  .info-table th,
-  .info-table td {
-    display: block;
-    width: 100%;
-    padding: 10px 14px;
-  }
-
-  .info-table th {
-    background-color: transparent;
-    color: #0f172a;
-    font-size: 1.1rem;
-    border: none;
-  }
-
-  .info-table td {
-    background-color: #f1f5f9;
-    border: none;
-    margin-bottom: 20px;
-  }
-
-  .apply-button {
-    width: 100%;
-    font-size: 1rem;
-    padding: 16px;
-  }
 }
 </style>
