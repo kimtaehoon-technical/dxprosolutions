@@ -1,105 +1,196 @@
 <template>
-  <div class="application-form-container">
-    <div class="form-header">
+  <div class="form-wrapper">
+    <div class="form-card">
       <h1 class="form-title">応募フォーム</h1>
-      <div class="form-description">
-        <p class="description-text">ディーエックスプロソリューションズの採用にご興味をお持ちいただき、誠にありがとうございます。</p>
-        <p class="description-text">下記の応募フォームに必要事項を正確にご記入の上、送信ボタンを押してください。</p>
-        <p class="important-note">
-          ※ご記入いただいた個人情報は採用選考の目的のみに使用し、採用プロセス終了後は適切に廃棄いたします。<br>
-          ※必須項目は<span class="required-mark">*</span>で表示しておりますので、必ずご記入ください。<br>
-          ※ファイルアップロードはPDF形式（5MB以内）でお願いいたします。
-        </p>
-      </div>
-      <div class="title-divider"></div>
-    </div>
+      <p class="form-subtitle">下記の内容をご入力の上、送信してください。</p>
+      <form @submit.prevent="sendEmail('application')" enctype="multipart/form-data">
+        <!-- お名前 -->
+        <div class="form-group">
+          <label for="name" class="required">お名前</label>
+          <input type="text" id="name" v-model="name" placeholder="例：山田 太郎" required>
+        </div>
 
-    <form @submit.prevent="sendEmail('application')" enctype="multipart/form-data" class="modern-form">
-      <div class="form-group">
-        <label for="name" class="form-label required">お名前</label>
-        <input type="text" id="name" v-model="name" class="form-input" required>
-      </div>
+        <!-- 電話番号 -->
+        <div class="form-group">
+          <label for="telephone" class="required">電話番号</label>
+          <input type="tel" id="telephone" v-model="telephone" placeholder="例：090-1234-5678" required>
+        </div>
 
-      <div class="form-group">
-        <label for="telephone" class="form-label required">電話番号</label>
-        <input type="tel" id="telephone" v-model="telephone" class="form-input" required>
-      </div>
+        <!-- メールアドレス -->
+        <div class="form-group">
+          <label for="email" class="required">メールアドレス</label>
+          <input type="email" id="email" v-model="email" placeholder="example@domain.com" required>
+        </div>
 
-      <div class="form-group">
-        <label for="email" class="form-label required">メールアドレス</label>
-        <input type="email" id="email" v-model="email" class="form-input" required>
-      </div>
+        <!-- 希望ポジション -->
+        <div class="form-group">
+          <label for="position" class="required">希望ポジション</label>
+          <select id="position" v-model="position" required>
+            <option value="">選択してください</option>
+            <option value="frontend">フロントエンドエンジニア</option>
+            <option value="backend">バックエンドエンジニア</option>
+            <option value="designer">UIデザイナー</option>
+            <option value="pm">プロジェクトマネージャー</option>
+            <option value="consultant">コンサルタント</option>
+            <option value="qaengineer">QAエンジニア</option>
+            <option value="tester">テスター</option>
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="saiyoselect" class="form-label required">応募希望</label>
-        <select id="saiyoselect" v-model="saiyoselect" class="form-select" required>
-          <option value="">選択してください</option>
-          <option value="新卒採用">新卒採用</option>
-          <option value="中途採用">中途採用</option>
-        </select>
-      </div>
+        <!-- 希望年収・月給 -->
+        <div class="form-group">
+          <label for="annual" class="required">希望年収(円)</label>
+          <input type="text" id="annual" v-model="annualFormatted" placeholder="例：5,000,000円" required>
+        </div>
+        <div class="form-group">
+          <label for="monthly" class="required">希望月給(円)</label>
+          <input type="text" id="monthly" v-model="monthlyFormatted" placeholder="例：300,000円" required>
+        </div>
 
-      <div class="form-group">
-        <label for="message" class="form-label required">希望年収 (円)</label>
-        <input type="number" id="message" v-model="message" class="form-input" required min="1000000" max="100000000" step="100000" placeholder="例: 5,000,000">
-      </div>
+        <!-- 履歴書・職務経歴書 -->
+        <div class="form-group">
+          <label for="resume" class="required">履歴書</label>
+          <input type="file" id="resume" @change="handleFileUpload('resume')" required />
+        </div>
+        <div class="form-group">
+          <label for="career" class="required">職務経歴書</label>
+          <input type="file" id="career" @change="handleFileUpload('career')" required />
+        </div>
+        <div class="form-group">
+          <label for="portfolio">GitHub / ポートフォリオURL</label>
+          <input type="url" id="portfolio" v-model="portfolio" placeholder="https://github.com/username">
+        </div>
+        <div class="form-group">
+          <label for="certificate">その他（証明書など）</label>
+          <input type="file" id="certificate" @change="handleFileUpload('certificate')" />
+        </div>
 
-      <div class="form-group file-upload-group">
-        <label class="form-label required">履歴書・職務経歴書</label>
-        <div class="file-upload-wrapper">
-          <label for="file" class="file-upload-label">
-            <span v-if="!file">ファイルを選択</span>
-            <span v-else>{{ file.name }}</span>
-            <input type="file" id="file" @change="handleFileUpload" required>
+        <!-- 自己PR -->
+        <div class="form-group">
+          <label for="pr">自己PR・志望動機</label>
+          <textarea id="pr" v-model="pr" placeholder="ご自身の強みや志望理由を自由にご記入ください" rows="5"></textarea>
+        </div>
+
+        <!-- 使用技術（アコーディオン式） -->
+        <div class="form-group bordered-bottom">
+          <label class="required">使用技術</label>
+          <div v-for="(items, category) in skillsOptions" :key="category" class="accordion-category">
+            <details>
+              <summary>{{ category }}</summary>
+              <div class="checkbox-wrapper">
+                <label v-for="item in items" :key="item" class="checkbox-label">
+                  <input type="checkbox" :value="item" v-model="skillsSelected">
+                  {{ item }}
+                </label>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 個人情報同意 -->
+        <div class="form-group consent-wrapper">
+          <input data-v-c414302a="" type="checkbox" id="consent" required="" style="height: 20px; width: 30px;">
+          <label for="consent" class="consent-label">
+            個人情報の取扱規定に同意する
           </label>
         </div>
-      </div>
-
-      <div class="form-group checkbox-group">
-        <input type="checkbox" id="consent" v-model="consent" class="consent-checkbox" required>
-        <label for="consent" class="consent-label">個人情報の取扱規定に同意する</label>
-      </div>
-
-      <button type="submit" class="submit-button">
-        <span>送信する</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-    </form>
+        <!-- 送信ボタン -->
+        <button type="submit" class="submit-btn">送信</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AccessPage',
   data() {
     return {
       name: '',
       telephone: '',
       email: '',
-      saiyoselect: '',
-      message: '',
+      position: '',
+      annual: '',
+      monthly: '',
+      annualFormatted: '',  // 表示用
+      monthlyFormatted: '', // 表示用      
+      portfolio: '',
+      pr: '',
       consent: false,
-      file: null
+      files: {
+        resume: null,
+        career: null,
+        certificate: null
+      },
+      skillsSelected: [],
+      skillsOptions: {
+        "言語・ランタイム": [
+          "Node.js","Deno","Bun","JavaScript/TypeScript","Python","Ruby","PHP","Java","Kotlin","C#/.NET","Go","Rust","Scala","Elixir","Erlang","C","C++"
+        ],
+        "OS, オペレーティングシステム.": ["Windows10","Windows11","macOSMonterey","macOSVentura","Ubuntu","CentOS","Debian","Fedora", "Android", "iOS"
+        ],
+        "フレームワーク": [
+          "Express","NestJS","Koa","Hapi","Django","Flask","FastAPI","Tornado","Spring","SpringBoot","Micronaut","Quarkus","RubyonRails","Sinatra","Laravel","Symfony","CodeIgniter","CakePHP","ASP.NET","Nancy","Gin","Echo","Fiber","Actix","Rocket","Axum","Phoenix","PlayFramework","AkkaHTTP"
+        ],
+        "API/通信": ["REST","GraphQL","gRPC","WebSocket","SOAP","JSONRPC","XMLRPC","SSE"],
+        "データベース": ["MySQL","PostgreSQL","Oracle","SQLServer","MongoDB","DynamoDB","Redis","Cassandra","CouchDB","Firebase/Firestore","InfluxDB","TimescaleDB","Memcached"],
+        "クラウド・サーバー": ["AWSEC2","AWSLambda","AWSECS/EKS","AWSRDS","AWSDynamoDB","GCPComputeEngine","GCPCloudFunctions","GCPCloudRun","GCPFirestore","AzureVM","AzureFunctions","AzureAppService","AzureSQLDatabase","NetlifyFunctions","VercelServerlessFunctions"],
+        "ミドルウェア・CI/CD": ["Nginx","Apache","Caddy","Tomcat","Jetty","RabbitMQ","Kafka","ActiveMQ","SQS","Bull","Celery","Jenkins","GitHubActions","GitLabCI/CD","CircleCI"],
+        "アーキテクチャ・パターン": ["MicroService","RESTful", "GraphQLAPI", "CQRS", "EventDriven","DDD", "Serverless/FaaS",  "HexagonalArchitecture",  "CleanArchitecture",  "LayeredArchitecture",  "MVC",  "MVVM",  "ClientServer",  "PeertoPeer",  "ServiceOrientedArchitecture(SOA)"
+        ]
+      }
     };
+  },
+  watch: {
+    annualFormatted(val) {
+      const num = val.replace(/[^\d]/g, ''); // 数字だけ抽出
+      if (num !== '') {
+        this.annual = Number(num); // 実際の数値
+        this.annualFormatted = Number(num).toLocaleString() + '円'; // カンマ + 円
+      } else {
+        this.annual = '';
+        this.annualFormatted = '';
+      }
+    },
+    monthlyFormatted(val) {
+      const num = val.replace(/[^\d]/g, '');
+      if (num !== '') {
+        this.monthly = Number(num);
+        this.monthlyFormatted = Number(num).toLocaleString() + '円';
+      } else {
+        this.monthly = '';
+        this.monthlyFormatted = '';
+      }
+    }
   },
   mounted() {
     window.scrollTo(0, 0);
   },
   methods: {
-    handleFileUpload(event) {
-      this.file = event.target.files[0];
+    handleFileUpload(type) {
+      return (event) => {
+        this.files[type] = event.target.files[0];
+      };
     },
     async sendEmail(formType) {
+      if(this.skillsSelected.length === 0){
+        alert("使用技術を1つ以上選択してください。");
+        return;
+      }
+
       const formData = new FormData();
       formData.append('name', this.name);
       formData.append('telephone', this.telephone);
       formData.append('email', this.email);
-      formData.append('saiyoselect', this.saiyoselect);
-      formData.append('message', this.message);
+      formData.append('position', this.position);
+      formData.append('annual', this.annual);
+      formData.append('monthly', this.monthly);
+      formData.append('portfolio', this.portfolio);
+      formData.append('pr', this.pr);
       formData.append('consent', this.consent);
-      formData.append('file', this.file);
+      formData.append('skills', this.skillsSelected.join(', '));
+      formData.append('resume', this.files.resume);
+      formData.append('career', this.files.career);
+      formData.append('certificate', this.files.certificate);
       formData.append('formType', formType);
 
       try {
@@ -107,254 +198,244 @@ export default {
           method: 'POST',
           body: formData
         });
-
         if (response.ok) {
-          alert('お問い合わせありがとうございます。');
+          alert('送信が完了しました。');
           window.location.reload();
-          window.scrollTo(0, 0);
         } else {
           alert('送信に失敗しました。');
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error(error);
         alert('送信に失敗しました。');
       }
     }
   }
 };
 </script>
-
 <style scoped>
-.application-form-container {
-  max-width: 600px;
-  margin: 0 auto;
+
+/* 全体背景 */
+.form-wrapper {
+  min-height: 100vh;
+  background-color: #f4f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 40px 20px;
-  font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.form-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-.form-description {
-  text-align: center;
-  margin-bottom: 25px;
-  line-height: 1.8;
-  color: #4a5568;
-}
-
-.form-description p {
-  margin-bottom: 12px;
-}
-.description-text {
-  font-size: 0.7rem;  /* 기존 1rem에서 1.1rem으로 크기 증가 */
-  margin-bottom: 15px; /* 여백도 약간 증가 */
-}
-
-.important-note {
-  background-color: #f8fafc;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 20px;
+/* フォームカード */
+.form-card {
+  background-color: #ffffff;
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
   text-align: left;
-  font-size: 0.9rem;
-  border-left: 4px solid #3b82f6;
 }
 
-.required-mark {
-  color: #ef4444;
-  font-weight: bold;
-  margin: 0 2px;
-}
+/* タイトル */
 .form-title {
-  font-size: 2.2rem;
-  color: #2c3e50;
-  margin-bottom: 10px;
+  font-size: 32px;
   font-weight: 700;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  text-align: center;
 }
 
 .form-subtitle {
-  color: #64748b;
-  margin-bottom: 20px;
-  font-size: 1rem;
-}
-
-.title-divider {
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, #3b82f6, #6366f1);
-  margin: 0 auto;
-  border-radius: 3px;
-}
-
-.modern-form {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.form-group {
-  margin-bottom: 25px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #475569;
-  font-size: 0.95rem;
-}
-
-.form-label.required::after {
-  content: '*';
-  color: #ef4444;
-  margin-left: 4px;
-}
-
-.form-input, .form-select {
-  width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background-color: #f8fafc;
-}
-
-.form-input:focus, .form-select:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  background-color: white;
-}
-
-.form-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-}
-
-.file-upload-group {
+  font-size: 16px;
+  color: #7f8c8d;
+  text-align: center;
   margin-bottom: 30px;
 }
 
-.file-upload-wrapper {
-  position: relative;
+/* フォームグループ */
+.form-group {
+  margin-bottom: 20px;
 }
 
-.file-upload-label {
+label {
   display: block;
-  padding: 12px 15px;
-  border: 1px dashed #cbd5e1;
-  border-radius: 8px;
-  background-color: #f8fafc;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  color: #34495e;
+  margin-bottom: 6px;
+  font-size: 14px;
 }
 
-.file-upload-label:hover {
-  border-color: #3b82f6;
-  background-color: #f0f7ff;
+label.required::after {
+  content: " *";
+  color: #e74c3c;
 }
 
-.file-upload-label input[type="file"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+/* 入力欄 */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s;
+  background-color: #fefefe;
+  box-sizing: border-box;
+  text-align: left;
 }
 
-.checkbox-group {
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 10px rgba(41, 128, 185, 0.2);
+  outline: none;
+}
+
+/* ファイル入力 */
+input[type="file"] {
+  padding: 6px 10px;
+}
+
+/* チェックボックスラッパー */
+.checkbox-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 最小150pxで自動列分割 */
+  gap: 10px; /* 要素間の間隔 */
+}
+
+.checkbox-label {
   display: flex;
   align-items: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  gap: 6px; /* チェックとテキストの間隔 */
+  font-size: 14px;
 }
 
-.consent-checkbox {
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-  accent-color: #3b82f6;
+.accordion-category details .checkbox-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* 150px以上で自動列 */
+  gap: 8px 12px; /* 上下8px、左右12px */
+  padding: 10px 0; /* カテゴリ内の余白 */
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin-right: 6px;
+  transform: scale(1.2);
+}
+.bordered-bottom {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px; /* 線と次の項目の間の余白 */
+  margin-bottom: 20px;  /* 線の下の余白 */
+}
+/* ボタン */
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(90deg, #2980b9, #6dd5fa);
+  transition: all 0.3s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(41, 128, 185, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+/* アコーディオン内のチェックボックスを縦並びに */
+.accordion-category details .checkbox-wrapper {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start; /* 左寄せ */
+  gap: 6px;
+  padding: 10px 0;
+}
+
+.accordion-category details .checkbox-label {
+  width: auto; /* 100% から auto に変更 */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.consent-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* チェックボックスとテキストの間隔 */
 }
 
 .consent-label {
-  font-size: 0.9rem;
-  color: #475569;
-  cursor: pointer;
+  font-size: 14px;
+  color: #34495e;
 }
-
-.submit-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
-}
-
-.submit-button:hover {
-  background: linear-gradient(135deg, #2563eb, #4f46e5);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
-}
-
-.submit-button svg {
-  transition: transform 0.3s ease;
-}
-
-.submit-button:hover svg {
-  transform: translateX(3px);
-}
-
-@media (max-width: 768px) {
-  .application-form-container {
-    padding: 30px 15px;
+/* モバイル対応 */
+@media (max-width: 700px) {
+  .form-wrapper {
+    padding: 20px 10px;
   }
-  
+
+  .form-card {
+    padding: 25px 15px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+
   .form-title {
-    font-size: 1.8rem;
+    font-size: 24px;
   }
-  
-  .modern-form {
-    padding: 20px;
-  }
-}
 
-@media (max-width: 480px) {
-  .form-title {
-    font-size: 1.6rem;
-  }
-  
-  .form-group {
+  .form-subtitle {
+    font-size: 14px;
     margin-bottom: 20px;
   }
-  
-  .form-input, .form-select {
-    padding: 10px 12px;
-    font-size: 0.95rem;
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  input[type="file"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 14px;
   }
-  
-  .submit-button {
+
+  .checkbox-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .checkbox-label {
+    margin-bottom: 8px;
+  }
+
+  .submit-btn {
+    font-size: 15px;
     padding: 14px;
-    font-size: 0.95rem;
+    border-radius: 12px;
   }
+  .accordion-category details .checkbox-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 6px 10px;
+  }
+  .consent-wrapper {
+    flex-direction: row; /* 横並びを維持 */
+    align-items: center;
+  }
+  .consent-label {
+    font-size: 13px; /* 少し小さく調整 */
+  }
+  /* その他のチェックボックスは縦並び */
+  .form-group.checkbox-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }  
 }
+
 </style>
