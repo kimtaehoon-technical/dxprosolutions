@@ -28,7 +28,7 @@
           </div>
           <div class="message-signature">
             <p class="company-name">合同会社 DXPRO SOLUTIONS</p>
-            <p class="representative">代表取締役社長 <span class="name">金 兌訓</span></p>
+            <p class="representative">代表 &nbsp;&nbsp;  <span class="name">金 兌訓</span></p>
           </div>
         </div>
       </div>
