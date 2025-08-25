@@ -111,7 +111,7 @@ export default {
 .slider {
   position: relative;
   width: 100%;
-  height: 620px;
+  height: 840px;
   overflow: hidden;
 }
 

@@ -71,6 +71,7 @@
           <img src="/images/CTC.png" alt="CTC" class="sub2-partner" />
           <img src="/images/ecbeing.png" alt="ecbeing" class="partner-logo" />
           <img src="/images/pkutech.png" alt="pkutech" class="main-partner" />
+          <img src="/images/hajimari.png" alt="hajimari" class="sub3-partner" />
         </div>
       </div>
     </section>
@@ -182,10 +183,19 @@ tr:nth-child(even) td {
 }
 
 .partner-logo:hover,
+.sub3-partner:hover
 .main-partner:hover,
 .sub-partner:hover,
 .sub2-partner:hover {
   transform: scale(1.1);
+}
+
+.sub3-partner{
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  max-height: 90px;
+  width: 200px;
 }
 
 .main-partner {
