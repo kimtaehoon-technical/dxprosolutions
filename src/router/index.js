@@ -8,6 +8,7 @@ import Greeting from '../views/GreetingPage.vue'
 import OverviewPage from '../views/OverviewPage.vue'
 import AccessPage from '../views/AccessPage.vue'
 import PrivacypolicyPage from '../views/PrivacypolicyPage.vue'
+import RecruitmentPositionPage from '../views/SaiyoPage.vue'
 import RecruitmentinformationPage from '../views/RecruitmentinformationPage.vue'
 import SubRecruitmentinformationPage from '../views/SubRecruitmentinformationPage.vue'
 import RecruitContactPage from '../views/RecruitContactPage.vue'
@@ -59,6 +60,11 @@ const routes = [
   {
     path: '/services/access',
     component: AccessPage
+  },
+  {
+  path: '/Saiyo',
+  name: 'RecruitmentPositionPage',
+  component: RecruitmentPositionPage
   },
   {
   path: '/Recruitment',

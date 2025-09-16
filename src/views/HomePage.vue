@@ -28,7 +28,14 @@
         <div class="card-body">
           <h2>{{ section.title }}</h2>
           <p v-html="section.text"></p>
-          <router-link :to="section.link" class="card-button">{{ section.button }}</router-link>
+          <template v-if="section.external">
+            <a :href="section.link" class="card-button" target="_blank" rel="noopener noreferrer">
+              {{ section.button }}
+            </a>
+          </template>
+          <template v-else>
+            <router-link :to="section.link" class="card-button">{{ section.button }}</router-link>
+          </template>      
         </div>
       </div>
     </section>
@@ -60,7 +67,7 @@ export default {
           title: 'DXPRO SOLUTIONSの採用情報',
           text: '技術力を高め共に成長しませんか？<br>一緒に社会にの発展に貢献する貴方を求めています。',
           image: '/images/saiyo.webp',
-          link: '/Recruitment',
+          link: '/Saiyo',
           button: '採用情報'
         },
         {
@@ -74,8 +81,9 @@ export default {
           title: 'お問い合わせください',
           text: '何かご質問やご要望がございましたら、お気軽にお問い合わせください。',
           image: '/images/otoiawase2.jpg',
-          link: '/contact',
-          button: 'お問い合わせ'
+          link: 'https://dxpro-recruit-c76b3f4df6d9.herokuapp.com/contact.html',
+          button: 'お問い合わせ',
+          external: true   // ←ここを追加
         },
       ]
     };
@@ -188,7 +196,7 @@ export default {
 }
 
 .card {
-  width: 310px;
+  width: 290px;
   background: #fff;
   border-radius: 8px;
   overflow: hidden;

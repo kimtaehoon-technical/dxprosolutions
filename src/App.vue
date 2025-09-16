@@ -58,17 +58,21 @@
                 </router-link>
                 <transition name="slide-fade">
                   <ul class="submenu" v-show="activeMenu === 'recruitment'">
+                    <li class="submenu-item"><router-link to="/Saiyo" class="submenu-link" @click="handleLinkClick">採用ポジション情報</router-link></li>
                     <li class="submenu-item"><router-link to="/Recruitment" class="submenu-link" @click="handleLinkClick">新卒採用</router-link></li>
                     <li class="submenu-item"><router-link to="/SubRecruitment" class="submenu-link" @click="handleLinkClick">中途採用</router-link></li>
-                    <li class="submenu-item"><router-link to="/RecruitContact" class="submenu-link" @click="handleLinkClick">応募</router-link></li>
                   </ul>
                 </transition>
               </li>
-              
               <li class="nav-item" :class="{ active: activeMenu === 'contact' }">
-                <router-link to="/contact" class="nav-link" @click="handleLinkClick">お問い合わせ</router-link>
-              </li>
-              
+                <a 
+                  href="https://dxpro-recruit-c76b3f4df6d9.herokuapp.com/contact.html" 
+                  class="nav-link" 
+                  @click="handleLinkClick"
+                >
+                  お問い合わせ
+                </a>
+              </li>              
               <li class="nav-item" :class="{ active: activeMenu === '' }">
                 <router-link to="/Intranet" class="nav-link intranet-link" @click="handleLinkClick">イントラネット</router-link>
               </li>

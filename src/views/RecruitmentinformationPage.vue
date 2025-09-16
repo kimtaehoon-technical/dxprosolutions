@@ -1,15 +1,15 @@
 <template>
   <div class="recruit-page">
-    <!-- 배경 비디오 -->
+    <!-- 背景ビデオ -->
     <video autoplay muted loop class="background-video">
       <source src="/images/video.mp4" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
 
-    <!-- 반투명 오버레이 -->
+    <!-- カラーフィルター -->
     <div class="overlay"></div>
 
-    <!-- 콘텐츠 -->
+    <!-- コンテンツ -->
     <div class="page-content">
       <h1 class="page-title">新卒採用情報</h1>
 
@@ -24,9 +24,14 @@
         </section>
       </div>
 
-      <router-link to="/RecruitContact" class="nav-link">
-        <button class="apply-button">応募方法</button>
-      </router-link>
+      <!-- 応募ボタン -->
+      <div class="button-wrapper">
+        <a 
+          href="https://dxpro-recruit-c76b3f4df6d9.herokuapp.com/login.html?msg=login_required" 
+        >
+          <button class="apply-button">応募する</button>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -37,18 +42,17 @@ export default {
   data() {
     return {
       recruitData: [
-        { label: "募集部門", value: "システム開発・ビッグデータ開発" },
-        { label: "雇用形態", value: "正社員 / 契約社員" },
+        { label: "募集部門", value: "ソフトウェア開発 (フロントエンド・バックエンド)<br>ビッグデータ開発（自社製品開発）" },
+        { label: "雇用形態", value: "&nbsp;&nbsp;&nbsp;正社員<br>&nbsp;&nbsp;&nbsp;契約社員" },
         { label: "給与", value: "280,000円 〜（当社規定による）" },
         { label: "勤務地", value: "本社またはお客様先" },
-        { label: "勤務時間", value: "案件による<br>営業時間：09:00 ~ 18:00" },
+        { label: "勤務時間", value: "案件による<br>営業時間：09:00 ~ 18:00<br>フレックス勤務可" },
         {
           label: "昇給・賞与",
           value: `
-            ・業務未経験者 基本支給額20万円スタート<br>
-            ※経験・能力・年齢により決定<br><br>
-            <strong>諸手当／昇給・決算賞与 年1回</strong><br>
-            通勤手当 / 残業手当 / 資格手当 / 役職手当
+          ・未経験でもチャレンジ可能<br>
+          ・経験・能力・年齢に応じて柔軟に評価<br>
+          ・年1回の昇給・決算賞与あり
           `,
         },
         {
@@ -64,11 +68,6 @@ export default {
           label: "社会保険",
           value: "健康保険 / 厚生年金 / 雇用保険 / 労災保険",
         },
-        {
-          label: "福利厚生",
-          value:
-            "技術資格取得支援・書籍購入支援・定期健康診断・ベネフィットステーション",
-        },
         { label: "選考プロセス", value: "エントリー → 説明会 → 面接 → 内定" },
       ],
     };
@@ -77,7 +76,7 @@ export default {
 </script>
 
 <style scoped>
-/* 전체 페이지 */
+/* 全体 */
 .recruit-page {
   font-family: "Noto Sans JP", sans-serif;
   color: #fff;
@@ -86,7 +85,7 @@ export default {
   overflow-x: hidden;
 }
 
-/* 배경 비디오 */
+/* 背景ビデオ */
 .background-video {
   position: fixed;
   top: 0;
@@ -94,97 +93,133 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(6px);
+  filter: blur(6px) brightness(0.6);
   z-index: -2;
 }
 
-/* 오버레이 */
+/* オーバーレイ */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: linear-gradient(
+    135deg,
+    rgba(30, 58, 138, 0.8),
+    rgba(59, 130, 246, 0.6)
+  );
   z-index: -1;
 }
 
-/* 콘텐츠 중앙 정렬 */
+/* コンテンツエリア */
 .page-content {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 60px 20px;
-  text-align: left;
+  padding: 100px 20px;
+  text-align: center;
 }
 
-/* 제목 */
+/* タイトル */
 .page-title {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 50px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  font-size: 3.2rem;
+  font-weight: 900;
+  margin-bottom: 60px;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
 }
 
-/* 정보 카드 */
+/* 情報カード */
 .info-sections {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
 .info-section {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 30px 20px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  padding: 25px 22px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .info-section:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .section-title {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   color: #ffffff;
+  border-left: 4px solid #60a5fa;
+  padding-left: 12px;
 }
 
 .section-content {
   font-size: 1rem;
-  line-height: 1.6;
-  color: #ddd;
+  line-height: 1.7;
+  color: #e5e7eb;
 }
 
-/* 버튼 */
+/* ボタン */
+.button-wrapper {
+  margin-top: 70px;
+}
+
 .apply-button {
-  margin: 50px auto 0;
-  padding: 16px 36px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 16px 52px;
+  font-size: 20px;
+  font-weight: 700;
   border: none;
-  border-radius: 30px;
-  background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+  border-radius: 50px;
+  background: linear-gradient(90deg, #2563eb, #1e40af);
   color: #fff;
   cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.apply-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0)
+  );
+  transition: all 0.5s ease;
+}
+
+.apply-button:hover::after {
+  left: 100%;
 }
 
 .apply-button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, #3b82f6, #1e3a8a);
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(90deg, #1e40af, #2563eb);
 }
 
-/* 반응형 */
+/* レスポンシブ */
+@media (max-width: 900px) {
+  .info-sections {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .page-title {
-    font-size: 2.2rem;
-  }
-
-  .info-section {
-    padding: 20px 15px;
+    font-size: 2.3rem;
   }
 
   .apply-button {

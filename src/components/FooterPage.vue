@@ -25,7 +25,7 @@
             <ul class="footer-links">
               <li><router-link to="/Recruitment" class="footer-link" @click="scrollToTop">新卒採用</router-link></li>
               <li><router-link to="/SubRecruitment" class="footer-link" @click="scrollToTop">中途採用</router-link></li>
-              <li><router-link to="/RecruitContact" class="footer-link" @click="scrollToTop">応募</router-link></li>
+              <li><router-link to="/Saiyo" class="footer-link" @click="scrollToTop">採用ポジション</router-link></li>
             </ul>
           </div>
           
@@ -33,7 +33,14 @@
             <h3 class="footer-title">その他</h3>
             <ul class="footer-links">
               <li><router-link to="/privacy" class="footer-link" @click="scrollToTop">プライバシーポリシー</router-link></li>
-              <li><router-link to="/contact" class="footer-link" @click="scrollToTop">お問い合わせ</router-link></li>
+              <li>
+                <a 
+                  href="https://dxpro-recruit-c76b3f4df6d9.herokuapp.com/contact.html" 
+                  class="footer-link"
+                >
+                  お問い合わせ
+                </a>
+              </li>
               <li><router-link to="/Intranet" class="footer-link" @click="scrollToTop">イントラネット</router-link></li>
             </ul>
           </div>
@@ -42,7 +49,12 @@
         <div class="footer-cta">
           <h3 class="cta-title">お問い合わせ</h3>
           <p class="cta-text">ご質問やご相談がございましたら、お気軽にお問い合わせください。</p>
-          <router-link to="/contact" class="cta-button" @click="scrollToTop">お問い合わせフォーム</router-link>
+                <a 
+                  href="https://dxpro-recruit-c76b3f4df6d9.herokuapp.com/contact.html" 
+                  class="cta-button"
+                >
+                  お問い合わせフォーム
+                </a>
         </div>
       </div>
       

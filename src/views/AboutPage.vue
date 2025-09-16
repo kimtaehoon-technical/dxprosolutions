@@ -454,10 +454,8 @@ export default {
       this.closeDialog();
 
       // 라우터 이동
-      this.$router.push({ name: 'ContactPage' }).then(() => {
-        // 페이지 이동 후 스크롤을 최상단으로 이동
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      window.location.href = 'https://dxpro-recruit-c76b3f4df6d9.herokuapp.com/contact.html';
+
     }
   }
 }
