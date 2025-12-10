@@ -66,7 +66,6 @@
       
       <div class="partners-container">
         <div class="partner-logos">
-          <img src="/images/rebatec.webp" alt="Rebatec" class="sub-partner" />
           <img src="/images/annex.png" alt="Annex" class="sub-partner" />
           <img src="/images/CTC.png" alt="CTC" class="sub2-partner" />
           <img src="/images/ecbeing.png" alt="ecbeing" class="partner-logo" />
