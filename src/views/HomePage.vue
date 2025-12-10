@@ -2,8 +2,11 @@
   <div class="homepage">
     <!-- Original Slider Section -->
     <div class="slider">
-      <div class="arrow left-arrow" @click="prevSlide">
-        <span>«</span>
+      <div class="arrow left-arrow" @click="prevSlide" role="button" aria-label="前のスライド">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.28)" />
+          <path d="M14 8l-4 4 4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </div>
       <transition-group name="slide" tag="div">
         <div
@@ -16,27 +19,42 @@
           <div class="slide-text" v-html="slide.text"></div>
         </div>
       </transition-group>
-      <div class="arrow right-arrow" @click="nextSlide">
-        <span>»</span>
+      <div class="arrow right-arrow" @click="nextSlide" role="button" aria-label="次のスライド">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.28)" />
+          <path d="M10 8l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </div>
     </div>
 
-    <!-- Cards Section -->
+    <!-- Sections (corporate-style) -->
     <section class="cards">
-      <div v-for="(section, idx) in sections" :key="idx" class="card">
-        <img :src="section.image" :alt="section.title" class="card-image" />
-        <div class="card-body">
-          <h2>{{ section.title }}</h2>
-          <p v-html="section.text"></p>
-          <template v-if="section.external">
-            <a :href="section.link" class="card-button" target="_blank" rel="noopener noreferrer">
-              {{ section.button }}
-            </a>
-          </template>
-          <template v-else>
-            <router-link :to="section.link" class="card-button">{{ section.button }}</router-link>
-          </template>      
-        </div>
+      <div class="cards-header">
+  <h3>サービス紹介</h3>
+        <p class="cards-sub">DXPRO SOLUTIONS — 信頼と実績で支えるサービスラインナップ</p>
+      </div>
+
+      <div class="cards-grid">
+    <article v-for="(section, idx) in sections" :key="idx" class="card feature-card" :style="{ '--accent': accentFor(idx) }">
+          <div class="card-media">
+            <img :src="section.image" :alt="section.title" loading="lazy"/>
+      <div class="card-accent"></div>
+          </div>
+
+          <div class="card-body">
+            <h2>{{ section.title }}</h2>
+            <p v-html="section.text"></p>
+          </div>
+
+          <div class="card-footer">
+            <template v-if="section.external">
+              <a :href="section.link" class="card-button" target="_blank" rel="noopener noreferrer">{{ section.button }}</a>
+            </template>
+            <template v-else>
+              <a href="#" @click.prevent="navigate(section)" class="card-button">{{ section.button }}</a>
+            </template>
+          </div>
+        </article>
       </div>
     </section>
   </div>
@@ -59,14 +77,14 @@ export default {
         {
           title: 'ようこそ、DXPRO SOLUTIONSへ',
           text: 'DXPRO SOLUTIONSは、<br>お客様のビジネスの成長と成功を支援します。',
-          image: '/images/yokoso.jpg',
+          image: '/images/yokoso.jpeg',
           link: '/services/greeting',
           button: '会社案内'
         },
         {
           title: 'DXPRO SOLUTIONSの採用情報',
           text: '技術力を高め共に成長しませんか？<br>一緒に社会にの発展に貢献する貴方を求めています。',
-          image: '/images/saiyo.webp',
+          image: '/images/saiyo3.jpg',
           link: '/Saiyo',
           button: '採用情報'
         },
@@ -95,8 +113,26 @@ export default {
     prevSlide() {
       this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
     },
+    goToSlide(i) {
+      this.currentIndex = i;
+    },
+    accentFor(i) {
+  // neutral / monochrome accents (subtle corporate look)
+  const palette = ['#2b2b2b', '#3a3a3a', '#4a4a4a', '#5a5a5a', '#6a6a6a'];
+  return palette[i % palette.length];
+    },
     startSlideshow() {
       this.intervalId = setInterval(this.nextSlide, 6000);
+    }
+    ,
+    async navigate(section) {
+      try {
+        await this.$router.push(section.link);
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      } catch (e) {
+        // fallback: force location change
+        this.$nextTick(() => { window.scrollTo(0,0); });
+      }
     }
   },
   mounted() {
@@ -110,171 +146,45 @@ export default {
 </script>
 
 <style scoped>
-.homepage {
-  font-family: 'Segoe UI', sans-serif;
-  color: #222;
-  background: #f4f7fa;
-}
+.homepage { font-family: 'Segoe UI', sans-serif; color: #222; background: #f4f7fa; }
 
-.slider {
-  position: relative;
-  width: 100%;
-  height: 840px;
-  overflow: hidden;
-}
+/* slider (slight tweaks retained) */
+.slider { position: relative; width: 100%; height: 680px; overflow: hidden; }
+.slide { position: absolute; width: 100%; height: 100%; transition: transform 0.5s ease; display: flex; align-items: center; justify-content: center; }
+.slide-image { width: 100%; height: 100%; object-fit: cover; }
+.slide-text { position: absolute; z-index: 4; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 1000px; width: calc(100% - 120px); text-align: center; color: #fff; font-size: 34px; padding: 6px 8px; border-radius: 6px; text-shadow: 0 6px 18px rgba(0,0,0,0.7); font-weight: 700; background: transparent; }
+.arrow { position: absolute; top: 50%; transform: translateY(-50%); font-size: 26px; color: #fff; padding: 6px; cursor: pointer; z-index: 20; border-radius: 999px; left: 16px; }
+.right-arrow { right: 16px; left: auto; }
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 24px;
-  color: white;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 10;
-  transition: background-color 0.3s, transform 0.3s;
-}
+.arrow svg { width: 44px; height: 44px; display: block; }
+.arrow:hover svg circle { fill: rgba(0,0,0,0.44); }
 
-.arrow span {
-  display: inline-block;
-  line-height: 1;
-}
+/* corporate sections */
+.cards { padding: 72px 6%; background: #ffffff; }
+.cards-header { text-align: center; margin-bottom: 28px; }
+.cards-header h3 { font-size: 28px; margin: 0 0 6px; color: #0b66b2; }
+.cards-sub { margin: 0; color: #6b7280; font-size: 14px; }
 
-.left-arrow {
-  left: 10px;
-}
+.cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; align-items: stretch; max-width: 1100px; margin: 24px auto 0; }
+.feature-card { display: flex; flex-direction: column; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(15,23,42,0.06); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.feature-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(15,23,42,0.12); }
 
-.right-arrow {
-  right: 10px;
-}
+.card-media { position: relative; height: 300px; overflow: hidden; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--accent, #0b66b2); }
 
-.arrow:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-  transform: translateY(-50%) scale(1.1);
-}
+.card-body { padding: 22px; flex: 1 1 auto; background: #fff; }
+.card-meta { color: #9aa4b2; font-size: 13px; margin-bottom: 6px; }
+.feature-card h2 { margin: 4px 0 10px; color: #072b44; font-size: 20px; font-weight: 800; }
+.feature-card p { color: #222; line-height: 1.6; font-size: 15px; }
 
-.slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.5s ease;
-}
+.card-footer { padding: 18px 22px; border-top: 1px solid #f1f5f9; display: flex; justify-content: center; }
+.card-button { padding: 12px 20px; background: var(--accent, #0b66b2); color: #fff; border-radius: 10px; text-decoration: none; font-weight: 800; display: inline-block; box-shadow: 0 8px 20px rgba(11,102,178,0.12); width: 100%; max-width: 220px; text-align: center; }
+.card-button:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(11,102,178,0.18); }
 
-.slide-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.card-button:focus { outline: 3px solid rgba(11,102,178,0.14); outline-offset: 2px; }
 
-.slide-text {
-  position: absolute;
-  text-align: center;
-  color: white;
-  font-size: 35px;
-  background-color: rgba(0, 0, 0, 0.0);
-  padding: 5px;
-  border-radius: 20px;
-  text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.9);
-  font-weight: bold;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.slide-text:hover {
-  opacity: 0.1;
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  padding: 80px 5%;
-  background-color: #f8f8f8;
-}
-
-.card {
-  width: 290px;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  height: 100%;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-.card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.card-body {
-  padding: 20px;
-  height: 250px;
-  position: relative;
-}
-
-.card-body h2 {
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-  color: #0067c0;
-}
-
-.card-body p {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
-}
-
-.card-button {
-  display: block;
-  margin: 15px auto 0;
-  padding: 10px 24px;
-  background: #0067c0;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: background 0.3s;
-  text-align: center;
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px);
-  box-sizing: border-box;
-}
-
-.card-button:hover {
-  background: #004b8a;
-}
-
-@media (max-width: 768px) {
-  .slider {
-    height: 400px;
-  }
-  
-  .slide-text {
-    font-size: 20px;
-    padding: 15px;
-  }
-  
-  .cards {
-    padding: 40px 5%;
-  }
-  
-  .card {
-    width: 100%;
-    max-width: 350px;
-  }
-}
+@media (max-width: 1024px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .cards-grid { grid-template-columns: 1fr; } .slider { height: 420px; } .card-media { height: 200px; } }
+@media (max-width: 640px) { .slider { height: 360px; } .slide-text { font-size: 18px; bottom: 8%; width: calc(100% - 40px); } }
 </style>

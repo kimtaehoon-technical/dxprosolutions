@@ -12,8 +12,8 @@
     <div class="message-container">
       <div class="message-content">
         <div class="message-image">
-          <img src="/images/daihyo1.webp" alt="東京事務所">
-          <img src="/images/daihyo2.webp" alt="追加画像">
+          <img src="/images/daihyo2.webp" alt="東京事務所">
+          <img src="/images/yokoso.jpeg" alt="追加画像">
         </div>
         <div class="message-text">
           <h2>デジタル変革で未来を創造する</h2>

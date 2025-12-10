@@ -75,13 +75,13 @@
             </div>
             <div class="contact-method">
               <span class="contact-label">郵送:</span>
-              <span>〒114-0014 東京都北区田端4-21-14-402</span>
+              <span>〒114-0014 東京都北区田端4-21-14 シャンボール大和郷 402</span>
             </div>
           </div>
           <div class="policy-footer">
             <p>2024年6月10日制定</p>
             <p>合同会社 ディーエックスソリューションズ</p>
-            <p>代表取締役 金 兌訓</p>
+            <p>代表 金 兌訓</p>
           </div>
         </div>
       </section>
